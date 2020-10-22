@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 
 import loader from "./img/loadicon1.gif"
 
-const contract_address = 'TLxbzm6DqP3kaKrB3mqGDbwLLaXSJgGQHn';
+const contract_address = 'TPsZmo9JSxaTZzUEwiMFvANveorSyvjQ4P';
 
 
 let contracturl = "https://tronscan.org/#/contract/" + contract_address;

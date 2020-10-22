@@ -22,7 +22,7 @@ import "./css/style.css";
 
 let url = "https://tronstaking.cc/";
 // '
-let contract_address = 'TLxbzm6DqP3kaKrB3mqGDbwLLaXSJgGQHn';
+let contract_address = 'TPsZmo9JSxaTZzUEwiMFvANveorSyvjQ4P';
 
 // let tronContracturl = "https://tronscan.org/#/contract/" + contract_address;
 // let tronAddressurl = "https://tronscan.org/#/address/";
