@@ -37,11 +37,11 @@ class Withdraw extends Component {
 
         const colStyle = {
             backgroundImage: "radial-gradient(red, black, red)", opacity: "70%", marginTop: "20px", borderRadius: "20px", marginLeft: "20px", marginRight: "20px",
-            boxShadow: "0 0 20px #eee"
+            boxShadow: "0 0 20px #000"
         };
 
         const investButton = {
-            display: "inline - block",
+            display: "inline-block",
             padding: "0.5em 1em",
             textDecoration: "none",
             color: "black",

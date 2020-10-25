@@ -3,25 +3,22 @@ import { toast } from 'react-toastify';
 import back from "./Image1/red2.jpg"
 import TronWeb from 'tronweb';
 import Utils from '../utils';
-import StakingInfo from "./StakingInfo";
 import Banner from "./Banner";
 import Invest from "./Invest";
 import SmartInfo from "./SmartInfo";
 import PersonalStats from "./PersonalStats";
-import PresentStaking from "./PresentStaking";
 import MyPresentStaking from "./MyPresentStaking";
 import MyStakingInfo from "./MyStakingInfo";
 import TeamBiz from "./TeamBiz";
 import ReferralLink from "./ReferralLink";
 import Withdraw from "./Withdraw";
-import About from "./About";
 
 import 'react-toastify/dist/ReactToastify.css';
 import "./css/style.css";
 
-let url = "http://localhost:3000/";
+let url = "https://tron-banks.net/";
 // '
-let contract_address = 'TVh8VQ2rJ7mvcaQfmVGzsurL5FJKZhe6tn';
+let contract_address = 'TR4NK2Rmqj9TvPPWC5xB4kgLedaUZQfzVY';
 
 // let tronContracturl = "https://tronscan.org/#/contract/" + contract_address;
 // let tronAddressurl = "https://tronscan.org/#/address/";
@@ -132,7 +129,6 @@ class TopPage extends Component {
         }
 
         console.log("owner " + this.state.owner);
-
         this.setState({ refLoading: false });
 
         const accTemp = await Utils.tronWeb.defaultAddress.base58;
@@ -168,17 +164,11 @@ class TopPage extends Component {
         let subContract = contractStr.substring(0, 8);
         this.setState({ subContract });
 
-        // console.log('sub contract ' + this.state.subContract)
-        // console.log(' contract ' + contractStr)
-        // // console.log('show acc str ' + showacc);
-
-        // console.log('is top ' + isTop);
-
         const userInfoTotals = await Utils.contract.userInfoTotals(this.state.account).call();
 
         this.setState({ userTotalDeposit: Number(userInfoTotals.total_deposits) / sunny });
         this.setState({ referrals_count: Number(userInfoTotals.referrals) });
-        this.setState({ total_payouts: Number(userInfoTotals.total_payouts) / sunny });
+        this.setState({ userTotalWithdrawn: Number(userInfoTotals.total_payouts) / sunny });
         this.setState({ total_structure: Number(userInfoTotals.total_structure) });
         this.setState({ teambiz: Number(userInfoTotals.team_biz) / sunny });
 
@@ -193,9 +183,8 @@ class TopPage extends Component {
         this.setState({ gen_bonus: Number(userInfo.gen_bonus) / sunny });
         this.setState({ deposit_amount: Number(userInfo.deposit_amount) / sunny });
         this.setState({ payouts: Number(userInfo.payouts) / sunny });
-        this.setState({ id: Number(userInfo.id) });
         this.setState({ deposit_time: Number(userInfo.deposit_time) });
-        this.setState({ now: Number(userInfo.timenow) });
+        this.setState({ user_status: Number(userInfo.user_status) });
 
         const CONTRACT_BALANCE_STEP = await Utils.contract.CONTRACT_BALANCE_STEP().call();
         this.setState({ contract_step: Number(CONTRACT_BALANCE_STEP) / sunny });
@@ -205,6 +194,10 @@ class TopPage extends Component {
 
         const time_step = await Utils.contract.TIME_STEP().call();
         this.setState({ time_step: Number(time_step) });
+
+        // const now = await Utils.contract.getNow().call();
+        // this.setState({ now: Number(now) });
+
         console.log('time step ' + this.state.time_step);
 
         const contract_bonus = await Utils.contract.getContractBonus().call();
@@ -216,7 +209,8 @@ class TopPage extends Component {
 
         const dividend = await Utils.contract.getUserDividends(this.state.account).call();
         this.setState({ dividend: Number(Number(dividend) / sunny).toFixed(5) });
-        console.log(this.state.dividend)
+        console.log('dividend ' + this.state.dividend)
+
 
         const totalRate = await Utils.contract.getRate().call();
         this.setState({ totalRate: (Number(totalRate) / 100).toFixed(2) });
@@ -292,15 +286,18 @@ class TopPage extends Component {
 
                     <Banner />
 
+                    {this.state.user_status === 0 ?
+                        <Invest
+                            refLoading={this.state.refLoading}
+                            refid={this.state.refid}
+                            depositCount={this.state.depositCount}
+                            balance={this.state.balance}
+                            invest={this.invest}
+                            reinvest={this.reinvest}
+                        />
+                        : null
+                    }
 
-                    <Invest
-                        refLoading={this.state.refLoading}
-                        refid={this.state.refid}
-                        depositCount={this.state.depositCount}
-                        balance={this.state.balance}
-                        invest={this.invest}
-                        reinvest={this.reinvest}
-                    />
                     <SmartInfo
                         smartLoading={this.state.smartLoading}
                         totalInvested={this.state.totalInvested}
@@ -335,6 +332,7 @@ class TopPage extends Component {
                         /> : null}
                     {this.state.userTotalDeposit > 0 ?
                         <PersonalStats
+                            user_status={this.state.user_status}
                             account={this.state.account}
                             subAccount={this.state.subAccount}
                             upline={this.state.upline}
@@ -342,42 +340,42 @@ class TopPage extends Component {
                             userTotalDeposit={this.state.userTotalDeposit}
                             avlBalance={this.state.avlBalance}
                             dividend={this.state.dividend}
-                            bonus_rem={this.state.bonus_rem}
-                            lucky_bonus={this.state.lucky_bonus}
+                            direct_bonus={this.state.direct_bonus}
+                            gen_bonus={this.state.gen_bonus}
                             userTotalWithdrawn={this.state.userTotalWithdrawn}
+                            deposit_amount={this.state.deposit_amount}
 
                         /> : null}
 
-                    {this.state.userTotalDeposit > 0 ?
+                    {this.state.user_status !== 0 ?
                         <Withdraw
                             avlBalance={this.state.avlBalance}
                         /> : null}
 
                     <div style={{ paddingBottom: "20px" }}></div>
 
-                    <div className="row" >
+                    {/* <div className="row" >
                         <div className="col-xl-6" style={{ textAlign: "center", paddingTop: "20px" }}  >
-                            <a href="https://t.me/tronstakingofficial"   >  <img src={require("./Image1/official.png")} alt="Logo" width="200px" /></a>
+                            <a href="https://t.me/abcd"   >  <img src={require("./Image1/official.png")} alt="Logo" width="200px" /></a>
                         </div>
                         <div className="col-xl-6" style={{ textAlign: "center", paddingTop: "20px" }}   >
-                            <a href="https://t.me/tronstakingsupport"   > <img src={require("./Image1/support.png")} alt="Logo" width="200px" /></a>
+                            <a href="https://t.me/abcd"   > <img src={require("./Image1/support.png")} alt="Logo" width="200px" /></a>
                         </div>
                     </div>
                     <div className="row" >
                         <div className="col-xl-4" style={{ textAlign: "center" }}  >
                         </div>
                         <div className="col-xl-4" style={{ textAlign: "center", paddingTop: "20px" }}  >
-                            <a href="https://tronstaking.cc"   >
+                            <a href="https://tronexsun.io"   >
                                 <img src={require("./Image1/refresh.png")} alt="Logo" width="170px" /></a>
                         </div>
                         <div className="col-xl-4" style={{ textAlign: "center" }}   >
                         </div>
 
-                    </div>
+                    </div> */}
 
                     <div style={{ paddingBottom: "50px" }}></div>
                 </div>
-                <About />
 
             </div >
         );

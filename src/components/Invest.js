@@ -77,7 +77,7 @@ export class Invest extends Component {
 
         const colStyle = {
             opacity: "80%", marginTop: "20px", borderRadius: "20px", marginLeft: "20px", marginRight: "20px",
-            boxShadow: "0 0 20px #eee",
+            boxShadow: "0 0 20px #000",
         };
 
         const addButton = {
@@ -93,8 +93,8 @@ export class Invest extends Component {
             display: "inline-block",
             padding: "0.5em 1em",
             textDecoration: "none",
-            color: "white",
-            transition: ".4s", marginTop: "30px", marginLeft: "10px", marginBottom: "-22px", fontWeight: "bold", fontFamily: "MyFont", textAlign: "right", backgroundColor: "red", fontSize: "18px", borderRadius: "30px", opacity: "80%",
+            color: "black",
+            transition: ".4s", marginTop: "30px", marginBottom: "-22px", fontWeight: "bold", fontFamily: "MyFont", textAlign: "center", backgroundImage: "linear-gradient(to right, #FFDD00, #FBB034)", fontSize: "18px", borderRadius: "30px"
         };
 
         return (
@@ -144,7 +144,7 @@ export class Invest extends Component {
 
 
                                 {this.props.refLoading ? null :
-                                    <button type="submit" className="btn btn-success" style={investButton}>Start Staking</button>}
+                                    <button type="submit" className="btn btn-success" style={investButton}>Make Deposit</button>}
 
 
                             </form>

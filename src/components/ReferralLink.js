@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 
 
 
-let url = "http://localhost:3000/ref/";
+let url = "https://tron-banks.net/ref/";
 
 export class ReferralLink extends Component {
 
@@ -29,7 +29,7 @@ export class ReferralLink extends Component {
 
         const colStyle = {
             backgroundImage: "linear-gradient(to right, black, #474708)", opacity: "70%", marginTop: "20px", borderRadius: "20px", marginLeft: "20px", marginRight: "20px",
-            boxShadow: "0 0 20px #eee",
+            boxShadow: "0 0 20px #000",
         };
         const investButton = {
             display: "inline - block",

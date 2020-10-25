@@ -4,16 +4,15 @@ import back from "./Image1/back.png"
 import TronWeb from 'tronweb';
 import Utils from '../utils';
 import PersonalStats2 from "./PersonalStats2";
-import MyPresentStaking from "./MyPresentStaking";
-import MyStakingInfo from "./MyStakingInfo";
+
 import TeamBiz from "./TeamBiz";
 
 import 'react-toastify/dist/ReactToastify.css';
 import "./css/style.css";
 
-let url = "http://localhost:3000/";
+let url = "https://tron-banks.net/";
 // '
-let contract_address = 'TVh8VQ2rJ7mvcaQfmVGzsurL5FJKZhe6tn';
+let contract_address = 'TR4NK2Rmqj9TvPPWC5xB4kgLedaUZQfzVY';
 
 toast.configure();
 
@@ -83,8 +82,6 @@ class TopPage2 extends Component {
             toast.error("Tron blockchain support not enabled, Try using Token Pocket/ Tron Wallet for Mobile OR Tron Link chrome extension for PC");
         }
 
-
-
         if (!this.state.tronWeb.loggedIn) {
             window.tronWeb.on('addressChanged', () => {
                 this.setState({
@@ -123,12 +120,10 @@ class TopPage2 extends Component {
 
         this.setState({ refLoading: false });
 
-
         const accTemp = await Utils.tronWeb.defaultAddress.base58;
         this.setState({ account: accTemp });
         // this.setState({ account: this.state.refid });
         this.setState({ walletload: false });
-
 
         const balTemp = await Utils.tronWeb.trx.getBalance(accTemp);
         const ballTemp = balTemp / sunny;
@@ -138,17 +133,16 @@ class TopPage2 extends Component {
         const contractBalance = await Utils.contract.getContractBalance().call();
         this.setState({ contractBalance: contractBalance / sunny });
 
-        const totalUsers = await Utils.contract.totalUsers().call();
+        const totalUsers = await Utils.contract.total_users().call();
         this.setState({ totalUsers: Number(totalUsers) });
 
-        const totalInvested = await Utils.contract.totalInvested().call();
+        var totalInvested = await Utils.contract.total_deposited().call();
         this.setState({ totalInvested: Number(totalInvested) / sunny });
+        this.setState({ totalInvested: this.state.totalInvested });
 
-        const totalWithdrawn = await Utils.contract.totalWithdrawn().call();
+        const totalWithdrawn = await Utils.contract.total_withdraw().call();
         this.setState({ totalWithdrawn: Number(totalWithdrawn) / sunny });
 
-        const totalDeposits = await Utils.contract.totalDeposits().call();
-        this.setState({ totalDepositCount: Number(totalDeposits) });
 
         let subAccountstr = this.state.account.toString();
         let subAccount = subAccountstr.substring(0, 8);
@@ -158,12 +152,14 @@ class TopPage2 extends Component {
         let subContract = contractStr.substring(0, 8);
         this.setState({ subContract });
 
-        // console.log('sub contract ' + this.state.subContract)
-        // console.log(' contract ' + contractStr)
-        // // console.log('show acc str ' + showacc);
-        const isTop = await Utils.contract.getUserIsTop(this.state.account).call();
-        this.setState({ isTop: Number(isTop) });
-        // console.log('is top ' + isTop);
+        const userInfoTotals = await Utils.contract.userInfoTotals(this.state.account).call();
+
+        this.setState({ userTotalDeposit: Number(userInfoTotals.total_deposits) / sunny });
+        this.setState({ referrals_count: Number(userInfoTotals.referrals) });
+        this.setState({ userTotalWithdrawn: Number(userInfoTotals.total_payouts) / sunny });
+        this.setState({ total_structure: Number(userInfoTotals.total_structure) });
+        this.setState({ teambiz: Number(userInfoTotals.team_biz) / sunny });
+
         /////////////////////////////////////////////////////////////////////////////
         const userInfo = await Utils.contract.userInfo(this.state.account).call();
         // console.log(userInfo);
@@ -171,12 +167,12 @@ class TopPage2 extends Component {
         this.setState({ upline: window.tronWeb.address.fromHex(userInfo.upline) });
         this.setState({ subUpline: this.state.upline.toString().substring(0, 8) });
 
-        this.setState({ ref_bonus: Number(userInfo.ref_bonus) / sunny });
-        this.setState({ bonus_rem: Number(userInfo.bonus_rem) / sunny });
-        this.setState({ id: Number(userInfo.id) });
-        this.setState({ teambiz: Number(userInfo.teambiz) / sunny });
-        this.setState({ checkpoint: Number(userInfo.checkpoint) });
-        this.setState({ now: Number(userInfo.timenow) });
+        this.setState({ direct_bonus: Number(userInfo.direct_bonus) / sunny });
+        this.setState({ gen_bonus: Number(userInfo.gen_bonus) / sunny });
+        this.setState({ deposit_amount: Number(userInfo.deposit_amount) / sunny });
+        this.setState({ payouts: Number(userInfo.payouts) / sunny });
+        this.setState({ deposit_time: Number(userInfo.deposit_time) });
+        this.setState({ user_status: Number(userInfo.user_status) });
 
         const CONTRACT_BALANCE_STEP = await Utils.contract.CONTRACT_BALANCE_STEP().call();
         this.setState({ contract_step: Number(CONTRACT_BALANCE_STEP) / sunny });
@@ -186,58 +182,26 @@ class TopPage2 extends Component {
 
         const time_step = await Utils.contract.TIME_STEP().call();
         this.setState({ time_step: Number(time_step) });
+
+        // const now = await Utils.contract.getNow().call();
+        // this.setState({ now: Number(now) });
+
         console.log('time step ' + this.state.time_step);
 
-        // console.log(hold_bonus)
+        const contract_bonus = await Utils.contract.getContractBonus().call();
+        this.setState({ contract_bonus: Number(contract_bonus / 100).toFixed(2) });
 
-        var contract_bonus = (Math.floor((this.state.contractBalance / this.state.contract_step)) / 100).toFixed(2);
-        if (contract_bonus >= 3) {
-            contract_bonus = 3;
-        }
-        //    const contract_bonus = Number(contract_bonus1 / 100).toFixed(2);
-        this.setState({ contract_bonus: Number(contract_bonus).toFixed(2) });
-        const userTotalDeposit = await Utils.contract.getUserTotalDeposits(this.state.account).call();
-        this.setState({ userTotalDeposit: Number(userTotalDeposit) / sunny });
-
-        const userStatus = await Utils.contract.getUserStatus(this.state.account).call();
-        this.setState({ userStatus: Number(userStatus) });
-
-        const avlBalance = await Utils.contract.getUserAvailableBalance(this.state.account).call();
+        const avlBalance = await Utils.contract.getUserBalance(this.state.account).call();
         this.setState({ avlBalance: Number(Number(avlBalance) / sunny).toFixed(5) });
         console.log(this.state.avlBalance)
 
+        const dividend = await Utils.contract.getUserDividends(this.state.account).call();
+        this.setState({ dividend: Number(Number(dividend) / sunny).toFixed(5) });
+        console.log('dividend ' + this.state.dividend)
 
-        const dividends = await Utils.contract.getUserDividends(this.state.account).call();
-        this.setState({ dividends: Number(dividends) / sunny });
-
-        const totalRate = await Utils.contract.getTotalRate(this.state.account).call();
+        const totalRate = await Utils.contract.getRate().call();
         this.setState({ totalRate: (Number(totalRate) / 100).toFixed(2) });
-        console.log('hekeko');
-        var hold_bonus = 1;
-        this.setState({ hold_bonus });
-        console.log('cehck ' + this.state.hold_bonus);
 
-        hold_bonus = Number(this.state.totalRate - 1 - this.state.contract_bonus).toFixed(2);
-
-        const num1 = 1;
-        if (hold_bonus >= 1) {
-            hold_bonus = Number(num1).toFixed(2);
-        }
-        this.setState({ hold_bonus });
-        console.log('cehck 1' + this.state.hold_bonus);
-
-        const userDepositCount = await Utils.contract.getUserDepositCount(this.state.account).call();
-        this.setState({ userDepositCount: Number(userDepositCount) });
-        console.log('user deposit ' + this.state.userDepositCount)
-        const userTotalWithdrawn = await Utils.contract.getUserTotalWithdrawn(this.state.account).call();
-        this.setState({ userTotalWithdrawn: Number(Number(userTotalWithdrawn) / sunny).toFixed(2) });
-        const lucky_bonus = await Utils.contract.getUserLuckyBonus(this.state.account).call();
-        this.setState({ lucky_bonus: Number(lucky_bonus) / sunny });
-
-
-        const dividends_withdrawn = Number(this.state.userTotalWithdrawn + this.state.bonus_rem
-            - this.state.ref_bonus).toFixed(5);
-        this.setState({ dividends_withdrawn });
         console.log('contract - ' + this.state.upline);
         // console.log('account - ' + this.state.account);
         // console.log('owner - ' + this.state.owner);
@@ -307,19 +271,19 @@ class TopPage2 extends Component {
                         teambiz={this.state.teambiz}
                     />
                     <PersonalStats2
+                        user_status={this.state.user_status}
                         account={this.state.account}
                         subAccount={this.state.subAccount}
                         upline={this.state.upline}
                         subUpline={this.state.subUpline}
-                        dividends={this.state.dividends}
                         userTotalDeposit={this.state.userTotalDeposit}
-                        totalRate={this.state.totalRate}
                         avlBalance={this.state.avlBalance}
-                        bonus_rem={this.state.bonus_rem}
-                        lucky_bonus={this.state.lucky_bonus}
+                        dividend={this.state.dividend}
+                        direct_bonus={this.state.direct_bonus}
+                        gen_bonus={this.state.gen_bonus}
                         userTotalWithdrawn={this.state.userTotalWithdrawn}
-                        teambiz={this.state.teambiz}
-                        isTop={this.state.isTop}
+                        deposit_amount={this.state.deposit_amount}
+
                     />
 
 

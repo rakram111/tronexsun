@@ -6,7 +6,7 @@ class Banner extends Component {
 
         const colStyle = {
             opacity: "70%", marginTop: "20px", borderRadius: "20px", marginLeft: "20px", marginRight: "20px",
-            boxShadow: "0 0 20px #eee"
+            boxShadow: "0 0 20px #000"
         };
 
         return (

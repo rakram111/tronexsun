@@ -8,7 +8,7 @@ class SmartInfo extends Component {
 
         const colStyle = {
             backgroundImage: "linear-gradient(to right, black, #474708)", opacity: "70%", marginTop: "60px", borderRadius: "20px", marginLeft: "20px", marginRight: "20px",
-            boxShadow: "0 0 20px #eee",
+            boxShadow: "0 0 20px #000",
         };
 
         return (
