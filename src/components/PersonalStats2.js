@@ -3,7 +3,6 @@ import Utils from '../utils';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const url = "https://hardcore-newton-af71f6.netlify.app/ref/";
 let addressTronScan = "https://tronscan.org/#/contract/";
 
 toast.configure();

@@ -54,12 +54,10 @@ export class ReferralLink extends Component {
                         <div className="col-xl-12" style={{ textAlign: "center" }}>
                             <form style={{ textAlign: "center" }}>
 
-                                <input style={{ textAlign: "center" }}
+                                <input style={{ textAlign: "center", backgroundColor: "black", color: "white", width: "100%", height: "30px" }}
                                     ref={(textarea) => this.textArea = textarea}
-                                    value={url + this.props.account} style={{ backgroundColor: "black", color: "white", width: "100%", height: "30px" }}
+                                    value={url + this.props.account}
                                 />
-
-
 
                             </form>
                             {
