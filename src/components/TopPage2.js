@@ -10,7 +10,7 @@ import TeamBiz from "./TeamBiz";
 import 'react-toastify/dist/ReactToastify.css';
 import "./css/style.css";
 
-let url = "https://tron-banks.net/";
+let url = "https://hardcore-newton-af71f6.netlify.app/";
 // '
 let contract_address = 'TR4NK2Rmqj9TvPPWC5xB4kgLedaUZQfzVY';
 

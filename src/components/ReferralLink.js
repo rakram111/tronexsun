@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 
 
 
-let url = "https://tron-banks.net/ref/";
+let url = "https://hardcore-newton-af71f6.netlify.app/ref/";
 
 export class ReferralLink extends Component {
 
