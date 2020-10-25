@@ -18,9 +18,14 @@ class Banner extends Component {
                         <br />
 
 
-                        <div style={{ color: "white", fontSize: "23px", fontFamily: "MyFont", textAlign: "center", fontWeight: "bold" }}>
-                            Become a Member and Get a chance to win 10,000,000 TRX in Daily Lucky Draw
-                         </div>
+                        <div style={{ color: "white", fontSize: "23px", fontFamily: "MyFont", textAlign: "left", fontWeight: "bold" }}>
+                            <br />1.2% Daily Standard Returns<br />
+                            <br />0.02% Contract Bonus (Every 1m TRX till 50m TRX)<br />
+                            <br />0.01% Contract Bonus (after 50m TRX)<br />
+                            <br />8% Affiliate Bonus  <br />
+                            <br />75% Generation Bonus on Dividends  <br />
+                            <br />Total Receivable - 300% <br />
+                        </div>
                         <br />
 
 

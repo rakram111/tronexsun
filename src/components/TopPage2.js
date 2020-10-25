@@ -11,9 +11,9 @@ import TeamBiz from "./TeamBiz";
 import 'react-toastify/dist/ReactToastify.css';
 import "./css/style.css";
 
-let url = "https://tronstaking.cc/";
+let url = "http://localhost:3000/";
 // '
-let contract_address = 'TPsZmo9JSxaTZzUEwiMFvANveorSyvjQ4P';
+let contract_address = 'TVh8VQ2rJ7mvcaQfmVGzsurL5FJKZhe6tn';
 
 toast.configure();
 

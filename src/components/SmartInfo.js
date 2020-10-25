@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 
 import loader from "./img/loadicon1.gif"
 
-const contract_address = 'TPsZmo9JSxaTZzUEwiMFvANveorSyvjQ4P';
+const contract_address = 'TVh8VQ2rJ7mvcaQfmVGzsurL5FJKZhe6tn';
 
 
 let contracturl = "https://tronscan.org/#/contract/" + contract_address;
@@ -21,7 +21,7 @@ export class SmartInfo extends Component {
     render() {
         // const colStyle = {
         //     backgroundImage: "linear-gradient(to right, #474708, black)", opacity: "70%", marginTop: "60px", borderRadius: "20px", border: "3px solid black", marginLeft: "20px", marginRight: "20px",
-        //     boxShadow: "0 0 20px #eee",
+        //      boxShadow: "0 0 20px #eee",
 
         // };
 
@@ -49,8 +49,13 @@ export class SmartInfo extends Component {
 
                             </p><br /><br />
 
-                            <p style={{ color: "white", fontSize: "17px", float: "left" }}>Total Stake </p>
+                            <p style={{ color: "white", fontSize: "17px", float: "left" }}>Total Deposit </p>
                             <p style={{ color: "white", fontSize: "17px", float: "right" }}> {this.props.totalInvested} TRX</p>
+
+                            <br /><br />
+
+                            <p style={{ color: "white", fontSize: "17px", float: "left" }}>Balance</p>
+                            <p style={{ color: "white", fontSize: "17px", float: "right" }}> {this.props.contractBalance} TRX</p>
 
                             <br /><br />
                         </div>

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-// const contract_address = 'TPsZmo9JSxaTZzUEwiMFvANveorSyvjQ4P';
+// const contract_address = 'TVh8VQ2rJ7mvcaQfmVGzsurL5FJKZhe6tn';
 
 // let contracturl = "https://tronscan.org/#/contract/"  contract_address;
 
@@ -38,7 +38,7 @@ export class SmartInfo extends Component {
 
                         <div className="col-xl-12" >
 
-                            <p style={{ color: "white", fontSize: "17px", float: "left" }}>Total Stake</p>
+                            <p style={{ color: "white", fontSize: "17px", float: "left" }}>Total Deposit</p>
                             <p style={{ color: "white", fontSize: "17px", float: "right" }}> {this.props.userTotalDeposit} TRX</p>
                             <br /><br />
 

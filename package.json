@@ -1,7 +1,7 @@
 {
   "name": "tron-staking",
   "version": "0.1.0",
-  "homepage": "https://tronstaking.cc/",
+  "homepage": "http://localhost:3000/",
   "private": true,
   "dependencies": {
     "axios": "^0.19.2",

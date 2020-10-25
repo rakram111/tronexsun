@@ -1,6 +1,4 @@
-// var TRXMessages = artifacts.require("./TRXMessages.sol");
 var TronexChain = artifacts.require("./TronexChain.sol");
-//var TrxChain = artifacts.require("./TrxChain.sol");
 
 module.exports = function (deployer) {
   // deployer.deploy(TRXMessages);

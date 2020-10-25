@@ -3,7 +3,7 @@ import Utils from '../utils';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const url = "https://tronstaking.cc/ref/";
+const url = "http://localhost:3000/ref/";
 let addressTronScan = "https://tronscan.org/#/contract/";
 
 toast.configure();
@@ -70,7 +70,7 @@ class PersonalStats2 extends Component {
 
                             <br /><br />
 
-                            <p style={{ color: "white", fontSize: "17px", float: "left" }}>Personal Stake Value</p>
+                            <p style={{ color: "white", fontSize: "17px", float: "left" }}>Personal Deposit Value</p>
                             <p style={{ color: "white", fontSize: "17px", float: "right" }}> {this.props.userTotalDeposit} TRX</p>
                             <br /><br />
 

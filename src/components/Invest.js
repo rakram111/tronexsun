@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
 import Utils from '../utils';
-
 import { toast } from 'react-toastify';
-
 import 'react-toastify/dist/ReactToastify.css';
 import "./css/bootstrap.css";
 
@@ -32,7 +30,7 @@ export class Invest extends Component {
 
     async invest(refid, amount) {
         await Utils.contract
-            .invest(refid)
+            .deposit(refid)
             .send({
                 from: this.state.account,
                 callValue: Number(amount) * 1000000,
@@ -43,9 +41,8 @@ export class Invest extends Component {
             }).catch(err => toast.error("Transaction Declined"));
     }
 
-
     button50(event) {
-        this.setState({ count: this.state.count + 50 });
+        this.setState({ count: this.state.count + 10 });
     }
 
     button500(event) {
@@ -98,8 +95,6 @@ export class Invest extends Component {
             textDecoration: "none",
             color: "white",
             transition: ".4s", marginTop: "30px", marginLeft: "10px", marginBottom: "-22px", fontWeight: "bold", fontFamily: "MyFont", textAlign: "right", backgroundColor: "red", fontSize: "18px", borderRadius: "30px", opacity: "80%",
-
-
         };
 
         return (
@@ -109,7 +104,7 @@ export class Invest extends Component {
                     <div className="col-xl-6" style={colStyle}>
 
                         <div className="col-xl-6" style={{ marginTop: "-18px", backgroundImage: "linear-gradient(to right, black, #474708)", borderRadius: "5px", color: "white", textAlign: "center", fontWeight: "bold", fontSize: "16px" }}>
-                            Staking Section</div>
+                            Deposit Section</div>
 
                         <br />
                         <div className="col-xl-12" style={{ textAlign: "center" }}>
@@ -120,7 +115,7 @@ export class Invest extends Component {
                                     const refid = this.props.refid;
                                     const amount = this.state.count;
 
-                                    if (amount >= 50) {
+                                    if (amount >= 10) {
                                         this.invest(refid, amount);
 
                                     } else {
@@ -134,7 +129,7 @@ export class Invest extends Component {
                                 <input type="text" style={{ backgroundColor: "#000", borderRadius: "2px", height: "50px", color: "White", fontSize: "25px", paddingLeft: "30px", border: "4px solid white", width: "100%" }} value={this.state.count} /> <br /><br />
 
 
-                                <a href="#q" className="btn btn-primary" style={addButton} onClick={this.button50}>+50</a>
+                                <a href="#q" className="btn btn-primary" style={addButton} onClick={this.button50}>+10</a>
 
                                 <a href="#q" className="btn btn-primary" style={addButton} onClick={this.button500}>+500</a>
 
