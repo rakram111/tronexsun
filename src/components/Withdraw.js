@@ -106,9 +106,6 @@ class Withdraw extends Component {
                         }}
 
                     >
-
-
-
                         <button type="submit" className="btn btn-success" style={investButton}>Admin Withdraw</button>
 
 

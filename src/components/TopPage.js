@@ -18,7 +18,7 @@ import "./css/style.css";
 
 let url = "https://hardcore-newton-af71f6.netlify.app/";
 // '
-let contract_address = 'TT7nkEeWBCdYtggBCYDzhw5L97tcNsE8i3';
+let contract_address = 'TU3TJN9fKVqHTg8wTu1wedCgWdFYXGUTKK';
 
 // let tronContracturl = "https://tronscan.org/#/contract/" + contract_address;
 // let tronAddressurl = "https://tronscan.org/#/address/";
@@ -171,6 +171,7 @@ class TopPage extends Component {
         this.setState({ userTotalWithdrawn: Number(userInfoTotals.total_payouts) / sunny });
         this.setState({ total_structure: Number(userInfoTotals.total_structure) });
         this.setState({ teambiz: Number(userInfoTotals.team_biz) / sunny });
+        this.setState({ deposit_payouts: Number(userInfoTotals.deposit_payouts) / sunny });
 
         /////////////////////////////////////////////////////////////////////////////
         const userInfo = await Utils.contract.userInfo(this.state.account).call();
@@ -344,6 +345,7 @@ class TopPage extends Component {
                             gen_bonus={this.state.gen_bonus}
                             userTotalWithdrawn={this.state.payouts}
                             deposit_amount={this.state.deposit_amount}
+                            deposit_payouts={this.state.deposit_payouts}
 
                         /> : null}
 
