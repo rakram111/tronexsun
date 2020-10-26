@@ -26,19 +26,18 @@ contract TronexChain {
  
     uint256 constant public CONTRACT_BALANCE_STEP = 10 trx; // 1000000 trx
     uint256 constant public MIN_DEPOSIT = 10 trx; // 50 trx
-    uint256 constant public BASE_PERCENT = 120 ; // 0.1% => 1 unit, 1.2% daily (MULTIPLIER 100)
-	uint256 constant public PERCENTS_DIVIDER = 10000; 
     uint256 constant public TIME_STEP = 180 ; // 1 days
+  
     uint256 constant public aff_bonus = 8 ; // 8 percent
  	uint256 public team_levels = 30 ;
     uint256 public promo_fee  = 100 ;   
     uint256 public admin_fee  = 25  ;   
+    uint256 constant public BASE_PERCENT = 120 ; // 1.2% daily (MULTIPLIER 100)
+	uint256 constant public PERCENTS_DIVIDER = 10000; 
   
     mapping(address => User) public users;
 
-    uint256[] public cycles;
-    uint8[] public ref_bonuses;                     // 1 => 1% 
-
+    uint8[] public ref_bonuses;  
     uint256 public total_users = 1;
     uint256 public total_deposited;
     uint256 public total_withdraw;
@@ -59,13 +58,12 @@ contract TronexChain {
         ref_bonuses.push(30);
         ref_bonuses.push(10);
         ref_bonuses.push(5);
-        ref_bonuses.push(5);  //50
+        ref_bonuses.push(5);  // 50
         ref_bonuses.push(5);
         ref_bonuses.push(5);
         ref_bonuses.push(5);
         ref_bonuses.push(5);
-        ref_bonuses.push(5);  //25
-        
+        ref_bonuses.push(5);  // 75 
     }
  
     function _setUpline(address _addr, address _upline) private {
@@ -79,10 +77,8 @@ contract TronexChain {
             total_users++;
 
             for(uint8 i = 0; i < ref_bonuses.length; i++) {
-                if(_upline == address(0)) break;
-
-                users[_upline].total_structure++;
-
+                if(_upline == address(0)) break; 
+                users[_upline].total_structure++; 
                 _upline = users[_upline].upline;
             }
         }
@@ -403,8 +399,8 @@ contract TronexChain {
         return (users[_addr].upline, users[_addr].deposit_time, users[_addr].deposit_amount, users[_addr].payouts, users[_addr].direct_bonus, users[_addr].gen_bonus, users[_addr].isActive  );
     }
 
-    function userInfoTotals(address _addr) view external returns(uint256 referrals, uint256 total_deposits, uint256 total_payouts, uint256 total_structure, uint256 team_biz) {
-        return (users[_addr].referrals, users[_addr].total_deposits, users[_addr].total_payouts, users[_addr].total_structure, users[_addr].team_biz);
+    function userInfoTotals(address _addr) view external returns(uint256 referrals, uint256 total_deposits, uint256 total_payouts, uint256 total_structure, uint256 team_biz, uint256 deposit_payouts) {
+        return (users[_addr].referrals, users[_addr].total_deposits, users[_addr].total_payouts, users[_addr].total_structure, users[_addr].team_biz, users[_addr].deposit_payouts);
     }
 
     function contractInfo() view external returns(uint256 _total_users, uint256 _total_deposited, uint256 _total_withdraw ) {

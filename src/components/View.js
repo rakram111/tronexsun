@@ -71,7 +71,7 @@ export class Invest extends Component {
                                     ref={(input) => {
                                         this.address = input;
                                     }}
-                                    style={{ backgroundColor: "#000", borderRadius: "10px", height: "50px", opacity: "80%", color: "White", fontSize: "25px", paddingLeft: "30px", border: "2px solid white" }}
+                                    style={{ backgroundColor: "#eee", borderRadius: "10px", height: "50px", opacity: "80%", color: "White", fontSize: "25px", paddingLeft: "30px", border: "2px solid white" }}
                                     placeholder="Enter Address to View"
 
                                     required />

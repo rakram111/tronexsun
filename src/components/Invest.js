@@ -77,7 +77,7 @@ export class Invest extends Component {
 
         const colStyle = {
             opacity: "80%", marginTop: "20px", borderRadius: "20px", marginLeft: "20px", marginRight: "20px",
-            boxShadow: "0 0 20px #000",
+            boxShadow: "0 0 20px #eee",
         };
 
         const addButton = {
@@ -103,7 +103,7 @@ export class Invest extends Component {
                     <div className="col-xl-3"></div>
                     <div className="col-xl-6" style={colStyle}>
 
-                        <div className="col-xl-6" style={{ marginTop: "-18px", backgroundImage: "linear-gradient(to right, black, #474708)", borderRadius: "5px", color: "white", textAlign: "center", fontWeight: "bold", fontSize: "16px" }}>
+                        <div className="col-xl-6" style={{ marginTop: "-18px", backgroundImage: "linear-gradient(to right, #131050, black)", borderRadius: "5px", color: "white", textAlign: "center", fontWeight: "bold", fontSize: "16px" }}>
                             Deposit Section</div>
 
                         <br />
@@ -126,7 +126,7 @@ export class Invest extends Component {
                                 }}
 
                             >
-                                <input type="text" style={{ backgroundColor: "#000", borderRadius: "2px", height: "50px", color: "White", fontSize: "25px", paddingLeft: "30px", border: "4px solid white", width: "100%" }} value={this.state.count} /> <br /><br />
+                                <input type="text" style={{ backgroundColor: "black", borderRadius: "2px", height: "50px", color: "White", fontSize: "25px", paddingLeft: "30px", border: "4px solid white", width: "100%" }} value={this.state.count} /> <br /><br />
 
 
                                 <a href="#q" className="btn btn-primary" style={addButton} onClick={this.button50}>+10</a>
@@ -142,6 +142,10 @@ export class Invest extends Component {
                                 <a href="#q" className="btn btn-primary" style={addButton} onClick={this.button500k}>+500 k</a>
                                 <a href="#q" className="btn btn-primary" style={addButton} onClick={this.reset}>Reset</a><br />
 
+                                <br />
+                                {this.props.deposit_amount === 0 ?
+                                    <p style={{ color: "white" }}>Sponsor : {this.props.refid}</p>
+                                    : null}
 
                                 {this.props.refLoading ? null :
                                     <button type="submit" className="btn btn-success" style={investButton}>Make Deposit</button>}

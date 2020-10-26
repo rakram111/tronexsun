@@ -6,12 +6,12 @@ class Banner extends Component {
 
         const colStyle = {
             opacity: "70%", marginTop: "20px", borderRadius: "20px", marginLeft: "20px", marginRight: "20px",
-            boxShadow: "0 0 20px #000"
+            boxShadow: "0 0 20px #eee"
         };
 
         return (
 
-            <div style={{ paddingTop: "30px" }}>
+            <div style={{ paddingTop: "10px" }}>
                 <div className="row">
                     <div className="col-xl-3"></div>
                     <div className="col-xl-6" style={colStyle}>

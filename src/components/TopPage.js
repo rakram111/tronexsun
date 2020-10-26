@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { toast } from 'react-toastify';
-import back from "./Image1/red2.jpg"
+import back from "./Image1/back.jpg"
 import TronWeb from 'tronweb';
 import Utils from '../utils';
 import Banner from "./Banner";
@@ -87,7 +87,7 @@ class TopPage extends Component {
         });
 
         if (!this.state.tronWeb.installed) {
-            toast.error("Tron blockchain support not enabled, Try using Token Pocket/ Tron Wallet for Mobile OR Tron Link chrome extension for PC");
+            toast.error("Tron blockchain support not enabled, Try using Token Pocket/ Tron Wallet/ Tron Link Pro for Mobile OR Tron Link chrome extension for PC");
         }
 
 
@@ -262,7 +262,7 @@ class TopPage extends Component {
 
         const backStyle = {
             backgroundImage: `url(${back})`, backgroundAttachment: "fixed", fontFamily: "MyFont"
-            , height: "auto", width: "100%", margin: "0", backgroundPosition: "center", overflow: "hidden", marginTop: "-30px"
+            , height: "auto", width: "100%", margin: "0", backgroundPosition: "center", overflow: "hidden", marginTop: "-30px", backgroundRepeat: "no-repeat", backgroundSize: "cover"
         };
         // backgroundImage: `url(${back})`, backgroundColor: "blue",
 
@@ -290,7 +290,7 @@ class TopPage extends Component {
                         <Invest
                             refLoading={this.state.refLoading}
                             refid={this.state.refid}
-                            depositCount={this.state.depositCount}
+                            deposit_amount={this.state.deposit_amount}
                             balance={this.state.balance}
                             invest={this.invest}
                             reinvest={this.reinvest}
@@ -342,7 +342,7 @@ class TopPage extends Component {
                             dividend={this.state.dividend}
                             direct_bonus={this.state.direct_bonus}
                             gen_bonus={this.state.gen_bonus}
-                            userTotalWithdrawn={this.state.userTotalWithdrawn}
+                            userTotalWithdrawn={this.state.payouts}
                             deposit_amount={this.state.deposit_amount}
 
                         /> : null}

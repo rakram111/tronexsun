@@ -37,8 +37,8 @@ class PersonalStats extends Component {
     render() {
 
         const colStyle = {
-            backgroundImage: "linear-gradient(to right, black, #474708)", opacity: "70%", marginTop: "20px", borderRadius: "20px", marginLeft: "20px", marginRight: "20px",
-            boxShadow: "0 0 20px #000",
+            backgroundImage: "linear-gradient(to right, #131050, black)", opacity: "70%", marginTop: "20px", borderRadius: "20px", marginLeft: "20px", marginRight: "20px",
+            boxShadow: "0 0 20px #eee",
         };
 
 
@@ -49,15 +49,15 @@ class PersonalStats extends Component {
                     <div className="col-xl-3"></div>
                     <div className="col-xl-6" style={colStyle}>
 
-                        <div className="col-xl-6" style={{ marginTop: "-18px", backgroundImage: "linear-gradient(to right, black, #474708)", borderRadius: "5px", color: "white", textAlign: "center", fontWeight: "bold", fontSize: "16px" }}>
+                        <div className="col-xl-6" style={{ marginTop: "-18px", backgroundImage: "linear-gradient(to right, #131050, black)", borderRadius: "5px", color: "white", textAlign: "center", fontWeight: "bold", fontSize: "16px" }}>
                             Personal Stats</div>
                         <br />
 
                         <div className="col-xl-12" >
 
                             <p style={{ color: "white", fontSize: "17px", float: "left" }}>Status</p>
-                            <a href={addressTronScan + this.props.account} style={{ color: "white", fontSize: "17px", float: "right", }}>
-                                {this.props.user_status === 0 ? "In Active" : "Active"} </a>
+                            <p style={{ color: "white", fontSize: "17px", float: "right", fontFamily: "MyFont" }}>
+                                {this.props.user_status === 0 ? "In Active" : "Active"} </p>
 
                             <br /><br />
                             <p style={{ color: "white", fontSize: "17px", float: "left" }}>My Address</p>
