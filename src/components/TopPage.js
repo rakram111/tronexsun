@@ -18,7 +18,7 @@ import "./css/style.css";
 
 let url = "https://hardcore-newton-af71f6.netlify.app/";
 // '
-let contract_address = 'TR4NK2Rmqj9TvPPWC5xB4kgLedaUZQfzVY';
+let contract_address = 'TT7nkEeWBCdYtggBCYDzhw5L97tcNsE8i3';
 
 // let tronContracturl = "https://tronscan.org/#/contract/" + contract_address;
 // let tronAddressurl = "https://tronscan.org/#/address/";
@@ -347,7 +347,7 @@ class TopPage extends Component {
 
                         /> : null}
 
-                    {this.state.user_status !== 0 ?
+                    {this.state.user_status !== 0 && this.state.deposit_amount > 0 ?
                         <Withdraw
                             avlBalance={this.state.avlBalance}
                         /> : null}

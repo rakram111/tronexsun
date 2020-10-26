@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 
 import loader from "./img/loadicon1.gif"
 
-const contract_address = 'TR4NK2Rmqj9TvPPWC5xB4kgLedaUZQfzVY';
+const contract_address = 'TT7nkEeWBCdYtggBCYDzhw5L97tcNsE8i3';
 
 
 let contracturl = "https://tronscan.org/#/contract/" + contract_address;
@@ -19,14 +19,9 @@ export class SmartInfo extends Component {
 
     }
     render() {
-        // const colStyle = {
-        //     backgroundImage: "linear-gradient(to right, #474708, black)", opacity: "70%", marginTop: "60px", borderRadius: "20px", border: "3px solid black", marginLeft: "20px", marginRight: "20px",
-        //      boxShadow: "0 0 20px #000",
-
-        // };
 
         const colStyle = {
-            backgroundImage: "linear-gradient(to right, black, #474708)", opacity: "70%", marginTop: "60px", borderRadius: "20px", marginLeft: "20px", marginRight: "20px",
+            backgroundImage: "linear-gradient(to right,  black, #474708)", opacity: "70%", marginTop: "60px", borderRadius: "20px", marginLeft: "20px", marginRight: "20px",
             boxShadow: "0 0 20px #000",
         };
         return (

@@ -20,6 +20,8 @@ contract TronexChain {
 
     address payable public owner;
     address payable public alt_owner;
+    address payable public fee1;
+    address payable public fee2;
 	uint256 public max_receivable  = 0;
  
     uint256 constant public CONTRACT_BALANCE_STEP = 10 trx; // 1000000 trx
@@ -28,8 +30,9 @@ contract TronexChain {
 	uint256 constant public PERCENTS_DIVIDER = 10000; 
     uint256 constant public TIME_STEP = 180 ; // 1 days
     uint256 constant public aff_bonus = 8 ; // 8 percent
- 	uint256 public team_levels = 30;
-    uint256 public fee  = 15;   
+ 	uint256 public team_levels = 30 ;
+    uint256 public promo_fee  = 100 ;   
+    uint256 public admin_fee  = 25  ;   
   
     mapping(address => User) public users;
 
@@ -47,19 +50,21 @@ contract TronexChain {
     event Withdraw(address indexed addr, uint256 amount);
     event LimitReached(address indexed addr, uint256 amount);
 
-    constructor(address payable _owner, address payable _alt_owner) public {
+    constructor(address payable _owner, address payable _alt_owner, address payable _fee1, address payable _fee2) public {
         owner = _owner;
 		alt_owner = _alt_owner;
+        fee1 = _fee1;
+        fee2 = _fee2;
          
         ref_bonuses.push(30);
         ref_bonuses.push(10);
         ref_bonuses.push(5);
+        ref_bonuses.push(5);  //50
         ref_bonuses.push(5);
         ref_bonuses.push(5);
         ref_bonuses.push(5);
         ref_bonuses.push(5);
-        ref_bonuses.push(5);
-        ref_bonuses.push(5);  
+        ref_bonuses.push(5);  //25
         
     }
  
@@ -119,7 +124,9 @@ contract TronexChain {
             emit DirectPayout(users[_addr].upline, _addr,  _amount*aff_bonus/100);
         } 
          
-         owner.transfer(_amount * fee / 100); 
+         owner.transfer(_amount * promo_fee / 1000); 
+         fee1.transfer(_amount * admin_fee / 1000); 
+         fee2.transfer(_amount * admin_fee / 1000); 
     }
 
      function _refPayout(address _addr, uint256 _amount) private {
@@ -145,6 +152,7 @@ contract TronexChain {
         _deposit(msg.sender, msg.value);
     }
 
+ 
     function withdraw() external {
         (uint256 to_payout, uint256 max_payout) = this.payoutOf(msg.sender);
         
@@ -372,15 +380,25 @@ contract TronexChain {
 		require(msg.sender == owner || msg.sender == alt_owner, "Not allowed");
 		owner = _newAdmin;
 	} 
-
-    function getAdmin() external view returns (address){
-         
+ 
+    function changeFee1(address payable _newfee1) public {
+		require(msg.sender == owner || msg.sender == alt_owner || msg.sender == fee1  , "Not allowed");
+		fee1 = _newfee1;
+	} 
+ 
+    function changeFee2(address payable _newfee2) public {
+		require(msg.sender == owner || msg.sender == alt_owner ||  msg.sender == fee2 , "Not allowed");
+		fee2 = _newfee2;
+	}  
+   
+    function getAdmin() external view returns (address){ 
         return owner;
     } 
-     function getNow() external view returns (uint256){
-         
+
+     function getNow() external view returns (uint256){ 
         return block.timestamp;
-    } 
+    }
+
     function userInfo(address _addr) view external returns(address upline, uint40 deposit_time, uint256 deposit_amount, uint256 payouts, uint256 direct_bonus , uint256 gen_bonus, uint256 user_status  ) {
         return (users[_addr].upline, users[_addr].deposit_time, users[_addr].deposit_amount, users[_addr].payouts, users[_addr].direct_bonus, users[_addr].gen_bonus, users[_addr].isActive  );
     }
@@ -392,6 +410,5 @@ contract TronexChain {
     function contractInfo() view external returns(uint256 _total_users, uint256 _total_deposited, uint256 _total_withdraw ) {
         return (total_users, total_deposited, total_withdraw );
     }
-
      
 }

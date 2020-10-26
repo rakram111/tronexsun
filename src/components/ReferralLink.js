@@ -31,14 +31,13 @@ export class ReferralLink extends Component {
             backgroundImage: "linear-gradient(to right, black, #474708)", opacity: "70%", marginTop: "20px", borderRadius: "20px", marginLeft: "20px", marginRight: "20px",
             boxShadow: "0 0 20px #000",
         };
+
         const investButton = {
             display: "inline - block",
             padding: "0.5em 1em",
             textDecoration: "none",
             color: "black",
             transition: ".4s", marginTop: "30px", marginLeft: "10px", marginBottom: "-22px", fontWeight: "bold", fontFamily: "MyFont", textAlign: "right", backgroundImage: "linear-gradient(to right, #FFDD00, #FBB034)", fontSize: "18px", borderRadius: "30px"
-
-
         };
 
         return (
@@ -53,12 +52,10 @@ export class ReferralLink extends Component {
                         <br />
                         <div className="col-xl-12" style={{ textAlign: "center" }}>
                             <form style={{ textAlign: "center" }}>
-
                                 <input style={{ textAlign: "center", backgroundColor: "black", color: "white", width: "100%", height: "30px" }}
                                     ref={(textarea) => this.textArea = textarea}
                                     value={url + this.props.account}
                                 />
-
                             </form>
                             {
                                 document.queryCommandSupported('copy') &&
@@ -67,8 +64,6 @@ export class ReferralLink extends Component {
                                     {this.state.copySuccess}
                                 </p>
                             } <br />
-
-
                         </div>
                     </div>
                     <div className="col-xl-3"></div>
