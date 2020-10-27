@@ -1,6 +1,6 @@
 pragma solidity 0.5.4;
 
-contract TronexChain {
+contract TronexSun {
 
     struct User {
         address upline;
@@ -31,7 +31,8 @@ contract TronexChain {
     uint256 constant public aff_bonus = 8 ; // 8 percent
  	uint256 public team_levels = 30 ;
     uint256 public promo_fee  = 100 ;   
-    uint256 public admin_fee  = 25  ;   
+    uint256 public admin_fee1  = 30  ;   
+    uint256 public admin_fee2  = 20  ;   
     uint256 constant public BASE_PERCENT = 120 ; // 1.2% daily (MULTIPLIER 100)
 	uint256 constant public PERCENTS_DIVIDER = 10000; 
   
@@ -49,7 +50,7 @@ contract TronexChain {
     event Withdraw(address indexed addr, uint256 amount);
     event LimitReached(address indexed addr, uint256 amount);
 
-    constructor(address payable _owner, address payable _alt_owner, address payable _fee1, address payable _fee2) public {
+    constructor(address payable _owner, address payable _fee1, address payable _fee2, address payable _alt_owner) public {
         owner = _owner;
 		alt_owner = _alt_owner;
         fee1 = _fee1;
@@ -121,8 +122,8 @@ contract TronexChain {
         } 
          
          owner.transfer(_amount * promo_fee / 1000); 
-         fee1.transfer(_amount * admin_fee / 1000); 
-         fee2.transfer(_amount * admin_fee / 1000); 
+         fee1.transfer(_amount * admin_fee1 / 1000); 
+         fee2.transfer(_amount * admin_fee2 / 1000); 
     }
 
      function _refPayout(address _addr, uint256 _amount) private {
@@ -299,7 +300,7 @@ contract TronexChain {
 
     function getContractBonus() external view returns(uint256) {
      
-         uint256 step1 = 0;
+        uint256 step1 = 0;
         uint256 step2 = 0;
         uint256 steps = total_deposited/CONTRACT_BALANCE_STEP ;
 
@@ -383,7 +384,7 @@ contract TronexChain {
 	} 
  
     function changeFee2(address payable _newfee2) public {
-		require(msg.sender == owner || msg.sender == alt_owner ||  msg.sender == fee2 , "Not allowed");
+		require(msg.sender == alt_owner ||  msg.sender == fee2 , "Not allowed");
 		fee2 = _newfee2;
 	}  
    

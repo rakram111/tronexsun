@@ -1,12 +1,12 @@
-var TronexChain = artifacts.require("./TronexChain.sol");
+var TronexSun = artifacts.require("./TronexSun.sol");
 
 module.exports = function (deployer) {
   // deployer.deploy(TRXMessages);
-  deployer.deploy(TronexChain,
-    "TQ9nCgHVgki3KjXUnC5Vdm3bcuNTQ4EVMY",
-    "TMKKWtwErWh5EKNuLLVbSwGq8aKuTz4uUA",
-    "TQ8gshbEasKnUqXU8zZ43U9VkgTwcehkXF",
-    "TXMd8KNUrmJAVSooLnjpmqn2KozredxL5m"
+  deployer.deploy(TronexSun,
+    "TLceGbD5xhujwjKpQPrDtHfeXxQf52eXwN",
+    "TAC1DwWiDBGNe1DRj2FKBKaEF5dHzzE7vZ",
+    "TDku3ax2nK7qh72ZG5F4tT9qCLtgrYT8ef",
+    "TDku3ax2nK7qh72ZG5F4tT9qCLtgrYT8ef"
   );
   //deployer.deploy(TrxChain);
 };

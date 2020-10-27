@@ -18,7 +18,7 @@ import "./css/style.css";
 
 let url = "https://hardcore-newton-af71f6.netlify.app/";
 // '
-let contract_address = 'TU3TJN9fKVqHTg8wTu1wedCgWdFYXGUTKK';
+let contract_address = 'TDUye4UkDZ56MtWe2ZbPMaAQDANY7LgxEC';
 
 // let tronContracturl = "https://tronscan.org/#/contract/" + contract_address;
 // let tronAddressurl = "https://tronscan.org/#/address/";
