@@ -100,8 +100,8 @@ export class Invest extends Component {
         return (
             <div><br />
                 <div className="row">
-                    <div className="col-xl-3"></div>
-                    <div className="col-xl-6" style={colStyle}>
+                    <div className="col-xl-4"></div>
+                    <div className="col-xl-4" style={colStyle}>
 
                         <div className="col-xl-6" style={{ marginTop: "-18px", backgroundImage: "linear-gradient(to right, #131050, black)", borderRadius: "5px", color: "white", textAlign: "center", fontWeight: "bold", fontSize: "16px" }}>
                             Deposit Section</div>
@@ -156,7 +156,7 @@ export class Invest extends Component {
 
                         </div>
                     </div>
-                    <div className="col-xl-3"></div>
+                    <div className="col-xl-4"></div>
                 </div>
 
             </div>
