@@ -29,16 +29,23 @@ export class Invest extends Component {
     }
 
     async invest(refid, amount) {
-        await Utils.contract
-            .deposit(refid)
-            .send({
-                from: this.state.account,
-                callValue: Number(amount) * 1000000,
-            }).then(res => toast.success(amount + ' TRX Deposit processing', { position: toast.POSITION.TOP_RIGHT, autoClose: 10000 })
+        if (this.props.user_status === 0) {
+            await Utils.contract
+                .deposit(refid)
+                .send({
+                    from: this.state.account,
+                    callValue: Number(amount) * 1000000,
+                }).then(res => toast.success(amount + ' TRX Deposit processing', { position: toast.POSITION.TOP_RIGHT, autoClose: 10000 })
 
-            ).then(res => {
-                window.location = "/";
-            }).catch(err => toast.error("Transaction Declined"));
+                ).then(res => {
+                    setInterval(() => {
+                        window.location = "/";
+                    }, 2000);
+                }).catch(err => toast.error("Insufficient Balance or Transaction Declined"));
+        } else {
+            toast.info('Deposit exists');
+        }
+
     }
 
     button50(event) {
@@ -94,68 +101,67 @@ export class Invest extends Component {
             padding: "0.5em 1em",
             textDecoration: "none",
             color: "black",
-            transition: ".4s", marginTop: "30px", marginBottom: "-22px", fontWeight: "bold", fontFamily: "MyFont", textAlign: "center", backgroundImage: "linear-gradient(to right, #FFDD00, #FBB034)", fontSize: "18px", borderRadius: "30px"
+            transition: ".4s", marginTop: "30px", marginBottom: "-22px", fontWeight: "bold", fontFamily: "MyFont", textAlign: "center", backgroundImage: "linear-gradient(to right, #FFDD00, #FBB034)", fontSize: "18px", borderRadius: "30px", marginLeft: "150px"
         };
 
         return (
-            <div><br />
+            <div style={{ paddingTop: "80px" }} >
                 <div className="row">
                     <div className="col-xl-4"></div>
                     <div className="col-xl-4" style={colStyle}>
 
-                        <div className="col-xl-6" style={{ marginTop: "-18px", backgroundImage: "linear-gradient(to right, #131050, black)", borderRadius: "5px", color: "white", textAlign: "center", fontWeight: "bold", fontSize: "16px" }}>
-                            Deposit Section</div>
 
+                        <div className="col-xl-12" style={{ marginTop: "-18px", marginLeft: "-5px", backgroundImage: "linear-gradient(to right, #131050, black)", borderRadius: "5px", color: "white", textAlign: "center", fontWeight: "bold", fontSize: "16px" }}>
+                            Invest Section</div>
                         <br />
-                        <div className="col-xl-12" style={{ textAlign: "center" }}>
-                            <form
-                                onSubmit={(event) => {
+                        <form
+                            onSubmit={(event) => {
 
-                                    event.preventDefault();
-                                    const refid = this.props.refid;
-                                    const amount = this.state.count;
+                                event.preventDefault();
+                                const refid = this.props.refid;
+                                const amount = this.state.count;
 
-                                    if (amount >= 10) {
-                                        this.invest(refid, amount);
+                                if (amount >= 10) {
+                                    this.invest(refid, amount);
 
-                                    } else {
-                                        toast.error("Min deposit is 50 TRX");
-                                    }
-
-
-                                }}
-
-                            >
-                                <input type="text" style={{ backgroundColor: "black", borderRadius: "2px", height: "50px", color: "White", fontSize: "25px", paddingLeft: "30px", border: "4px solid white", width: "100%" }} value={this.state.count} /> <br /><br />
+                                } else {
+                                    toast.error("Min deposit is 50 TRX");
+                                }
 
 
-                                <a href="#q" className="btn btn-primary" style={addButton} onClick={this.button50}>+10</a>
+                            }}
 
-                                <a href="#q" className="btn btn-primary" style={addButton} onClick={this.button500}>+500</a>
-
-                                <a href="#q" className="btn btn-primary" style={addButton} onClick={this.button1000}>+1000</a>
-
-                                <a href="#q" className="btn btn-primary" style={addButton} onClick={this.button10k}>+10k</a>
-
-                                <a href="#q" className="btn btn-primary" style={addButton} onClick={this.button50k}>+50 k</a>
-                                <a href="#q" className="btn btn-primary" style={addButton} onClick={this.button100k}>+100 k</a>
-                                <a href="#q" className="btn btn-primary" style={addButton} onClick={this.button500k}>+500 k</a>
-                                <a href="#q" className="btn btn-primary" style={addButton} onClick={this.reset}>Reset</a><br />
-
-                                <br />
-                                {this.props.deposit_amount === 0 ?
-                                    <p style={{ color: "white" }}>Sponsor : {this.props.refid}</p>
-                                    : null}
-
-                                {this.props.refLoading ? null :
-                                    <button type="submit" className="btn btn-success" style={investButton}>Make Deposit</button>}
+                        >
+                            <input type="text" style={{ backgroundColor: "black", borderRadius: "2px", height: "50px", color: "White", fontSize: "25px", paddingLeft: "30px", border: "4px solid white", width: "100%" }} value={this.state.count} /> <br /><br />
 
 
-                            </form>
+                            <a href="#q" className="btn btn-primary" style={addButton} onClick={this.button50}>+10</a>
+
+                            <a href="#q" className="btn btn-primary" style={addButton} onClick={this.button500}>+500</a>
+
+                            <a href="#q" className="btn btn-primary" style={addButton} onClick={this.button1000}>+1000</a>
+
+                            <a href="#q" className="btn btn-primary" style={addButton} onClick={this.button10k}>+10k</a>
+
+                            <a href="#q" className="btn btn-primary" style={addButton} onClick={this.button50k}>+50 k</a>
+                            <a href="#q" className="btn btn-primary" style={addButton} onClick={this.button100k}>+100 k</a>
+                            <a href="#q" className="btn btn-primary" style={addButton} onClick={this.button500k}>+500 k</a>
+                            <a href="#q" className="btn btn-primary" style={addButton} onClick={this.reset}>Reset</a><br />
+
+                            <br />
+                            {this.props.deposit_amount === 0 ?
+                                <p style={{ color: "white" }}>Sponsor : {this.props.refid}</p>
+                                : null}
+
+                            {this.props.refLoading ? null :
+                                <button type="submit" className="btn btn-success" style={investButton}>Make Deposit</button>}
 
 
-                        </div>
+                        </form>
+
+
                     </div>
+
                     <div className="col-xl-4"></div>
                 </div>
 

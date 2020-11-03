@@ -39,7 +39,9 @@ class Withdraw extends Component {
             }).then(res => toast.success(' Wihdrawal processing', { position: toast.POSITION.TOP_RIGHT, autoClose: 10000 })
 
             ).then(res => {
-                window.location = "/";
+                setInterval(() => {
+                    window.location = "/";
+                }, 2000);
             });
 
 
@@ -64,7 +66,7 @@ class Withdraw extends Component {
 
         return (
 
-            <div style={{ paddingTop: "30px" }}>
+            <div style={{ paddingTop: "80px" }}>
                 <div className="row">
                     <div className="col-xl-4"></div>
                     <div className="col-xl-4" style={colStyle}>

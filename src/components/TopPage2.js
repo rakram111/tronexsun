@@ -10,9 +10,9 @@ import TeamBiz from "./TeamBiz";
 import 'react-toastify/dist/ReactToastify.css';
 import "./css/style.css";
 
-let url = "https://hardcore-newton-af71f6.netlify.app/";
+let url = "http://localhost:3000/";
 // '
-let contract_address = 'TDUye4UkDZ56MtWe2ZbPMaAQDANY7LgxEC';
+let contract_address = 'TGy7DG3PPmpt4b4sJG9HKnEWDj8xezjTGT';
 
 toast.configure();
 

@@ -44,7 +44,7 @@ class PersonalStats2 extends Component {
 
         return (
 
-            <div style={{ paddingTop: "30px" }}>
+            <div style={{ paddingTop: "80px" }}>
                 <div className="row">
                     <div className="col-xl-3"></div>
                     <div className="col-xl-6" style={colStyle}>

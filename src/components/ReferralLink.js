@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 
 
 
-let url = "https://hardcore-newton-af71f6.netlify.app/ref/";
+let url = "http://localhost:3000/ref/";
 
 export class ReferralLink extends Component {
 
@@ -43,7 +43,7 @@ export class ReferralLink extends Component {
         };
 
         return (
-            <div><br />
+            <div style={{ paddingTop: "80px" }}>
                 <div className="row">
                     <div className="col-xl-3"></div>
                     <div className="col-xl-6" style={colStyle}>

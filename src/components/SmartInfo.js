@@ -1,9 +1,7 @@
 import React, { Component } from 'react'
-
 import loader from "./img/loadicon1.gif"
 
-const contract_address = 'TDUye4UkDZ56MtWe2ZbPMaAQDANY7LgxEC';
-
+const contract_address = 'TGy7DG3PPmpt4b4sJG9HKnEWDj8xezjTGT';
 
 let contracturl = "https://tronscan.org/#/contract/" + contract_address;
 
@@ -24,9 +22,13 @@ export class SmartInfo extends Component {
             backgroundImage: "linear-gradient(to right,  #131050, black)", opacity: "70%", marginTop: "60px", borderRadius: "20px", marginLeft: "20px", marginRight: "20px",
             boxShadow: "0 0 20px #eee",
         };
+
+
+
+
         return (
 
-            <div>
+            <div style={{ paddingTop: "80px" }}>
                 <div className="row">
                     <div className="col-xl-3"></div>
                     <div className="col-xl-6" style={colStyle}>
@@ -40,19 +42,35 @@ export class SmartInfo extends Component {
                             <p style={{ color: "white", fontSize: "17px", float: "left" }}>Contract Address </p><p style={{ color: "white", fontSize: "17px", float: "right" }}>
                                 {this.props.smartLoading ? <img src={loader} alt="loading..." width="30px" style={{ paddingLeft: "10px" }} /> :
                                     <a href={contracturl} style={{ textDecoration: "underline", color: "white" }} target="_blank" rel="noopener noreferrer">{this.props.subContract}...</a>}
-
-
                             </p><br /><br />
 
-                            <p style={{ color: "white", fontSize: "17px", float: "left" }}>Total Deposit </p>
+                            <p style={{ color: "white", fontSize: "17px", float: "left" }}>Total Deposits </p>
                             <p style={{ color: "white", fontSize: "17px", float: "right" }}> {this.props.totalInvested} TRX</p>
-
                             <br /><br />
 
-                            <p style={{ color: "white", fontSize: "17px", float: "left" }}>Balance</p>
+                            <p style={{ color: "white", fontSize: "17px", float: "left" }}>  Total Paid</p>
+                            <p style={{ color: "white", fontSize: "17px", float: "right" }}> {this.props.totalPaid}  TRX</p>
+                            <br /><br />
+
+                            <p style={{ color: "white", fontSize: "17px", float: "left" }}>Contract Balance</p>
                             <p style={{ color: "white", fontSize: "17px", float: "right" }}> {this.props.contractBalance} TRX</p>
+                            <br /><br />
+
+                            <p style={{ color: "white", fontSize: "17px", float: "left" }}>Pool Draw in</p>
+                            <p style={{ color: "white", fontSize: "17px", float: "right" }}> {this.props.next_draw_time} s</p>
 
                             <br /><br />
+
+                            <p style={{ color: "white", fontSize: "17px", float: "left" }}>Pool Balance</p>
+                            <p style={{ color: "white", fontSize: "17px", float: "right" }}> {this.props.pool_balance} TRX</p>
+
+                            <br /><br />
+                            <p style={{ color: "white", fontSize: "17px", float: "left" }}>  Total Users</p>
+                            <p style={{ color: "white", fontSize: "17px", float: "right" }}> # {this.props.totalUsers}  </p>
+                            <br /><br />
+
+
+
                         </div>
                     </div>
                     <div className="col-xl-3"></div>

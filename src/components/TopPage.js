@@ -3,7 +3,6 @@ import { toast } from 'react-toastify';
 import back from "./Image1/back.jpg"
 import TronWeb from 'tronweb';
 import Utils from '../utils';
-import Banner from "./Banner";
 import Invest from "./Invest";
 import SmartInfo from "./SmartInfo";
 import PersonalStats from "./PersonalStats";
@@ -12,13 +11,16 @@ import MyStakingInfo from "./MyStakingInfo";
 import TeamBiz from "./TeamBiz";
 import ReferralLink from "./ReferralLink";
 import Withdraw from "./Withdraw";
+import TopSponsor from "./TopSponsor";
+import IncomeandTeamStats from "./IncomeandTeamStats.js";
+
 
 import 'react-toastify/dist/ReactToastify.css';
 import "./css/style.css";
 
-let url = "https://hardcore-newton-af71f6.netlify.app/";
-// '
-let contract_address = 'TDUye4UkDZ56MtWe2ZbPMaAQDANY7LgxEC';
+//  let url = "s://hardcore-newton-af71f6.netlify.app/";
+let url = "http://localhost:3000/";
+let contract_address = 'TGy7DG3PPmpt4b4sJG9HKnEWDj8xezjTGT';
 
 // let tronContracturl = "https://tronscan.org/#/contract/" + contract_address;
 // let tronAddressurl = "https://tronscan.org/#/address/";
@@ -52,7 +54,7 @@ class TopPage extends Component {
             let tries = 0;
 
             const timer = setInterval(() => {
-                if (tries >= 310) { //310
+                if (tries >= 20) { //310
                     // const TRONGRID_API = 'https://api.trongrid.io';
                     const TRONGRID_API = 'https://3.225.171.164';
                     window.tronWeb = new TronWeb(
@@ -90,8 +92,6 @@ class TopPage extends Component {
             toast.error("Tron blockchain support not enabled, Try using Token Pocket/ Tron Wallet/ Tron Link Pro for Mobile OR Tron Link chrome extension for PC");
         }
 
-
-
         if (!this.state.tronWeb.loggedIn) {
             window.tronWeb.on('addressChanged', () => {
                 this.setState({
@@ -102,8 +102,6 @@ class TopPage extends Component {
                 });
             });
         }
-
-
         await Utils.setTronWeb(window.tronWeb);
     }
 
@@ -112,7 +110,6 @@ class TopPage extends Component {
         // Global Stats
         const sunny = 1000000;
         var extra_biz = 0;
-
 
         await Utils.contract.getAdmin().call().then(res => {
 
@@ -128,7 +125,7 @@ class TopPage extends Component {
             this.setState({ refid: this.state.owner });
         }
 
-        console.log("owner " + this.state.owner);
+        // console.log("owner " + this.state.owner);
         this.setState({ refLoading: false });
 
         const accTemp = await Utils.tronWeb.defaultAddress.base58;
@@ -145,15 +142,29 @@ class TopPage extends Component {
         const contractBalance = await Utils.contract.getContractBalance().call();
         this.setState({ contractBalance: contractBalance / sunny });
 
+
+
+        const totalRate = await Utils.contract.getRate().call();
+        this.setState({ totalRate: (Number(totalRate) / 100).toFixed(2) });
+
         const totalUsers = await Utils.contract.total_users().call();
         this.setState({ totalUsers: Number(totalUsers) });
+
+        const pool_last_draw = await Utils.contract.pool_last_draw().call();
+        this.setState({ pool_last_draw: Number(pool_last_draw) });
+
+        const contract_bonus = await Utils.contract.getContractBonus().call();
+        this.setState({ contract_bonus: Number(contract_bonus / 100).toFixed(2) });
+
 
         var totalInvested = await Utils.contract.total_deposited().call();
         this.setState({ totalInvested: Number(totalInvested) / sunny });
         this.setState({ totalInvested: this.state.totalInvested + extra_biz });
 
-        const totalWithdrawn = await Utils.contract.total_withdraw().call();
-        this.setState({ totalWithdrawn: Number(totalWithdrawn) / sunny });
+        const totalPaid = await Utils.contract.total_withdraw().call();
+        this.setState({ totalPaid: Number(totalPaid) / sunny });
+        const pool_balance = await Utils.contract.pool_balance().call();
+        this.setState({ pool_balance: Number(Number(pool_balance) / sunny).toFixed(4) });
 
 
         let subAccountstr = this.state.account.toString();
@@ -175,7 +186,7 @@ class TopPage extends Component {
 
         /////////////////////////////////////////////////////////////////////////////
         const userInfo = await Utils.contract.userInfo(this.state.account).call();
-        // console.log(userInfo);
+        // // console.log(userInfo);
 
         this.setState({ upline: window.tronWeb.address.fromHex(userInfo.upline) });
         this.setState({ subUpline: this.state.upline.toString().substring(0, 8) });
@@ -193,34 +204,104 @@ class TopPage extends Component {
         const PERCENTS_DIVIDER = await Utils.contract.PERCENTS_DIVIDER().call();
         this.setState({ percent_divider: Number(PERCENTS_DIVIDER) });
 
-        const time_step = await Utils.contract.TIME_STEP().call();
+        const time_step = await Utils.contract.time_period().call();
         this.setState({ time_step: Number(time_step) });
 
-        // const now = await Utils.contract.getNow().call();
-        // this.setState({ now: Number(now) });
 
-        console.log('time step ' + this.state.time_step);
 
-        const contract_bonus = await Utils.contract.getContractBonus().call();
-        this.setState({ contract_bonus: Number(contract_bonus / 100).toFixed(2) });
+        const now = await Utils.contract.getNow().call();
+        this.setState({ now: Number(now) });
+
+        var next_draw_time = Number(this.state.pool_last_draw + this.state.time_step - this.state.now);
+        if (next_draw_time < 0) {
+            next_draw_time = 0;
+        }
+        // console.log('next draw time - ' + next_draw_time)
+
+        setInterval(() => {
+            this.setState({ next_draw_time });
+        }, 1000);
+
+        // console.log('time step ' + this.state.time_step);
+        // console.log('pool last draw ' + this.state.pool_last_draw)
+
 
         const avlBalance = await Utils.contract.getUserBalance(this.state.account).call();
-        this.setState({ avlBalance: Number(Number(avlBalance) / sunny).toFixed(5) });
-        console.log(this.state.avlBalance)
+        this.setState({ avlBalance: Number(Number(avlBalance) / sunny).toFixed(4) });
+
+        this.state.contractBalance > this.state.avlBalance ?
+            this.setState({ avlBalance: this.state.avlBalance }) :
+            this.setState({ avlBalance: this.state.contractBalance })
+
+        const max_payout = await Utils.contract.maxPayoutOf(this.state.deposit_amount * sunny).call();
+        this.setState({ max_payout: Number(Number(max_payout) / sunny) });
+        console.log(this.state.max_payout)
 
         const dividend = await Utils.contract.getUserDividends(this.state.account).call();
-        this.setState({ dividend: Number(Number(dividend) / sunny).toFixed(5) });
-        console.log('dividend ' + this.state.dividend)
+        this.setState({ dividend: Number(Number(dividend) / sunny).toFixed(4) });
+
+        const pool_bonus = await Utils.contract.poolBonus(this.state.account).call();
+        this.setState({ pool_bonus: Number(Number(pool_bonus) / sunny).toFixed(4) });
 
 
-        const totalRate = await Utils.contract.getRate().call();
-        this.setState({ totalRate: (Number(totalRate) / 100).toFixed(2) });
 
-        console.log('contract - ' + this.state.upline);
-        // console.log('account - ' + this.state.account);
-        // console.log('owner - ' + this.state.owner);
-        console.log('link refid - ' + this.state.refid);
+        var income_remaining = this.state.max_payout - this.state.userTotalWithdrawn;
+        this.setState({ income_remaining });
+        const poolTopInfo = await Utils.contract.poolTopInfo().call();
+        var addrs1, addrs2, addrs3, addrs4, addrs5, deps1, deps2, deps3, deps4, deps5;
 
+        addrs1 = window.tronWeb.address.fromHex(poolTopInfo.addrs[0]);
+        deps1 = Number(poolTopInfo.deps[0]) / sunny;
+
+        // console.log('pool top info' + addrs1);
+
+        this.setState({ deps1 });
+        this.setState({ addrs1 });
+        let subAddrs1 = this.state.addrs1.toString();
+        let subAddres1 = subAddrs1.substring(0, 8);
+        this.setState({ subAddres1 });
+        console.log('deps ' + this.state.deps1)
+        // console.log(this.state.addrs1 + "----" + this.state.subAddres1)
+
+        addrs2 = window.tronWeb.address.fromHex(poolTopInfo.addrs[1]);
+        deps2 = Number(poolTopInfo.deps[1]) / sunny;
+        this.setState({ deps2 });
+        this.setState({ addrs2 });
+        let subAddrs2 = this.state.addrs2.toString();
+        let subAddres2 = subAddrs2.substring(0, 8);
+        this.setState({ subAddres2 });
+        console.log('deps ' + this.state.deps2)
+
+        addrs3 = window.tronWeb.address.fromHex(poolTopInfo.addrs[2]);
+        deps3 = Number(poolTopInfo.deps[2]) / sunny;
+        this.setState({ deps3 });
+        this.setState({ addrs3 });
+        let subAddrs3 = this.state.addrs3.toString();
+        let subAddres3 = subAddrs3.substring(0, 8);
+        this.setState({ subAddres3 });
+        console.log('deps ' + this.state.deps3)
+
+        addrs4 = window.tronWeb.address.fromHex(poolTopInfo.addrs[3]);
+        deps4 = Number(poolTopInfo.deps[3]) / sunny;
+        this.setState({ deps4 });
+        this.setState({ addrs4 });
+        let subAddrs4 = this.state.addrs4.toString();
+        let subAddres4 = subAddrs4.substring(0, 8);
+        this.setState({ subAddres4 });
+        console.log('deps ' + this.state.deps4)
+
+        addrs5 = window.tronWeb.address.fromHex(poolTopInfo.addrs[4]);
+        deps5 = Number(poolTopInfo.deps[4]) / sunny;
+        // console.log(addrs5 + '- dep ' + deps5);
+        this.setState({ deps5 });
+        this.setState({ addrs5 });
+        let subAddrs5 = this.state.addrs5.toString();
+        let subAddres5 = subAddrs5.substring(0, 8);
+        this.setState({ subAddres5 });
+        console.log('deps ' + this.state.deps5)
+
+        // console.log('contract - ' + this.state.upline);
+        // console.log('link refid - ' + this.state.refid);
 
     }
 
@@ -280,24 +361,34 @@ class TopPage extends Component {
                     <br />
                 </div>
                 <div style={backStyle}>
-                    <div style={{ textAlign: "center", paddingTop: "40px" }}>
+                    <div style={{ textAlign: "center" }}>
                         <a href={url} >  <img src={require("./Image1/logo.png")} alt="Logo" width="600px" /></a>
 
                     </div>
 
-                    <Banner />
+                    {/* <Banner /> */}
+
+                    <MyPresentStaking
+                        totalRate={this.state.totalRate}
+                    />
+
+
+                    <MyStakingInfo
+                        contract_bonus={this.state.contract_bonus}
+                        hold_bonus={this.state.hold_bonus}
+                        totalRate={this.state.totalRate}
+
+                    />
 
                     {this.state.user_status === 0 ?
                         <Invest
                             refLoading={this.state.refLoading}
                             refid={this.state.refid}
                             deposit_amount={this.state.deposit_amount}
-                            balance={this.state.balance}
+                            user_status={this.state.user_status}
                             invest={this.invest}
                             reinvest={this.reinvest}
-                        />
-                        : null
-                    }
+                        /> : null}
 
                     <SmartInfo
                         smartLoading={this.state.smartLoading}
@@ -307,23 +398,17 @@ class TopPage extends Component {
                         subContract={this.state.subContract}
                         totalDepositCount={this.state.totalDepositCount}
                         totalUsers={this.state.totalUsers}
+                        totalPaid={this.state.totalPaid}
+                        pool_balance={this.state.pool_balance}
+                        next_draw_time={this.state.next_draw_time}
                     />
-                    {this.state.userTotalDeposit > 0 ?
-                        <MyPresentStaking
-                            totalRate={this.state.totalRate}
-                        /> : null}
 
                     {this.state.userTotalDeposit > 0 ?
                         <ReferralLink
                             account={this.state.account}
                         /> : null}
-                    {this.state.userTotalDeposit > 0 ?
-                        <MyStakingInfo
-                            contract_bonus={this.state.contract_bonus}
-                            hold_bonus={this.state.hold_bonus}
-                            totalRate={this.state.totalRate}
 
-                        /> : null}
+
 
                     {this.state.userTotalDeposit > 0 ?
                         <TeamBiz
@@ -331,29 +416,67 @@ class TopPage extends Component {
                             teambiz={this.state.teambiz}
 
                         /> : null}
+
                     {this.state.userTotalDeposit > 0 ?
                         <PersonalStats
+                            max_payout={this.state.max_payout}
                             user_status={this.state.user_status}
                             account={this.state.account}
                             subAccount={this.state.subAccount}
                             upline={this.state.upline}
                             subUpline={this.state.subUpline}
                             userTotalDeposit={this.state.userTotalDeposit}
-                            avlBalance={this.state.avlBalance}
                             dividend={this.state.dividend}
+                            pool_bonus={this.state.pool_bonus}
                             direct_bonus={this.state.direct_bonus}
                             gen_bonus={this.state.gen_bonus}
                             userTotalWithdrawn={this.state.payouts}
                             deposit_amount={this.state.deposit_amount}
-                            deposit_payouts={this.state.deposit_payouts}
+                            income_remaining={this.state.income_remaining}
+                            referrals_count={this.state.referrals_count}
+                            total_structure={this.state.total_structure}
 
                         /> : null}
+
+
 
                     {this.state.user_status !== 0 && this.state.deposit_amount > 0 ?
                         <Withdraw
                             avlBalance={this.state.avlBalance}
                         /> : null}
 
+                    {this.state.userTotalDeposit > 0 ?
+                        <IncomeandTeamStats
+
+                            userTotalDeposit={this.state.userTotalDeposit}
+                            userTotalWithdrawn={this.state.userTotalWithdrawn}
+
+                            referrals_count={this.state.referrals_count}
+                            total_structure={this.state.total_structure}
+
+                        /> : null}
+
+
+                    {this.state.user_status !== 0 ?
+                        <TopSponsor
+                            addrs1={this.state.addrs1}
+                            addrs2={this.state.addrs2}
+                            addrs3={this.state.addrs3}
+                            addrs4={this.state.addrs4}
+                            addrs5={this.state.addrs5}
+                            deps1={this.state.deps1}
+                            deps2={this.state.deps2}
+                            deps3={this.state.deps3}
+                            deps4={this.state.deps4}
+                            deps5={this.state.deps5}
+                            subAddres1={this.state.subAddres1}
+                            subAddres2={this.state.subAddres2}
+                            subAddres3={this.state.subAddres3}
+                            subAddres4={this.state.subAddres4}
+                            subAddres5={this.state.subAddres5}
+                        />
+                        : null
+                    }
                     <div style={{ paddingBottom: "20px" }}></div>
 
                     {/* <div className="row" >

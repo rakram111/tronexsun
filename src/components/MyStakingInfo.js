@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-// const contract_address = 'TDUye4UkDZ56MtWe2ZbPMaAQDANY7LgxEC';
+// const contract_address = 'TGy7DG3PPmpt4b4sJG9HKnEWDj8xezjTGT';
 
 // let contracturl = "https://tronscan.org/#/contract/" + contract_address;
 
@@ -26,7 +26,7 @@ class MyStakingInfo extends Component {
 
         return (
 
-            <div>
+            <div style={{ paddingTop: "80px" }}>
                 <div className="row">
                     <div className="col-xl-3"></div>
                     <div className="col-xl-6" style={colStyle}>
@@ -38,10 +38,10 @@ class MyStakingInfo extends Component {
 
                         <div className="col-xl-12" >
                             <p style={{ color: "white", fontSize: "17px", float: "left" }}>Basic Dividend </p>
-                            <p style={{ color: "white", fontSize: "17px", float: "right" }}> +1.20 %</p>
+                            <p style={{ color: "white", fontSize: "17px", float: "right" }}> +1.10 %</p>
                             <br /><br />
 
-                            <p style={{ color: "white", fontSize: "17px", float: "left" }}>Contract Bonus </p>
+                            <p style={{ color: "white", fontSize: "17px", float: "left" }}>Deposit Bonus </p>
                             <p style={{ color: "white", fontSize: "17px", float: "right" }}>
                                 +{this.props.contract_bonus} %</p>
                             <br /><br />

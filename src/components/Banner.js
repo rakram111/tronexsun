@@ -18,13 +18,13 @@ class Banner extends Component {
                         <br />
 
 
-                        <div style={{ color: "white", fontSize: "23px", fontFamily: "MyFont", textAlign: "left", fontWeight: "bold" }}>
-                            <br />1.2% Daily Standard Returns<br />
-                            <br />0.02% Contract Bonus (Every 1m TRX till 50m TRX)<br />
-                            <br />0.01% Contract Bonus (after 50m TRX)<br />
-                            <br />8% Affiliate Bonus  <br />
-                            <br />75% Generation Bonus on Dividends  <br />
-                            <br />Total Receivable - 300% <br />
+                        <div style={{ color: "white", fontSize: "17px", fontFamily: "MyFont", textAlign: "left", fontWeight: "bold" }}>
+                            <br /><span style={{ color: "yellow", fontSize: "24px" }}>1.10 %</span> Daily Base Returns<br />
+                            <br /><span style={{ color: "yellow", fontSize: "24px" }}>0.02 %</span> Contract Bonus (Every 1m TRX till 50m TRX)<br />
+                            <br /><span style={{ color: "yellow", fontSize: "24px" }}>0.01 %</span> Contract Bonus (after 50m TRX)<br />
+                            <br /><span style={{ color: "yellow", fontSize: "24px" }}>10 %</span> Affiliate Bonus  <br />
+                            <br /><span style={{ color: "yellow", fontSize: "24px" }}>75 %</span> Generation Bonus on Dividends  <br />
+                            <br />Total Receivable - <span style={{ color: "yellow", fontSize: "24px" }}>320 %</span> <br />
                         </div>
                         <br />
 

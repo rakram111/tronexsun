@@ -44,7 +44,7 @@ class PersonalStats extends Component {
 
         return (
 
-            <div style={{ paddingTop: "30px" }}>
+            <div style={{ paddingTop: "80px" }}>
                 <div className="row">
                     <div className="col-xl-3"></div>
                     <div className="col-xl-6" style={colStyle}>
@@ -60,7 +60,7 @@ class PersonalStats extends Component {
                                 {this.props.user_status === 0 ? "In Active" : "Active"} </p>
 
                             <br /><br />
-                            <p style={{ color: "white", fontSize: "17px", float: "left" }}>My Address</p>
+                            <p style={{ color: "white", fontSize: "17px", float: "left" }}>Your Address</p>
                             <a href={addressTronScan + this.props.account} style={{ color: "white", fontSize: "17px", float: "right", textDecoration: "underline" }}>
                                 {this.props.subAccount}...</a>
 
@@ -72,29 +72,38 @@ class PersonalStats extends Component {
 
                             <br /><br />
 
-                            <p style={{ color: "white", fontSize: "17px", float: "left" }}>Total Deposit Value</p>
-                            <p style={{ color: "white", fontSize: "17px", float: "right" }}> {this.props.userTotalDeposit} TRX</p>
-                            <br /><br />
+
 
                             <p style={{ color: "white", fontSize: "17px", float: "left" }}>Present Deposit </p>
                             <p style={{ color: "white", fontSize: "17px", float: "right" }}> {this.props.deposit_amount} TRX</p>
                             <br /><br />
 
-                            <p style={{ color: "white", fontSize: "17px", textAlign: "center" }}>Dividends Unwithdrawn</p>
-                            <p style={{ color: "white", fontSize: "17px", textAlign: "center" }}> {this.props.dividend} TRX</p>
-                            <br />
+                            <p style={{ color: "white", fontSize: "17px", float: "left" }}>Income Remaining</p>
+                            <p style={{ color: "white", fontSize: "17px", float: "right" }}> {this.props.income_remaining} TRX</p>
+                            <br /><br />
 
-                            <p style={{ color: "white", fontSize: "17px", textAlign: "center" }}>Referral Bonus Unwithdrawn</p>
-                            <p style={{ color: "white", fontSize: "17px", textAlign: "center" }}> {this.props.direct_bonus} TRX</p>
-                            <br />
 
-                            <p style={{ color: "white", fontSize: "17px", textAlign: "center" }}>Generation Bonus Unwithdrawn</p>
-                            <p style={{ color: "white", fontSize: "17px", textAlign: "center" }}> {this.props.gen_bonus} TRX</p>
-                            <br />
 
-                            <p style={{ color: "white", fontSize: "17px", textAlign: "center" }}>Total Withdrawn</p>
-                            <p style={{ color: "white", fontSize: "17px", textAlign: "center" }}> {this.props.userTotalWithdrawn} TRX</p>
-                            <br />
+
+                            <p style={{ color: "white", fontSize: "17px", float: "left" }}>Dividends</p>
+                            <p style={{ color: "white", fontSize: "17px", float: "right" }}> {this.props.dividend} TRX</p>
+                            <br /> <br />
+
+                            <p style={{ color: "white", fontSize: "17px", float: "left" }}>Direct Bonus</p>
+                            <p style={{ color: "white", fontSize: "17px", float: "right" }}> {this.props.direct_bonus} TRX</p>
+                            <br /> <br />
+
+                            <p style={{ color: "white", fontSize: "17px", float: "left" }}>Generation Bonus </p>
+                            <p style={{ color: "white", fontSize: "17px", float: "right" }}> {this.props.gen_bonus} TRX</p>
+                            <br /> <br />
+
+                            <p style={{ color: "white", fontSize: "17px", float: "left" }}>Pool Bonus </p>
+                            <p style={{ color: "white", fontSize: "17px", float: "right" }}> {this.props.pool_bonus} TRX</p>
+                            <br /> <br />
+
+                            <p style={{ color: "white", fontSize: "17px", float: "left" }}>Total Withdrawn</p>
+                            <p style={{ color: "white", fontSize: "17px", float: "right" }}> {this.props.userTotalWithdrawn} TRX</p>
+                            <br /> <br />
 
 
                         </div>

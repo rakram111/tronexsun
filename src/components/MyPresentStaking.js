@@ -12,7 +12,7 @@ class MyPresentStaking extends Component {
 
         return (
 
-            <div style={{ paddingTop: "30px" }}>
+            <div >
                 <div className="row">
                     <div className="col-xl-4"></div>
                     <div className="col-xl-4" style={colStyle}>
