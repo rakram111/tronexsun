@@ -19,7 +19,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import "./css/style.css";
 
 //  let url = "s://hardcore-newton-af71f6.netlify.app/";
-let url = "http://localhost:3000/";
+let url = "https://trusting-curie-768fd6.netlify.app/";
 let contract_address = 'TGy7DG3PPmpt4b4sJG9HKnEWDj8xezjTGT';
 
 // let tronContracturl = "https://tronscan.org/#/contract/" + contract_address;

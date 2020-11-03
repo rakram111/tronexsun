@@ -10,7 +10,7 @@ import TeamBiz from "./TeamBiz";
 import 'react-toastify/dist/ReactToastify.css';
 import "./css/style.css";
 
-let url = "http://localhost:3000/";
+let url = "https://trusting-curie-768fd6.netlify.app/";
 // '
 let contract_address = 'TGy7DG3PPmpt4b4sJG9HKnEWDj8xezjTGT';
 
