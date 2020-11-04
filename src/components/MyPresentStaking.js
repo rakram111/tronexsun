@@ -11,16 +11,14 @@ class MyPresentStaking extends Component {
         };
 
         return (
-
-            <div >
+            // 1AE865 1AE865 1AE865
+            <div style={{ paddingTop: "60px" }} >
                 <div className="row">
                     <div className="col-xl-4"></div>
                     <div className="col-xl-4" style={colStyle}>
-
-                        <div className="col-xl-12" style={{ marginTop: "-18px", marginLeft: "-5px", backgroundImage: "linear-gradient(to right, #131050, black)", borderRadius: "5px", color: "white", textAlign: "center", fontWeight: "bold", fontSize: "16px" }}>
+                        <div className="col-xl-12" style={{ marginTop: "-18px", marginLeft: "-5px", backgroundImage: "linear-gradient(to right, #131050, black)", borderRadius: "5px", color: "#1AE865", textAlign: "center", fontWeight: "bold", fontSize: "21px" }}>
                             Current Bonus</div>
                         <br />
-
 
                         <div style={{ color: "white", fontSize: "29px", fontFamily: "MyFont", textAlign: "center" }}> {this.props.totalRate} % Daily</div>
                         <br />

@@ -194,7 +194,7 @@
                         "name": "msg",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 2374,
+                        "referencedDeclaration": 2276,
                         "src": "158:3:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_magic_message",
@@ -278,7 +278,7 @@
                         "name": "msg",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 2374,
+                        "referencedDeclaration": 2276,
                         "src": "213:3:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_magic_message",
@@ -840,7 +840,7 @@
                         "name": "msg",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 2374,
+                        "referencedDeclaration": 2276,
                         "src": "158:3:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_magic_message",
@@ -924,7 +924,7 @@
                         "name": "msg",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 2374,
+                        "referencedDeclaration": 2276,
                         "src": "213:3:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_magic_message",
@@ -1370,9 +1370,9 @@
     "2": {
       "events": {},
       "links": {},
-      "address": "41c2c64bc661839e073ee3dacf2452456c374217ac"
+      "address": "41f31b285fb831ceca071aa8375055df78568f96a0"
     }
   },
   "schemaVersion": "2.0.1",
-  "updatedAt": "2020-11-03T00:56:30.920Z"
+  "updatedAt": "2020-11-04T06:37:09.344Z"
 }

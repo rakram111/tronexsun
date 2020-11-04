@@ -31,7 +31,7 @@ export class SmartInfo extends Component {
                     <div className="col-xl-3"></div>
                     <div className="col-xl-6" style={colStyle}>
 
-                        <div className="col-xl-6" style={{ marginTop: "-18px", backgroundImage: "linear-gradient(to right, #131050, black)", borderRadius: "5px", color: "white", textAlign: "center", fontWeight: "bold", fontSize: "16px" }}>
+                        <div className="col-xl-6" style={{ marginTop: "-18px", backgroundImage: "linear-gradient(to right, #131050, black)", borderRadius: "5px", color: "#1AE865", textAlign: "center", fontWeight: "bold", fontSize: "21px" }}>
                             My Organization</div>
 
                         <br />

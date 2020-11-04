@@ -7,7 +7,7 @@ let addressTronScan = "https://tronscan.org/#/contract/";
 
 toast.configure();
 
-class PersonalStats2 extends Component {
+class PersonalStats extends Component {
 
     constructor(props) {
         super(props)
@@ -44,57 +44,66 @@ class PersonalStats2 extends Component {
 
         return (
 
-            <div style={{ paddingTop: "80px" }}>
+            <div style={{ paddingTop: "60px" }}>
                 <div className="row">
                     <div className="col-xl-3"></div>
                     <div className="col-xl-6" style={colStyle}>
 
-                        <div className="col-xl-6" style={{ marginTop: "-18px", backgroundImage: "linear-gradient(to right, #131050, black)", borderRadius: "5px", color: "white", textAlign: "center", fontWeight: "bold", fontSize: "16px" }}>
+                        <div className="col-xl-6" style={{ marginTop: "-18px", backgroundImage: "linear-gradient(to right, #131050, black)", borderRadius: "5px", color: "#1AE865", textAlign: "center", fontWeight: "bold", fontSize: "21px" }}>
                             Personal Stats</div>
                         <br />
 
                         <div className="col-xl-12" >
 
                             <p style={{ color: "white", fontSize: "17px", float: "left" }}>Status</p>
-                            <a href={addressTronScan + this.props.account} style={{ color: "white", fontSize: "17px", float: "right", }}>
-                                {this.props.user_status === 0 ? "In Active" : "Active"} </a>
+                            <p style={{ color: "white", fontSize: "17px", float: "right", fontFamily: "MyFont" }}>
+                                {this.props.user_status === 0 ? "In Active" : "Active"} </p>
 
                             <br /><br />
-                            <p style={{ color: "white", fontSize: "17px", float: "left" }}>My Address</p>
+                            <p style={{ color: "white", fontSize: "17px", float: "left" }}>Your Address</p>
                             <a href={addressTronScan + this.props.account} style={{ color: "white", fontSize: "17px", float: "right", textDecoration: "underline" }}>
                                 {this.props.subAccount}...</a>
 
                             <br /><br />
 
-                            <p style={{ color: "white", fontSize: "17px", float: "left" }}>Upline</p>
+                            <p style={{ color: "white", fontSize: "17px", float: "left" }}>Sponsor</p>
                             <a href={addressTronScan + this.props.upline} style={{ color: "white", fontSize: "17px", float: "right", textDecoration: "underline" }}>
                                 {this.props.subUpline}...</a>
 
                             <br /><br />
 
-                            <p style={{ color: "white", fontSize: "17px", float: "left" }}>Total Deposit Value</p>
-                            <p style={{ color: "white", fontSize: "17px", float: "right" }}> {this.props.userTotalDeposit} TRX</p>
-                            <br /><br />
+
 
                             <p style={{ color: "white", fontSize: "17px", float: "left" }}>Present Deposit </p>
                             <p style={{ color: "white", fontSize: "17px", float: "right" }}> {this.props.deposit_amount} TRX</p>
                             <br /><br />
 
-                            <p style={{ color: "white", fontSize: "17px", textAlign: "center" }}>Dividends Unwithdrawn</p>
-                            <p style={{ color: "white", fontSize: "17px", textAlign: "center" }}> {this.props.dividend} TRX</p>
-                            <br />
+                            <p style={{ color: "white", fontSize: "17px", float: "left" }}>Income Remaining</p>
+                            <p style={{ color: "white", fontSize: "17px", float: "right" }}> {this.props.income_remaining} TRX</p>
+                            <br /><br />
 
-                            <p style={{ color: "white", fontSize: "17px", textAlign: "center" }}>Referral Bonus Unwithdrawn</p>
-                            <p style={{ color: "white", fontSize: "17px", textAlign: "center" }}> {this.props.direct_bonus} TRX</p>
-                            <br />
 
-                            <p style={{ color: "white", fontSize: "17px", textAlign: "center" }}>Generation Bonus Unwithdrawn</p>
-                            <p style={{ color: "white", fontSize: "17px", textAlign: "center" }}> {this.props.gen_bonus} TRX</p>
-                            <br />
 
-                            <p style={{ color: "white", fontSize: "17px", textAlign: "center" }}>Total Withdrawn</p>
-                            <p style={{ color: "white", fontSize: "17px", textAlign: "center" }}> {this.props.userTotalWithdrawn} TRX</p>
-                            <br />
+
+                            <p style={{ color: "white", fontSize: "17px", float: "left" }}>Dividends</p>
+                            <p style={{ color: "white", fontSize: "17px", float: "right" }}> {this.props.dividend} TRX</p>
+                            <br /> <br />
+
+                            <p style={{ color: "white", fontSize: "17px", float: "left" }}>Direct Bonus</p>
+                            <p style={{ color: "white", fontSize: "17px", float: "right" }}> {this.props.direct_bonus} TRX</p>
+                            <br /> <br />
+
+                            <p style={{ color: "white", fontSize: "17px", float: "left" }}>Generation Bonus </p>
+                            <p style={{ color: "white", fontSize: "17px", float: "right" }}> {this.props.gen_bonus} TRX</p>
+                            <br /> <br />
+
+                            <p style={{ color: "white", fontSize: "17px", float: "left" }}>Pool Bonus </p>
+                            <p style={{ color: "white", fontSize: "17px", float: "right" }}> {this.props.pool_bonus} TRX</p>
+                            <br /> <br />
+
+                            <p style={{ color: "white", fontSize: "17px", float: "left" }}>Total Withdrawn</p>
+                            <p style={{ color: "white", fontSize: "17px", float: "right" }}> {this.props.userTotalWithdrawn} TRX</p>
+                            <br /> <br />
 
 
                         </div>
@@ -108,4 +117,4 @@ class PersonalStats2 extends Component {
     }
 }
 
-export default PersonalStats2
+export default PersonalStats

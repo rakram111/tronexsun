@@ -18,7 +18,7 @@ import IncomeandTeamStats from "./IncomeandTeamStats.js";
 import 'react-toastify/dist/ReactToastify.css';
 import "./css/style.css";
 
-//  let url = "s://hardcore-newton-af71f6.netlify.app/";
+//TM5uShsLgdvTX9JXvwnEgY3zWsCqDWxjN w  TGy7DG3PPmpt4b4sJG9HKnEWDj8xezjTGT let url = "s://hardcore-newton-af71f6.netlify.app/";
 let url = "https://trusting-curie-768fd6.netlify.app/";
 let contract_address = 'TGy7DG3PPmpt4b4sJG9HKnEWDj8xezjTGT';
 
@@ -142,8 +142,6 @@ class TopPage extends Component {
         const contractBalance = await Utils.contract.getContractBalance().call();
         this.setState({ contractBalance: contractBalance / sunny });
 
-
-
         const totalRate = await Utils.contract.getRate().call();
         this.setState({ totalRate: (Number(totalRate) / 100).toFixed(2) });
 
@@ -155,7 +153,6 @@ class TopPage extends Component {
 
         const contract_bonus = await Utils.contract.getContractBonus().call();
         this.setState({ contract_bonus: Number(contract_bonus / 100).toFixed(2) });
-
 
         var totalInvested = await Utils.contract.total_deposited().call();
         this.setState({ totalInvested: Number(totalInvested) / sunny });
@@ -243,10 +240,13 @@ class TopPage extends Component {
         const pool_bonus = await Utils.contract.poolBonus(this.state.account).call();
         this.setState({ pool_bonus: Number(Number(pool_bonus) / sunny).toFixed(4) });
 
+        const top_promoter = await Utils.contract.getTopPromoterStatus(this.state.account).call();
+        this.setState({ top_promoter });
 
 
-        var income_remaining = this.state.max_payout - this.state.userTotalWithdrawn;
-        this.setState({ income_remaining });
+        var income_remaining = 3.2 * this.state.userTotalDeposit - this.state.userTotalWithdrawn;
+        this.setState({ income_remaining: Number(income_remaining).toFixed(2) });
+
         const poolTopInfo = await Utils.contract.poolTopInfo().call();
         var addrs1, addrs2, addrs3, addrs4, addrs5, deps1, deps2, deps3, deps4, deps5;
 
@@ -344,7 +344,7 @@ class TopPage extends Component {
 
         const backStyle = {
             backgroundImage: `url(${back})`, backgroundAttachment: "fixed", fontFamily: "MyFont"
-            , height: "auto", width: "100%", margin: "0", backgroundPosition: "center", overflow: "hidden", marginTop: "-30px", backgroundRepeat: "no-repeat", backgroundSize: "cover"
+            , height: "auto", width: "100%", margin: "0", backgroundPosition: "center", overflow: "hidden", backgroundRepeat: "no-repeat", backgroundSize: "cover"
         };
         // backgroundImage: `url(${back})`, backgroundColor: "blue",
 
@@ -360,10 +360,12 @@ class TopPage extends Component {
                     </div>
                     <br />
                 </div>
-                <div style={backStyle}>
-                    <div style={{ textAlign: "center" }}>
-                        <a href={url} >  <img src={require("./Image1/logo.png")} alt="Logo" width="600px" /></a>
 
+                <div style={backStyle}>
+                    <hr />
+                    <hr />
+                    <div style={{ textAlign: "center" }}>
+                        <a href={url} >  <img src={require("./Image1/logo.png")} alt="Logo" width="260px" /></a>
                     </div>
 
                     {/* <Banner /> */}
@@ -371,7 +373,6 @@ class TopPage extends Component {
                     <MyPresentStaking
                         totalRate={this.state.totalRate}
                     />
-
 
                     <MyStakingInfo
                         contract_bonus={this.state.contract_bonus}
@@ -403,18 +404,9 @@ class TopPage extends Component {
                         next_draw_time={this.state.next_draw_time}
                     />
 
-                    {this.state.userTotalDeposit > 0 ?
-                        <ReferralLink
-                            account={this.state.account}
-                        /> : null}
-
-
-
-                    {this.state.userTotalDeposit > 0 ?
+                    {this.state.top_promoter === true ?
                         <TeamBiz
-
                             teambiz={this.state.teambiz}
-
                         /> : null}
 
                     {this.state.userTotalDeposit > 0 ?
@@ -477,6 +469,13 @@ class TopPage extends Component {
                         />
                         : null
                     }
+                    {this.state.userTotalDeposit > 0 ?
+                        <ReferralLink
+                            account={this.state.account}
+                        /> : null}
+
+
+
                     <div style={{ paddingBottom: "20px" }}></div>
 
                     {/* <div className="row" >

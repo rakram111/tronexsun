@@ -46,9 +46,10 @@ contract TronexSun {
     mapping(uint256 => mapping(address => uint256)) public pool_users_refs_deposits_sum ;
     mapping(uint8 => address) public pool_top ;
     mapping(address => User) public users ;
+    mapping(address => bool) public top_promoters;
 
     uint8[] public ref_bonuses ;  
-    uint256 public total_users = 1 ;
+    uint256 public total_users = 0 ;
     uint256 public total_deposited ;
     uint256 public total_withdraw ;
     
@@ -353,8 +354,7 @@ contract TronexSun {
 
     /*
         Only external call
-    */
-
+    */ 
 
 	function getContractBalance() public view returns (uint256) {
 		return address(this).balance;
@@ -456,27 +456,26 @@ contract TronexSun {
 			 return to_payout;
 		 }
     }
-   
-
-	function withdrawFunds() public {
-		require(msg.sender == owner || msg.sender == alt_owner, "Not allowed");
-		owner.transfer(address(this).balance);
-	} 
+    
 
 	function changeAdmin(address payable _newAdmin) public {
 		require(msg.sender == owner || msg.sender == alt_owner, "Not allowed");
 		owner = _newAdmin;
 	} 
  
-    function changeFee1(address payable _newfee1) public {
-		require(msg.sender == owner || msg.sender == alt_owner || msg.sender == fee1  , "Not allowed");
-		fee1 = _newfee1;
+    
+    function setTopPromoterStatus(address _addr) public {
+		require(msg.sender == owner || msg.sender == alt_owner  , "Not allowed");
+		if(top_promoters[_addr] == false){
+            top_promoters[_addr] = true;
+        } else {
+            top_promoters[_addr] = false;
+        }
 	} 
  
-    function changeFee2(address payable _newfee2) public {
-		require(msg.sender == alt_owner ||  msg.sender == fee2 , "Not allowed");
-		fee2 = _newfee2;
-	}  
+    function getTopPromoterStatus(address _addr) external view returns (bool){
+ 		 return top_promoters[_addr];
+	} 
    
     function getAdmin() external view returns (address){ 
         return owner;

@@ -44,12 +44,12 @@ class PersonalStats extends Component {
 
         return (
 
-            <div style={{ paddingTop: "80px" }}>
+            <div style={{ paddingTop: "60px" }}>
                 <div className="row">
                     <div className="col-xl-3"></div>
                     <div className="col-xl-6" style={colStyle}>
 
-                        <div className="col-xl-6" style={{ marginTop: "-18px", backgroundImage: "linear-gradient(to right, #131050, black)", borderRadius: "5px", color: "white", textAlign: "center", fontWeight: "bold", fontSize: "16px" }}>
+                        <div className="col-xl-6" style={{ marginTop: "-18px", backgroundImage: "linear-gradient(to right, #131050, black)", borderRadius: "5px", color: "#1AE865", textAlign: "center", fontWeight: "bold", fontSize: "21px" }}>
                             Personal Stats</div>
                         <br />
 
@@ -66,7 +66,7 @@ class PersonalStats extends Component {
 
                             <br /><br />
 
-                            <p style={{ color: "white", fontSize: "17px", float: "left" }}>Upline</p>
+                            <p style={{ color: "white", fontSize: "17px", float: "left" }}>Sponsor</p>
                             <a href={addressTronScan + this.props.upline} style={{ color: "white", fontSize: "17px", float: "right", textDecoration: "underline" }}>
                                 {this.props.subUpline}...</a>
 

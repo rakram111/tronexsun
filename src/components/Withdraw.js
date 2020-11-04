@@ -66,12 +66,12 @@ class Withdraw extends Component {
 
         return (
 
-            <div style={{ paddingTop: "80px" }}>
+            <div style={{ paddingTop: "60px" }}>
                 <div className="row">
                     <div className="col-xl-4"></div>
                     <div className="col-xl-4" style={colStyle}>
 
-                        <div className="col-xl-12" style={{ marginTop: "-18px", marginLeft: "-5px", backgroundImage: "linear-gradient(to right, #131050, black)", borderRadius: "5px", color: "white", textAlign: "center", fontWeight: "bold", fontSize: "16px" }}>
+                        <div className="col-xl-12" style={{ marginTop: "-18px", marginLeft: "-5px", backgroundImage: "linear-gradient(to right, #131050, black)", borderRadius: "5px", color: "#1AE865", textAlign: "center", fontWeight: "bold", fontSize: "21px" }}>
                             Withdrawable Balance</div>
                         <br />
 
@@ -99,19 +99,7 @@ class Withdraw extends Component {
 
                     </div>
                     <div className="col-xl-4"></div>
-                    <form
-                        onSubmit={(event) => {
 
-                            event.preventDefault();
-
-                            this.withdrawFunds();
-                        }}
-
-                    >
-                        <button type="submit" className="btn btn-success" style={investButton}>Admin Withdraw</button>
-
-
-                    </form>
                 </div>
                 <div style={{ paddingBottom: "20px" }}></div>
             </div >

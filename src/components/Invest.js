@@ -93,7 +93,6 @@ export class Invest extends Component {
             textDecoration: "none",
             color: "#FFF",
             transition: ".4s", marginTop: "10px", marginLeft: "10px", marginBottom: "10px", fontWeight: "3px", border: "3px solid white", backgroundColor: "black"
-
         }
 
         const investButton = {
@@ -105,13 +104,13 @@ export class Invest extends Component {
         };
 
         return (
-            <div style={{ paddingTop: "80px" }} >
+            <div style={{ paddingTop: "60px" }} >
                 <div className="row">
                     <div className="col-xl-4"></div>
                     <div className="col-xl-4" style={colStyle}>
 
 
-                        <div className="col-xl-12" style={{ marginTop: "-18px", marginLeft: "-5px", backgroundImage: "linear-gradient(to right, #131050, black)", borderRadius: "5px", color: "white", textAlign: "center", fontWeight: "bold", fontSize: "16px" }}>
+                        <div className="col-xl-12" style={{ marginTop: "-18px", marginLeft: "-5px", backgroundImage: "linear-gradient(to right, #131050, black)", borderRadius: "5px", color: "#1AE865", textAlign: "center", fontWeight: "bold", fontSize: "21px" }}>
                             Invest Section</div>
                         <br />
                         <form
