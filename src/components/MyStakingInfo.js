@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-// const contract_address = 'TM5uShsLgdvTX9JXvwnEgY3zWsCqDWxjNw';
+// const contract_address = 'TGy7DG3PPmpt4b4sJG9HKnEWDj8xezjTGT';
 
 // let contracturl = "https://tronscan.org/#/contract/" + contract_address;
 

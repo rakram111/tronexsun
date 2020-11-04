@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import loader from "./img/loadicon1.gif"
 
-const contract_address = 'TM5uShsLgdvTX9JXvwnEgY3zWsCqDWxjNw';
+const contract_address = 'TGy7DG3PPmpt4b4sJG9HKnEWDj8xezjTGT';
 
 let contracturl = "https://tronscan.org/#/contract/" + contract_address;
 
@@ -19,7 +19,7 @@ export class SmartInfo extends Component {
     render() {
 
         const colStyle = {
-            backgroundImage: "linear-gradient(to right,  #131050, black)", opacity: "70%", marginTop: "60px", borderRadius: "20px", marginLeft: "20px", marginRight: "20px",
+            backgroundImage: "linear-gradient(to right,  #131050, black)", opacity: "70%", marginTop: "20px", borderRadius: "20px", marginLeft: "20px", marginRight: "20px",
             boxShadow: "0 0 20px #eee",
         };
 
