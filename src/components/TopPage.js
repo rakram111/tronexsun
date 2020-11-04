@@ -18,9 +18,9 @@ import IncomeandTeamStats from "./IncomeandTeamStats.js";
 import 'react-toastify/dist/ReactToastify.css';
 import "./css/style.css";
 
-//TM5uShsLgdvTX9JXvwnEgY3zWsCqDWxjN w  TGy7DG3PPmpt4b4sJG9HKnEWDj8xezjTGT let url = "s://hardcore-newton-af71f6.netlify.app/";
+//TM5uShsLgdvTX9JXvwnEgY3zWsCqDWxjN w  TGy7DG3PPmpt4b4sJG9HKnEWDj8xezjTG T let url = "s://hardcore-newton-af71f6.netlify.app/";
 let url = "https://trusting-curie-768fd6.netlify.app/";
-let contract_address = 'TGy7DG3PPmpt4b4sJG9HKnEWDj8xezjTGT';
+let contract_address = 'TM5uShsLgdvTX9JXvwnEgY3zWsCqDWxjNw';
 
 // let tronContracturl = "https://tronscan.org/#/contract/" + contract_address;
 // let tronAddressurl = "https://tronscan.org/#/address/";
@@ -180,6 +180,7 @@ class TopPage extends Component {
         this.setState({ total_structure: Number(userInfoTotals.total_structure) });
         this.setState({ teambiz: Number(userInfoTotals.team_biz) / sunny });
         this.setState({ deposit_payouts: Number(userInfoTotals.deposit_payouts) / sunny });
+        console.log('user total deposit ' + this.state.userTotalDeposit);
 
         /////////////////////////////////////////////////////////////////////////////
         const userInfo = await Utils.contract.userInfo(this.state.account).call();
@@ -242,7 +243,6 @@ class TopPage extends Component {
 
         const top_promoter = await Utils.contract.getTopPromoterStatus(this.state.account).call();
         this.setState({ top_promoter });
-
 
         var income_remaining = 3.2 * this.state.userTotalDeposit - this.state.userTotalWithdrawn;
         this.setState({ income_remaining: Number(income_remaining).toFixed(2) });

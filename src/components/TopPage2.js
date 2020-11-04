@@ -12,7 +12,7 @@ import "./css/style.css";
 
 let url = "https://trusting-curie-768fd6.netlify.app/";
 // '
-let contract_address = 'TGy7DG3PPmpt4b4sJG9HKnEWDj8xezjTGT';
+let contract_address = 'TM5uShsLgdvTX9JXvwnEgY3zWsCqDWxjNw';
 
 toast.configure();
 
