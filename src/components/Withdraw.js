@@ -25,29 +25,13 @@ class Withdraw extends Component {
             }).then(res => toast.success(' Wihdrawal processing', { position: toast.POSITION.TOP_RIGHT, autoClose: 10000 })
 
             ).then(res => {
-                window.location = "/";
-            });
-
-
-    }
-
-    async withdrawFunds() {
-        await Utils.contract
-            .withdrawFunds()
-            .send({
-                from: this.state.account,
-            }).then(res => toast.success(' Wihdrawal processing', { position: toast.POSITION.TOP_RIGHT, autoClose: 10000 })
-
-            ).then(res => {
                 setInterval(() => {
                     window.location = "/";
-                }, 2000);
-            });
+                }, 4000);
+            }).catch(err => toast.error("Something went wrong"));
 
 
     }
-
-
 
     render() {
 

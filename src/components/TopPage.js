@@ -11,14 +11,12 @@ import MyStakingInfo from "./MyStakingInfo";
 import TeamBiz from "./TeamBiz";
 import ReferralLink from "./ReferralLink";
 import Withdraw from "./Withdraw";
-import TopSponsor from "./TopSponsor";
 import IncomeandTeamStats from "./IncomeandTeamStats.js";
-
 
 import 'react-toastify/dist/ReactToastify.css';
 import "./css/style.css";
 
-//TM5uShsLgdvTX9JXvwnEgY3zWsCqDWxjN w  TGy7DG3PPmpt4b4sJG9HKnEWDj8xezjTG T let url = "s://hardcore-newton-af71f6.netlify.app/";
+//TM5uShsLgdvTX9JXvwnEgY3zWsCqDWxjN w  TGy7DG3PPmpt4b4sJG9HKnEWDj8xezjTG T let url = "s://hardcore-newton-af71f6.netlify.app/" https://trusting-curie-768fd6.netlify.ap p/ ;
 let url = "https://trusting-curie-768fd6.netlify.app/";
 let contract_address = 'TGy7DG3PPmpt4b4sJG9HKnEWDj8xezjTGT';
 
@@ -309,7 +307,7 @@ class TopPage extends Component {
         super(props)
 
         this.state = {
-
+            guideModalShow: false,
             refLoading: true,
             walletload: true,
             balanceload: true,
@@ -346,8 +344,8 @@ class TopPage extends Component {
             backgroundImage: `url(${back})`, backgroundAttachment: "fixed", fontFamily: "MyFont"
             , height: "auto", width: "100%", margin: "0", backgroundPosition: "center", overflow: "hidden", backgroundRepeat: "no-repeat", backgroundSize: "cover"
         };
-        // backgroundImage: `url(${back})`, backgroundColor: "blue",
 
+        // backgroundImage: `url(${back})`, backgroundColor: "blue",
         return (
             <div>
                 <div style={{ backgroundColor: "black", textAlign: "center" }}>
@@ -370,6 +368,25 @@ class TopPage extends Component {
 
                     {/* <Banner /> */}
 
+                    <div className="row" >
+                        <div className="col-xl-6" style={{ textAlign: "center", paddingTop: "20px" }}  >
+                            <a href="https://trusting-curie-768fd6.netlify.app/joiningGuide"   >  <img src={require("./Image1/join.png")} alt="Logo" width="200px" /></a>
+                        </div>
+                        <div className="col-xl-6" style={{ textAlign: "center", paddingTop: "20px" }}   >
+                            <a href="https://trusting-curie-768fd6.netlify.app/aboutUs"   > <img src={require("./Image1/about.png")} alt="Logo" width="200px" /></a>
+                        </div>
+                    </div>
+                    <div className="row" >
+                        <div className="col-xl-4" style={{ textAlign: "center" }}  >
+                        </div>
+                        <div className="col-xl-4" style={{ textAlign: "center", paddingTop: "20px" }}  >
+                            <a href="https://trusting-curie-768fd6.netlify.app/topSponsors"   >
+                                <img src={require("./Image1/TopSponsor.png")} alt="Logo" width="220px" /></a>
+                        </div>
+                        <div className="col-xl-4" style={{ textAlign: "center" }}   >
+                        </div>
+
+                    </div>
                     <MyPresentStaking
                         totalRate={this.state.totalRate}
                     />
@@ -449,26 +466,6 @@ class TopPage extends Component {
                         /> : null}
 
 
-                    {this.state.user_status !== 0 ?
-                        <TopSponsor
-                            addrs1={this.state.addrs1}
-                            addrs2={this.state.addrs2}
-                            addrs3={this.state.addrs3}
-                            addrs4={this.state.addrs4}
-                            addrs5={this.state.addrs5}
-                            deps1={this.state.deps1}
-                            deps2={this.state.deps2}
-                            deps3={this.state.deps3}
-                            deps4={this.state.deps4}
-                            deps5={this.state.deps5}
-                            subAddres1={this.state.subAddres1}
-                            subAddres2={this.state.subAddres2}
-                            subAddres3={this.state.subAddres3}
-                            subAddres4={this.state.subAddres4}
-                            subAddres5={this.state.subAddres5}
-                        />
-                        : null
-                    }
                     {this.state.userTotalDeposit > 0 ?
                         <ReferralLink
                             account={this.state.account}
@@ -478,25 +475,7 @@ class TopPage extends Component {
 
                     <div style={{ paddingBottom: "20px" }}></div>
 
-                    {/* <div className="row" >
-                        <div className="col-xl-6" style={{ textAlign: "center", paddingTop: "20px" }}  >
-                            <a href="https://t.me/abcd"   >  <img src={require("./Image1/official.png")} alt="Logo" width="200px" /></a>
-                        </div>
-                        <div className="col-xl-6" style={{ textAlign: "center", paddingTop: "20px" }}   >
-                            <a href="https://t.me/abcd"   > <img src={require("./Image1/support.png")} alt="Logo" width="200px" /></a>
-                        </div>
-                    </div>
-                    <div className="row" >
-                        <div className="col-xl-4" style={{ textAlign: "center" }}  >
-                        </div>
-                        <div className="col-xl-4" style={{ textAlign: "center", paddingTop: "20px" }}  >
-                            <a href="https://tronexsun.io"   >
-                                <img src={require("./Image1/refresh.png")} alt="Logo" width="170px" /></a>
-                        </div>
-                        <div className="col-xl-4" style={{ textAlign: "center" }}   >
-                        </div>
 
-                    </div> */}
 
                     <div style={{ paddingBottom: "50px" }}></div>
                 </div>

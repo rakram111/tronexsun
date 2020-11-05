@@ -2,6 +2,9 @@ import React from "react";
 import Top from "./TopPage";
 import { Route, BrowserRouter } from "react-router-dom";
 import Param from "./Param";
+import JoiningGuide from "./JoinGuide";
+import TopSponsor from "./TopSponsor";
+import PlanText from "./PlanText";
 import Param2 from "./Param2";
 
 class App extends React.Component {
@@ -13,6 +16,9 @@ class App extends React.Component {
         <div>
           <BrowserRouter>
             <Route exact path='/' component={Top} />
+            <Route exact path='/joiningGuide' component={JoiningGuide} />
+            <Route exact path='/topSponsors' component={TopSponsor} />
+            <Route exact path='/aboutUs' component={PlanText} />
             <Route path='/ref/:id' component={Param} />
             <Route path='/view/:id' component={Param2} />
           </BrowserRouter>

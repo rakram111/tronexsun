@@ -1,98 +1,227 @@
-import React, { Component } from 'react'
-import Utils from '../utils';
+import React, { Component } from 'react';
 import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import back from "./Image1/back.jpg"
+import TronWeb from 'tronweb';
+import Utils from '../utils';
+import TopSponsor2 from "./TopSponsor2";
 
-let addressTronScan = "https://tronscan.org/#/contract/";
+
+import 'react-toastify/dist/ReactToastify.css';
+import "./css/style.css";
+
+//TM5uShsLgdvTX9JXvwnEgY3zWsCqDWxjN w  TGy7DG3PPmpt4b4sJG9HKnEWDj8xezjTG T let url = "s://hardcore-newton-af71f6.netlify.app/" https://trusting-curie-768fd6.netlify.app/ p/ ;
+let url = "https://trusting-curie-768fd6.netlify.app/";
+let contract_address = 'TGy7DG3PPmpt4b4sJG9HKnEWDj8xezjTGT';
+
+// let tronContracturl = "https://tronscan.org/#/contract/" + contract_address;
+// let tronAddressurl = "https://tronscan.org/#/address/";
 
 toast.configure();
 
 class TopSponsor extends Component {
 
+    async componentDidMount() {
+
+        await this.connectTronWeb();
+        await this.loadBlockChainData();
+
+    }
+
+    connectTronWeb = async () => {
+        await new Promise(resolve => {
+            const tronWebState = {
+                installed: window.tronWeb,
+                loggedIn: window.tronWeb && window.tronWeb.ready
+            };
+
+            if (tronWebState.installed) {
+                this.setState({
+                    tronWeb:
+                        tronWebState
+                });
+                return resolve();
+            }
+
+            let tries = 0;
+
+            const timer = setInterval(() => {
+                if (tries >= 20) { //310
+                    // const TRONGRID_API = 'https://api.trongrid.io';
+                    const TRONGRID_API = 'https://3.225.171.164';
+                    window.tronWeb = new TronWeb(
+                        TRONGRID_API,
+                        TRONGRID_API,
+                        TRONGRID_API
+                    );
+
+                    this.setState({
+                        tronWeb: {
+                            installed: false,
+                            loggedIn: false
+                        }
+                    });
+
+                    clearInterval(timer);
+                    return resolve();
+                }
+
+                tronWebState.installed = !!window.tronWeb;
+                tronWebState.loggedIn = window.tronWeb && window.tronWeb.ready;
+
+                if (!tronWebState.installed)
+                    return tries++;
+
+                this.setState({
+                    tronWeb: tronWebState
+                });
+
+                resolve();
+            }, 100);
+        });
+
+        if (!this.state.tronWeb.installed) {
+            toast.error("Tron blockchain support not enabled, Try using Token Pocket/ Tron Wallet/ Tron Link Pro for Mobile OR Tron Link chrome extension for PC");
+        }
+
+        if (!this.state.tronWeb.loggedIn) {
+            window.tronWeb.on('addressChanged', () => {
+                this.setState({
+                    tronWeb: {
+                        installed: true,
+                        loggedIn: true
+                    }
+                });
+            });
+        }
+        await Utils.setTronWeb(window.tronWeb);
+    }
+
+    loadBlockChainData = async () => {
+
+        // Global Stats
+        const sunny = 1000000;
+
+        const poolTopInfo = await Utils.contract.poolTopInfo().call();
+        var addrs1, addrs2, addrs3, addrs4, addrs5, deps1, deps2, deps3, deps4, deps5;
+
+        addrs1 = window.tronWeb.address.fromHex(poolTopInfo.addrs[0]);
+        deps1 = Number(poolTopInfo.deps[0]) / sunny;
+
+        // console.log('pool top info' + addrs1);
+
+        this.setState({ deps1 });
+        this.setState({ addrs1 });
+        let subAddrs1 = this.state.addrs1.toString();
+        let subAddress1 = subAddrs1.substring(0, 8);
+        this.setState({ subAddress1 });
+        console.log('deps1 ' + this.state.deps1 + ' ' + this.state.subAddress1)
+        // console.log(this.state.addrs1 + "----" + this.state.subAddress1)
+
+        addrs2 = window.tronWeb.address.fromHex(poolTopInfo.addrs[1]);
+        deps2 = Number(poolTopInfo.deps[1]) / sunny;
+        this.setState({ deps2 });
+        this.setState({ addrs2 });
+        let subAddrs2 = this.state.addrs2.toString();
+        let subAddress2 = subAddrs2.substring(0, 8);
+        this.setState({ subAddress2 });
+        console.log('deps2 ' + this.state.deps2 + ' ' + this.state.subAddress2)
+
+        addrs3 = window.tronWeb.address.fromHex(poolTopInfo.addrs[2]);
+        deps3 = Number(poolTopInfo.deps[2]) / sunny;
+        this.setState({ deps3 });
+        this.setState({ addrs3 });
+        let subAddrs3 = this.state.addrs3.toString();
+        let subAddress3 = subAddrs3.substring(0, 8);
+        this.setState({ subAddress3 });
+        console.log('deps3 ' + this.state.deps3 + ' ' + this.state.subAddress3)
+
+        addrs4 = window.tronWeb.address.fromHex(poolTopInfo.addrs[3]);
+        deps4 = Number(poolTopInfo.deps[3]) / sunny;
+        this.setState({ deps4 });
+        this.setState({ addrs4 });
+        let subAddrs4 = this.state.addrs4.toString();
+        let subAddress4 = subAddrs4.substring(0, 8);
+        this.setState({ subAddress4 });
+        console.log('deps4 ' + this.state.deps4 + ' ' + this.state.subAddress4)
+
+        addrs5 = window.tronWeb.address.fromHex(poolTopInfo.addrs[4]);
+        deps5 = Number(poolTopInfo.deps[4]) / sunny;
+        // console.log(addrs5 + '- dep ' + deps5);
+        this.setState({ deps5 });
+        this.setState({ addrs5 });
+        let subAddrs5 = this.state.addrs5.toString();
+        let subAddress5 = subAddrs5.substring(0, 8);
+        this.setState({ subAddress5 });
+        console.log('deps5 ' + this.state.deps5 + ' ' + this.state.subAddress5)
+
+        // console.log('contract - ' + this.state.upline);
+        // console.log('link refid - ' + this.state.refid);
+
+    }
+
     constructor(props) {
         super(props)
 
-        this.withdraw = this.withdraw.bind(this);
-
-    }
-    async withdraw() {
-        await Utils.contract
-            .withdraw()
-            .send({
-                from: this.state.account,
-            }).then(res => toast.success(' Wihdrawal processing', { position: toast.POSITION.TOP_RIGHT, autoClose: 10000 })
-
-            ).then(res => {
-                window.location = "/";
-            });
-
-
+        this.state = {
+            deps1: 0,
+            deps2: 0,
+            deps3: 0,
+            deps4: 0,
+            deps5: 0,
+            subAddress1: "",
+            subAddress2: "",
+            subAddress3: "",
+            subAddress4: "",
+            subAddress5: "",
+        }
     }
 
 
     render() {
 
-        const colStyle = {
-            backgroundImage: "linear-gradient(to right, #131050, black)", opacity: "70%", marginTop: "20px", borderRadius: "20px", marginLeft: "20px", marginRight: "20px",
-            boxShadow: "0 0 20px #eee",
+        const backStyle = {
+            backgroundImage: `url(${back})`, backgroundAttachment: "fixed", fontFamily: "MyFont"
+            , height: "auto", width: "100%", margin: "0", backgroundPosition: "center", overflow: "hidden", backgroundRepeat: "no-repeat", backgroundSize: "cover"
         };
 
+        // backgroundImage: `url(${back})`, backgroundColor: "blue",
         return (
-            <div style={{ paddingTop: "60px" }}>
-                <div className="row">
-                    <div className="col-xl-3"></div>
-                    {this.props.deps1 > 0 ?
-                        <div className="col-xl-6" style={colStyle}>
+            <div>
+                <div style={{ backgroundColor: "black", textAlign: "center" }}>
+                    <br />
+                    <h4 style={{ color: "white", fontSize: "15px" }}>Choose Language {/* <img src={require("./Image1/english.jpg")} alt="Flag" width="30px" /> */}
+                    </h4>
 
-                            <div className="col-xl-6" style={{ marginTop: "-18px", backgroundImage: "linear-gradient(to right, #131050, black)", borderRadius: "5px", color: "#1AE865", textAlign: "center", fontWeight: "bold", fontSize: "21px" }}>
-                                Top Sponsor Stats</div>
-                            <br />
+                    <div id="google_translate_element">
 
-                            <div className="col-xl-12" >
+                    </div>
+                    <br />
+                </div>
 
+                <div style={backStyle}>
+                    <hr />
+                    <hr />
+                    <div style={{ textAlign: "center" }}>
+                        <a href={url} >  <img src={require("./Image1/logo.png")} alt="Logo" width="260px" /></a>
+                    </div>
+                    <TopSponsor2
+                        deps1={this.state.deps1}
+                        subAddress1={this.state.subAddress1}
+                        deps2={this.state.deps2}
+                        subAddress2={this.state.subAddress2}
+                        deps3={this.state.deps3}
+                        subAddress3={this.state.subAddress3}
+                        deps4={this.state.deps4}
+                        subAddress4={this.state.subAddress4}
+                        deps5={this.state.deps5}
+                        subAddress5={this.state.subAddress5}
+                    />
 
-                                <p style={{ color: "white", fontSize: "17px", float: "left" }}>1. {this.props.deps1} TRX</p>
-                                <a href={addressTronScan + this.props.addrs1} style={{ color: "white", fontSize: "17px", float: "right", textDecoration: "underline" }}>
-                                    {this.props.deps1 !== 0 ? this.props.subAddres1 : null}...</a>
-
-                                <br /><br />
-
-                                <p style={{ color: "white", fontSize: "17px", float: "left" }}>2. {this.props.deps2} TRX</p>
-                                <a href={addressTronScan + this.props.addrs2} style={{ color: "white", fontSize: "17px", float: "right", textDecoration: "underline" }}>
-                                    {this.props.deps2 !== 0 ? this.props.subAddres2 : null}...</a>
-
-                                <br /><br />
-
-                                <p style={{ color: "white", fontSize: "17px", float: "left" }}>3. {this.props.deps3} TRX</p>
-                                <a href={addressTronScan + this.props.addrs3} style={{ color: "white", fontSize: "17px", float: "right", textDecoration: "underline" }}>
-                                    {this.props.deps3 !== 0 ? this.props.subAddres3 : null}...</a>
-
-                                <br /><br />
-
-                                <p style={{ color: "white", fontSize: "17px", float: "left" }}>4. {this.props.deps4} TRX</p>
-                                <a href={addressTronScan + this.props.addrs4} style={{ color: "white", fontSize: "17px", float: "right", textDecoration: "underline" }}>
-                                    {this.props.deps4 !== 0 ? this.props.subAddres4 : null}...</a>
-
-                                <br /><br />
-
-                                <p style={{ color: "white", fontSize: "17px", float: "left" }}>5. {this.props.deps5} TRX</p>
-                                <a href={addressTronScan + this.props.addrs5} style={{ color: "white", fontSize: "17px", float: "right", textDecoration: "underline" }}>
-                                    {this.props.deps5 !== 0 ? this.props.subAddres5 : null}...</a>
-
-                                <br /><br />
-                            </div>
-
-                        </div>
-
-                        : null}
-
-                    <div className="col-xl-3"></div>
+                    <div style={{ paddingBottom: "50px" }}></div>
                 </div>
 
             </div >
-
-        )
+        );
     }
 }
-
-export default TopSponsor
+export default TopSponsor;

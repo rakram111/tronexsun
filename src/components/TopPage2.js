@@ -4,6 +4,7 @@ import back from "./Image1/back.jpg"
 import TronWeb from 'tronweb';
 import Utils from '../utils';
 import PersonalStats2 from "./PersonalStats2";
+import IncomeandTeamStats from "./IncomeandTeamStats";
 
 import TeamBiz from "./TeamBiz";
 
@@ -152,7 +153,6 @@ class TopPage2 extends Component {
         const contract_bonus = await Utils.contract.getContractBonus().call();
         this.setState({ contract_bonus: Number(contract_bonus / 100).toFixed(2) });
 
-
         var totalInvested = await Utils.contract.total_deposited().call();
         this.setState({ totalInvested: Number(totalInvested) / sunny });
         this.setState({ totalInvested: this.state.totalInvested + extra_biz });
@@ -162,7 +162,6 @@ class TopPage2 extends Component {
         const pool_balance = await Utils.contract.pool_balance().call();
         this.setState({ pool_balance: Number(Number(pool_balance) / sunny).toFixed(4) });
 
-
         let subAccountstr = this.state.account.toString();
         let subAccount = subAccountstr.substring(0, 8);
         this.setState({ subAccount });
@@ -170,8 +169,6 @@ class TopPage2 extends Component {
         let contractStr = contract_address.toString();
         let subContract = contractStr.substring(0, 8);
         this.setState({ subContract });
-
-
 
         /////////////////////////////////////////////////////////////////////////////
         const userInfo = await Utils.contract.userInfo(this.state.account).call();
@@ -230,12 +227,13 @@ class TopPage2 extends Component {
         const pool_bonus = await Utils.contract.poolBonus(this.state.account).call();
         this.setState({ pool_bonus: Number(Number(pool_bonus) / sunny).toFixed(4) });
 
-        const top_promoter = await Utils.contract.getTopPromoterStatus(this.state.account).call();
-        this.setState({ top_promoter });
+        // const top_promoter = await Utils.contract.getTopPromoterStatus(this.state.account).call();
+        // this.setState({ top_promoter });
 
 
-        var income_remaining = this.state.max_payout - this.state.userTotalWithdrawn;
-        this.setState({ income_remaining });
+        var income_remaining = this.state.max_payout - this.state.payouts;
+        this.setState({ income_remaining: Number(income_remaining).toFixed(2) });
+
         const poolTopInfo = await Utils.contract.poolTopInfo().call();
         var addrs1, addrs2, addrs3, addrs4, addrs5, deps1, deps2, deps3, deps4, deps5;
 
@@ -342,7 +340,7 @@ class TopPage2 extends Component {
                 <div style={backStyle}>
                     <div style={{ textAlign: "center", paddingTop: "40px" }}>
                         <a href={url} >
-                            <img src={require("./Image1/logo.png")} alt="Logo" width="600px" />
+                            <img src={require("./Image1/logo.png")} alt="Logo" width="260px" />
                         </a>
                     </div>
                     <TeamBiz
@@ -366,8 +364,17 @@ class TopPage2 extends Component {
                         referrals_count={this.state.referrals_count}
                         total_structure={this.state.total_structure}
 
-                    /> : null}
+                    />
+                    {this.state.userTotalDeposit > 0 ?
+                        <IncomeandTeamStats
 
+                            userTotalDeposit={this.state.userTotalDeposit}
+                            userTotalWithdrawn={this.state.userTotalWithdrawn}
+
+                            referrals_count={this.state.referrals_count}
+                            total_structure={this.state.total_structure}
+
+                        /> : null}
 
                     <div style={{ paddingBottom: "30px" }}></div>
                 </div>

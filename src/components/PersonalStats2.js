@@ -78,7 +78,7 @@ class PersonalStats extends Component {
                             <p style={{ color: "white", fontSize: "17px", float: "right" }}> {this.props.deposit_amount} TRX</p>
                             <br /><br />
 
-                            <p style={{ color: "white", fontSize: "17px", float: "left" }}>Income Remaining</p>
+                            <p style={{ color: "white", fontSize: "17px", float: "left" }}>Remaining Income </p>
                             <p style={{ color: "white", fontSize: "17px", float: "right" }}> {this.props.income_remaining} TRX</p>
                             <br /><br />
 
