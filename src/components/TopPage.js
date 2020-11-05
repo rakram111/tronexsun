@@ -241,10 +241,10 @@ class TopPage extends Component {
         const pool_bonus = await Utils.contract.poolBonus(this.state.account).call();
         this.setState({ pool_bonus: Number(Number(pool_bonus) / sunny).toFixed(4) });
 
-        const top_promoter = await Utils.contract.getTopPromoterStatus(this.state.account).call();
-        this.setState({ top_promoter });
+        // const top_promoter = await Utils.contract.getTopPromoterStatus(this.state.account).call();
+        // this.setState({ top_promoter });
 
-        var income_remaining = 3.2 * this.state.userTotalDeposit - this.state.userTotalWithdrawn;
+        var income_remaining = this.state.max_payout - this.state.payouts;
         this.setState({ income_remaining: Number(income_remaining).toFixed(2) });
 
         const poolTopInfo = await Utils.contract.poolTopInfo().call();
