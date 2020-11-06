@@ -152,6 +152,7 @@ export class Invest extends Component {
                             {this.props.deposit_amount === 0 ?
                                 <p style={{ color: "white" }}>Sponsor : {this.props.refid}</p>
                                 : null}
+                            <br />
 
                             {/* {this.props.refLoading ? null :
                                 <button type="submit" className="btn btn-success" style={investButton}>Make Deposit</button>} */}

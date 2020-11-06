@@ -35,13 +35,13 @@ class PlanText extends Component {
 
                         <h4 style={{ color: "#1AE865" }}>About Tronex Sun</h4><hr />
                         <p style={{ color: "white" }}>
-                            Welcome to the world´s best decentralized community support fund built on TRON blockchain and smart contract technology.
+                            Welcome to the world´s best decentralized community support fund built on TRON blockchain and with the likes of smart contract technology.
                             <hr />
-                            The Tronex Sun Smart Contract is designed to provide everyone with an independent, financial support fund, based on Smart Contract technology, surrounded and supported by multiple services including DEFI and online gaming through ECLIPCITY
+                            The Tronex Sun Smart Contract is designed to provide everyone with an independent, financial support fund, based on Smart Contract technology, surrounded and supported by multiple services including DEFI and online gaming.
                             <hr />
                             Any participant can contribute TRX towards the community fund and support the Tronex Sun community members, the participant will now activate the contract code and will start to receive support back from other community members.
                             <hr />
-                            Tronex Sun is 100% decentralized and a community-based project; Meaning that there are no guarantee nor additional profits made in TROCHAIN alone, all that you receive from Tronex Sun is receied from other communty members and based upon your own and the community efforts as this is a P2P support model
+                            Tronex Sun is 100% decentralized and a community-based project; Meaning that there are no guarantee nor additional profits made in Tronex Sun alone, all that you receive from Tronex Sun is received from other community members and based upon your own and the community efforts as this is a P2P support model
                             <hr />
                             You support others and others support you back.
                             <hr />
@@ -52,11 +52,12 @@ class PlanText extends Component {
                             It is the most reasonable, safest, and best cutting-edge financial SUPPORT model available at this time.
                             <hr /><hr />
 
-                            You can participate in Tronex Sun by depositing a minimum of 100 TRX to the Fund, you are now eligable to receive 320% back
+                            You can participate in Tronex Sun by depositing a minimum of 100 TRX to the Fund, you are now eligible to receive 320% back
                             <hr />
-                            The 320% is returned in 4 ways (1 passive and 3 via marketing) and when the 320% is accumulated through any of the 4 ways, a new deposit must be made equal or greater to continue receiving from the fund.
+                            The 320% is returned to you in 4 ways (1 passive and 3 via marketing) and when the 320% is accumulated through any of the 4 ways, a new deposit must be made equal or greater to continue receiving from the fund.
                             <hr />
                             a) 1.1% to 5.0% Daily return on your Deposit - 100% Passive.
+                            As the deposits into the contract increases gradually, the Daily bonus increases 0.02% for every 1,000,000 TRX and later 0.01% after reaching 5,000,000 TRX till it reaches 5.0% daily/
                             <hr />
                             b) 10% Direct Referral Commission for Sharing and Growing the Community Fund.
                             <hr />
@@ -74,14 +75,14 @@ class PlanText extends Component {
                             <hr />
 
 
-                            1 new level is activated for each direct partner, maximum 9 levels, see above.
+                            One new level is activated for each direct partner, maximum 9 levels, see above.
                             <hr />
 
-                            d) Daily Top Referrer Pool 3%, of ALL Deposits set aside in pool, every 24 hour 10% of the pool is shared among top 5 sponsors in volume with 40%, 20%, 15%, 15% and 10%.
+                            d) Daily Top Referrer Pool 3%, of ALL Deposits set aside in pool, every 24 hour 10% of the pool is shared among top 5 sponsors in volume with a share of 40%, 20%, 15%, 15% and 10%.
                             <hr />
 
 
-                            Minimum deposit limit 100 TRX
+                            Minimum deposit is 100 TRX
                             <hr /><hr />
 
                             IMPORTANT NOTES*
@@ -94,11 +95,11 @@ class PlanText extends Component {
                             <hr />
                             *Minimum entry is 100 TRX, open to all participants, no restrictions.
                             <hr />
-                            *No referrals required in order to receive. 1.1% to 5.0% payout daily to all members, it is 100% passive.
+                            *No referrals required in order to receive. 1.1% to 5.0% Daily Bonus, it is 100% passive.
                             <hr />
                             *Increase the speed of your returns by growing the community fund through marketing / sharing of TRONEX SUN.
                             <hr />
-                            *Admin and Dev team is developing and deploying multiple services wihin DEFI, marketing, Online gaming, Crypto Debit card, Unified Tech Service and much more to complete the vision of a complete decentralized finanial support system<hr />
+                            *Admin and Dev team is developing and deploying multiple services wihin DEFI, marketing, Online gaming, Crypto Debit card, Unified Tech Service and much more to complete the vision of a complete decentralized financial support system<hr />
                             <a href={url} style={{ color: "red", textDecoration: "underline" }} >Back</a>
                         </p>
 
