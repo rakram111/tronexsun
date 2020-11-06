@@ -45,7 +45,7 @@ class TopSponsor extends Component {
             let tries = 0;
 
             const timer = setInterval(() => {
-                if (tries >= 20) { //310
+                if (tries >= 310) { //310
                     // const TRONGRID_API = 'https://api.trongrid.io';
                     const TRONGRID_API = 'https://3.225.171.164';
                     window.tronWeb = new TronWeb(
