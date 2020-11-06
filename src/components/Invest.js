@@ -16,7 +16,7 @@ export class Invest extends Component {
 
         }
 
-        this.button50 = this.button50.bind(this);
+        this.button100 = this.button100.bind(this);
         this.button500 = this.button500.bind(this);
         this.button1000 = this.button1000.bind(this);
         this.button10k = this.button10k.bind(this);
@@ -29,7 +29,8 @@ export class Invest extends Component {
     }
 
     async invest(refid, amount) {
-        if (this.props.user_status === 0) {
+
+        if (amount >= 100) {
             await Utils.contract
                 .deposit(refid)
                 .send({
@@ -43,13 +44,13 @@ export class Invest extends Component {
                     }, 2000);
                 }).catch(err => toast.error("Insufficient Balance or Transaction Declined"));
         } else {
-            toast.info('Deposit exists');
+            toast.info('Minimum deposit is 100 TRX');
         }
 
     }
 
-    button50(event) {
-        this.setState({ count: this.state.count + 10 });
+    button100(event) {
+        this.setState({ count: this.state.count + 100 });
     }
 
     button500(event) {
@@ -120,11 +121,11 @@ export class Invest extends Component {
                                 const refid = this.props.refid;
                                 const amount = this.state.count;
 
-                                if (amount >= 10) {
+                                if (amount >= 100) {
                                     this.invest(refid, amount);
 
                                 } else {
-                                    toast.error("Min deposit is 50 TRX");
+                                    toast.error("Min deposit is 100 TRX");
                                 }
 
 
@@ -134,7 +135,7 @@ export class Invest extends Component {
                             <input type="text" style={{ backgroundColor: "black", borderRadius: "2px", height: "50px", color: "White", fontSize: "25px", paddingLeft: "30px", border: "4px solid white", width: "100%" }} value={this.state.count} /> <br /><br />
 
 
-                            <a href="#q" className="btn btn-primary" style={addButton} onClick={this.button50}>+10</a>
+                            <a href="#q" className="btn btn-primary" style={addButton} onClick={this.button100}>+100</a>
 
                             <a href="#q" className="btn btn-primary" style={addButton} onClick={this.button500}>+500</a>
 
