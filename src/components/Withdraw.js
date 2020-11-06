@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import Utils from "../utils";
 import { toast } from 'react-toastify';
-
 import 'react-toastify/dist/ReactToastify.css';
 
 toast.configure();
@@ -22,12 +21,12 @@ class Withdraw extends Component {
             .withdraw()
             .send({
                 from: this.state.account,
-            }).then(res => toast.success(' Wihdrawal processing', { position: toast.POSITION.TOP_RIGHT, autoClose: 10000 })
+            }).then(res => toast.success(' Wihdrawal processing', { position: toast.POSITION.TOP_RIGHT, autoClose: 5000 })
 
             ).then(res => {
                 setInterval(() => {
                     window.location = "/";
-                }, 4000);
+                }, 3000);
             }).catch(err => toast.error("Something went wrong"));
 
 

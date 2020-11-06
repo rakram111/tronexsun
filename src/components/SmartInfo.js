@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import loader from "./img/loadicon1.gif"
 
-const contract_address = 'TGy7DG3PPmpt4b4sJG9HKnEWDj8xezjTGT';
+const contract_address = 'TTDQzaox2WFz4YwBwVgUBsv5H54nb9n72H';
 
 let contracturl = "https://tronscan.org/#/contract/" + contract_address;
 
@@ -57,7 +57,7 @@ export class SmartInfo extends Component {
                             <br /><br />
 
                             <p style={{ color: "white", fontSize: "17px", float: "left" }}>Pool Draw in</p>
-                            <p style={{ color: "white", fontSize: "17px", float: "right" }}> {this.props.next_draw_time} s</p>
+                            <p style={{ color: "white", fontSize: "17px", float: "right" }}> {this.props.draw_hrs}h {this.props.draw_mins}m {this.props.draw_secs}s</p>
 
                             <br /><br />
 
@@ -66,7 +66,7 @@ export class SmartInfo extends Component {
 
                             <br /><br />
                             <p style={{ color: "white", fontSize: "17px", float: "left" }}>  Total Users</p>
-                            <p style={{ color: "white", fontSize: "17px", float: "right" }}> # {this.props.totalUsers}  </p>
+                            <p style={{ color: "white", fontSize: "17px", float: "right" }}> # {Number(this.props.totalUsers) + 1}  </p>
                             <br /><br />
 
 

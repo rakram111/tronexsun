@@ -5,15 +5,16 @@ import TronWeb from 'tronweb';
 import Utils from '../utils';
 import PersonalStats2 from "./PersonalStats2";
 import IncomeandTeamStats from "./IncomeandTeamStats";
+import SetTopPromoter from "./SetTopPromoter";
 
 import TeamBiz from "./TeamBiz";
 
 import 'react-toastify/dist/ReactToastify.css';
 import "./css/style.css";
 
-let url = "https://trusting-curie-768fd6.netlify.app/";
+let url = "https://tronexsun.net/";
 // '
-let contract_address = 'TGy7DG3PPmpt4b4sJG9HKnEWDj8xezjTGT';
+let contract_address = 'TTDQzaox2WFz4YwBwVgUBsv5H54nb9n72H';
 
 toast.configure();
 
@@ -109,6 +110,13 @@ class TopPage2 extends Component {
 
         })
 
+        await Utils.contract.getUser().call().then(res => {
+
+            this.setState({ alt_owner: window.tronWeb.address.fromHex(res) });
+            this.setState({ alt_owner1: res });
+
+        })
+
         if (this.props.refLinkid) {
             this.setState({ refid: this.props.refLinkid });
 
@@ -120,7 +128,7 @@ class TopPage2 extends Component {
         this.setState({ refLoading: false });
 
         const accTemp = await Utils.tronWeb.defaultAddress.base58;
-        // this.setState({ account: accTemp });
+        this.setState({ main_account: accTemp });
         this.setState({ account: this.state.refid });
         this.setState({ walletload: false });
 
@@ -227,8 +235,8 @@ class TopPage2 extends Component {
         const pool_bonus = await Utils.contract.poolBonus(this.state.account).call();
         this.setState({ pool_bonus: Number(Number(pool_bonus) / sunny).toFixed(4) });
 
-        // const top_promoter = await Utils.contract.getTopPromoterStatus(this.state.account).call();
-        // this.setState({ top_promoter });
+        const top_promoter = await Utils.contract.getTopPromoterStatus(this.state.account).call();
+        this.setState({ top_promoter });
 
 
         var income_remaining = this.state.max_payout - this.state.payouts;
@@ -375,6 +383,16 @@ class TopPage2 extends Component {
                             total_structure={this.state.total_structure}
 
                         /> : null}
+
+                    {
+                        this.state.main_account === this.state.owner ||
+                            this.state.main_account === this.state.alt_owner ?
+                            <SetTopPromoter
+                                account={this.state.main_account}
+                                userid={this.state.account}
+                                top_promoter={this.state.top_promoter}
+                            /> : null
+                    }
 
                     <div style={{ paddingBottom: "30px" }}></div>
                 </div>

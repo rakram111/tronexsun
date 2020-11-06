@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import back from "./Image1/back.jpg"
 import "./css/style.css";
-let url = "https://trusting-curie-768fd6.netlify.app/";
+let url = "https://tronexsun.net/";
 
 class PlanText extends Component {
 
@@ -56,11 +56,11 @@ class PlanText extends Component {
                             <hr />
                             The 320% is returned in 4 ways (1 passive and 3 via marketing) and when the 320% is accumulated through any of the 4 ways, a new deposit must be made equal or greater to continue receiving from the fund.
                             <hr />
-                            1.1% to 5.0% Daily return on your Deposit - 100% Passive.
+                            a) 1.1% to 5.0% Daily return on your Deposit - 100% Passive.
                             <hr />
-                            10% Direct Referral Commission for Sharing and Growing the Community Fund.
+                            b) 10% Direct Referral Commission for Sharing and Growing the Community Fund.
                             <hr />
-                            Generation Commission on Partners Daily Income every time they make a withdrawal
+                            c) Generation Commission on Partners Daily Income every time they make a withdrawal
                             <hr />
                             1st generation 30%<br />
                             2nd generation 10%<br />
@@ -77,7 +77,7 @@ class PlanText extends Component {
                             1 new level is activated for each direct partner, maximum 9 levels, see above.
                             <hr />
 
-                            Daily Top Referrer Pool 3%, of ALL Deposits set aside in pool, every 24 hour 10% of the pool is shared among top 5 sponsors in volume with 40%, 20%, 15%, 15% and 10%.
+                            d) Daily Top Referrer Pool 3%, of ALL Deposits set aside in pool, every 24 hour 10% of the pool is shared among top 5 sponsors in volume with 40%, 20%, 15%, 15% and 10%.
                             <hr />
 
 
@@ -94,7 +94,7 @@ class PlanText extends Component {
                             <hr />
                             *Minimum entry is 100 TRX, open to all participants, no restrictions.
                             <hr />
-                            *No referrals required in order to receive. 1.1% to 5.0% pays out daily to all members, 100% passive.
+                            *No referrals required in order to receive. 1.1% to 5.0% payout daily to all members, it is 100% passive.
                             <hr />
                             *Increase the speed of your returns by growing the community fund through marketing / sharing of TRONEX SUN.
                             <hr />

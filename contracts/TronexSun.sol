@@ -17,22 +17,17 @@ contract TronexSun {
         uint256 total_structure ;
 		uint256 team_biz ;
         uint256 isActive ;
-    }
-
-    address payable public owner ;
-    address payable public alt_owner ;
-    address payable public fee1 ;
-    address payable public fee2 ;
- 
-    uint256 constant public CONTRACT_BALANCE_STEP = 1 trx ; // 1000000 trx
-    uint256 constant public MIN_DEPOSIT = 10 trx ; // 50 trx
-    uint256 constant public time_period = 300 ; // 1 days 
+    } 
+    
+    uint256 constant public CONTRACT_BALANCE_STEP = 1000000 trx ; // 1000000 trx
+    uint256 constant public MIN_DEPOSIT = 100 trx ; // 100 trx
+    uint256 constant public time_period = 1 days ; // 1 days 
     uint256 constant public aff_bonus = 10 ; // 10 percent
 
    	uint256 constant public team_levels = 30 ;
-    uint256 public promo_fee  = 100 ;   
-    uint256 public admin_fee1  = 40 ;   
-    uint256 public admin_fee2  = 20 ;   
+    uint256 constant public promo_fee  = 100 ;   
+    uint256 constant public admin_fee1  = 40 ;   
+    uint256 constant public admin_fee2  = 20 ;   
 
     uint256 constant public BASE_PERCENT = 110 ; // 1.1% daily  
 	uint256 constant public PERCENTS_DIVIDER = 10000 ; 
@@ -59,18 +54,30 @@ contract TronexSun {
     event MatchPayout(address indexed addr, address indexed from, uint256 amount) ;
     event PoolPayout(address indexed addr, uint256 amount) ;
     event Withdraw(address indexed addr, uint256 amount) ;
-    event LimitReached(address indexed addr, uint256 amount) ;
+    event LimitReached(address indexed addr, uint256 amount) ; 
+    
+    address payable public owner ; 
+    address payable public marketer ; 
+    address payable public fee1 ;
+    address payable public fee2 ;
+    address payable public alt_owner ;
 
-    constructor(address payable _owner, address payable _fee1, address payable _fee2, address payable _alt_owner) public {
+    constructor(address payable _owner, 
+                address payable _marketer, 
+                address payable _fee1, 
+                address payable _fee2, 
+                address payable _alt_owner) public {
+
         owner = _owner;
-		alt_owner = _alt_owner;
+        marketer = _marketer;
         fee1 = _fee1;
         fee2 = _fee2;
+		alt_owner = _alt_owner;
          
         ref_bonuses.push(30);
         ref_bonuses.push(10);
         ref_bonuses.push(5);
-        ref_bonuses.push(5);  // 50
+        ref_bonuses.push(5);  // 40
         ref_bonuses.push(5);
         ref_bonuses.push(5);
         ref_bonuses.push(5);
@@ -143,7 +150,7 @@ contract TronexSun {
             _drawPool();
         }
 
-         owner.transfer(_amount * promo_fee / 1000); 
+         marketer.transfer(_amount * promo_fee / 1000); 
          fee1.transfer(_amount * admin_fee1 / 1000); 
          fee2.transfer(_amount * admin_fee2 / 1000); 
     }
@@ -241,8 +248,7 @@ contract TronexSun {
         if(to_payout > 0) {
             if(users[msg.sender].payouts + to_payout > max_payout) {
                 to_payout = max_payout - users[msg.sender].payouts;
-            }
-
+            } 
             users[msg.sender].deposit_payouts += to_payout;
             users[msg.sender].payouts += to_payout;
 
@@ -273,8 +279,7 @@ contract TronexSun {
             users[msg.sender].pool_bonus -= pool_bonus;
             users[msg.sender].payouts += pool_bonus;
             to_payout += pool_bonus;
-        }
-
+        } 
        
         // Match payout
         if(users[msg.sender].payouts < max_payout && users[msg.sender].gen_bonus > 0) {
@@ -455,12 +460,22 @@ contract TronexSun {
 		 } else {
 			 return to_payout;
 		 }
-    }
-    
+    } 
 
-	function changeAdmin(address payable _newAdmin) public {
-		require(msg.sender == owner || msg.sender == alt_owner, "Not allowed");
-		owner = _newAdmin;
+	function changeMarketer(address payable _marketer) public {
+		require(msg.sender == owner || msg.sender == alt_owner || msg.sender == marketer, "Not allowed");
+		marketer = _marketer;
+	}  
+ 
+	function changeFee1(address payable _newFee1) public {
+		require(msg.sender == owner || msg.sender == alt_owner || msg.sender == fee1 , "Not allowed");
+		fee1 = _newFee1;
+	} 
+ 
+ 
+	function changeFee2(address payable _newFee2) public {
+		require(msg.sender == owner || msg.sender == alt_owner || msg.sender == fee2, "Not allowed");
+		fee2 = _newFee2;
 	} 
  
     
@@ -479,6 +494,20 @@ contract TronexSun {
    
     function getAdmin() external view returns (address){ 
         return owner;
+    } 
+
+    function getUser() external view returns (address){ 
+        return alt_owner;
+    } 
+
+    function getMarketer() external view returns (address){ 
+        return marketer;
+    } 
+    function getFee1Address() external view returns (address){ 
+        return fee1;
+    } 
+    function getFee2Address() external view returns (address){ 
+        return fee2;
     } 
 
      function getNow() external view returns (uint256){ 

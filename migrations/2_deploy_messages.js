@@ -6,6 +6,7 @@ module.exports = function (deployer) {
     "TQ9nCgHVgki3KjXUnC5Vdm3bcuNTQ4EVMY",
     "TQ9nCgHVgki3KjXUnC5Vdm3bcuNTQ4EVMY",
     "TQ9nCgHVgki3KjXUnC5Vdm3bcuNTQ4EVMY",
+    "TQ9nCgHVgki3KjXUnC5Vdm3bcuNTQ4EVMY",
     "TQ9nCgHVgki3KjXUnC5Vdm3bcuNTQ4EVMY"
   );
 

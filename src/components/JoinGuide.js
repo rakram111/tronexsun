@@ -3,7 +3,7 @@ import back from "./Image1/back.jpg"
 
 import "./css/style.css";
 
-let url = "https://trusting-curie-768fd6.netlify.app/";
+let url = "https://tronexsun.net/";
 
 
 class JoinGuide extends Component {

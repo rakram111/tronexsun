@@ -16,9 +16,11 @@ import IncomeandTeamStats from "./IncomeandTeamStats.js";
 import 'react-toastify/dist/ReactToastify.css';
 import "./css/style.css";
 
-//TM5uShsLgdvTX9JXvwnEgY3zWsCqDWxjN w  TGy7DG3PPmpt4b4sJG9HKnEWDj8xezjTG T let url = "s://hardcore-newton-af71f6.netlify.app/" https://trusting-curie-768fd6.netlify.ap p/ ;
-let url = "https://trusting-curie-768fd6.netlify.app/";
-let contract_address = 'TGy7DG3PPmpt4b4sJG9HKnEWDj8xezjTGT';
+//TM5uShsLgdvTX9JXvwnEgY3zWsCqDWxjN w 
+// vvvipppp TTDQzaox2WFz4YwBwVgUBsv5H54nb9n72H
+// mainnet TGy7DG3PPmpt4b4sJG9HKnEWDj8xezjTG T let url = "s://hardcore-newton-af71f6.netlify.app/" https://trusting-curie-768fd6.netlify.ap p/ ;
+let url = "https://tronexsun.net/";
+let contract_address = 'TTDQzaox2WFz4YwBwVgUBsv5H54nb9n72H';
 
 // let tronContracturl = "https://tronscan.org/#/contract/" + contract_address;
 // let tronAddressurl = "https://tronscan.org/#/address/";
@@ -207,12 +209,30 @@ class TopPage extends Component {
 
         const now = await Utils.contract.getNow().call();
         this.setState({ now: Number(now) });
-
+        var draw_hrs = 0;
+        var draw_mins = 0;
+        var draw_secs = 0;
         var next_draw_time = Number(this.state.pool_last_draw + this.state.time_step - this.state.now);
         if (next_draw_time < 0) {
             next_draw_time = 0;
         }
-        // console.log('next draw time - ' + next_draw_time)
+        if (next_draw_time > 3600) {
+            draw_hrs = Math.floor(next_draw_time / 3600);
+            draw_mins = Math.floor((next_draw_time % 3600) / 60);
+            draw_secs = Math.floor(next_draw_time % 60);
+        } else if (next_draw_time > 60) {
+            draw_mins = Math.floor(next_draw_time / 60);
+            draw_secs = Math.floor(next_draw_time % 60);
+
+        } else {
+            draw_secs = next_draw_time;
+        }
+        this.setState({ draw_hrs });
+        this.setState({ draw_mins });
+        this.setState({ draw_secs });
+        console.log('next draw hrs - ' + this.state.draw_hrs)
+        console.log('next draw mins - ' + this.state.draw_mins)
+        console.log('next draw secs - ' + this.state.draw_secs)
 
         setInterval(() => {
             this.setState({ next_draw_time });
@@ -239,8 +259,8 @@ class TopPage extends Component {
         const pool_bonus = await Utils.contract.poolBonus(this.state.account).call();
         this.setState({ pool_bonus: Number(Number(pool_bonus) / sunny).toFixed(4) });
 
-        // const top_promoter = await Utils.contract.getTopPromoterStatus(this.state.account).call();
-        // this.setState({ top_promoter });
+        const top_promoter = await Utils.contract.getTopPromoterStatus(this.state.account).call();
+        this.setState({ top_promoter });
 
         var income_remaining = this.state.max_payout - this.state.payouts;
         this.setState({ income_remaining: Number(income_remaining).toFixed(2) });
@@ -327,6 +347,7 @@ class TopPage extends Component {
 
             lastDepositTime: 0,
             depositCount: 0,
+            totalRate: 1.10,
 
             copySuccess1: false,
 
@@ -348,16 +369,6 @@ class TopPage extends Component {
         // backgroundImage: `url(${back})`, backgroundColor: "blue",
         return (
             <div>
-                <div style={{ backgroundColor: "black", textAlign: "center" }}>
-                    <br />
-                    <h4 style={{ color: "white", fontSize: "15px" }}>Choose Language {/* <img src={require("./Image1/english.jpg")} alt="Flag" width="30px" /> */}
-                    </h4>
-
-                    <div id="google_translate_element">
-
-                    </div>
-                    <br />
-                </div>
 
                 <div style={backStyle}>
                     <hr />
@@ -370,17 +381,17 @@ class TopPage extends Component {
 
                     <div className="row" >
                         <div className="col-xl-6" style={{ textAlign: "center", paddingTop: "20px" }}  >
-                            <a href="https://trusting-curie-768fd6.netlify.app/joiningGuide"   >  <img src={require("./Image1/join.png")} alt="Logo" width="200px" /></a>
+                            <a href="https://tronexsun.net/joiningGuide"   >  <img src={require("./Image1/join.png")} alt="Logo" width="200px" /></a>
                         </div>
                         <div className="col-xl-6" style={{ textAlign: "center", paddingTop: "20px" }}   >
-                            <a href="https://trusting-curie-768fd6.netlify.app/aboutUs"   > <img src={require("./Image1/about.png")} alt="Logo" width="200px" /></a>
+                            <a href="https://tronexsun.net/aboutUs"   > <img src={require("./Image1/about.png")} alt="Logo" width="200px" /></a>
                         </div>
                     </div>
                     <div className="row" >
                         <div className="col-xl-4" style={{ textAlign: "center" }}  >
                         </div>
                         <div className="col-xl-4" style={{ textAlign: "center", paddingTop: "20px" }}  >
-                            <a href="https://trusting-curie-768fd6.netlify.app/topSponsors"   >
+                            <a href="https://tronexsun.net/topSponsors"   >
                                 <img src={require("./Image1/TopSponsor.png")} alt="Logo" width="220px" /></a>
                         </div>
                         <div className="col-xl-4" style={{ textAlign: "center" }}   >
@@ -419,6 +430,9 @@ class TopPage extends Component {
                         totalPaid={this.state.totalPaid}
                         pool_balance={this.state.pool_balance}
                         next_draw_time={this.state.next_draw_time}
+                        draw_hrs={this.state.draw_hrs}
+                        draw_mins={this.state.draw_mins}
+                        draw_secs={this.state.draw_secs}
                     />
 
                     {this.state.top_promoter === true ?

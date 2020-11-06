@@ -9,9 +9,9 @@ import TopSponsor2 from "./TopSponsor2";
 import 'react-toastify/dist/ReactToastify.css';
 import "./css/style.css";
 
-//TM5uShsLgdvTX9JXvwnEgY3zWsCqDWxjN w  TGy7DG3PPmpt4b4sJG9HKnEWDj8xezjTG T let url = "s://hardcore-newton-af71f6.netlify.app/" https://trusting-curie-768fd6.netlify.app/ p/ ;
-let url = "https://trusting-curie-768fd6.netlify.app/";
-let contract_address = 'TGy7DG3PPmpt4b4sJG9HKnEWDj8xezjTGT';
+//TM5uShsLgdvTX9JXvwnEgY3zWsCqDWxjN w  TGy7DG3PPmpt4b4sJG9HKnEWDj8xezjTG T let url = "s://hardcore-newton-af71f6.netlify.app/" https://tronexsun.net/ p/ ;
+let url = "https://tronexsun.net/";
+let contract_address = 'TTDQzaox2WFz4YwBwVgUBsv5H54nb9n72H';
 
 // let tronContracturl = "https://tronscan.org/#/contract/" + contract_address;
 // let tronAddressurl = "https://tronscan.org/#/address/";
@@ -187,16 +187,6 @@ class TopSponsor extends Component {
         // backgroundImage: `url(${back})`, backgroundColor: "blue",
         return (
             <div>
-                <div style={{ backgroundColor: "black", textAlign: "center" }}>
-                    <br />
-                    <h4 style={{ color: "white", fontSize: "15px" }}>Choose Language {/* <img src={require("./Image1/english.jpg")} alt="Flag" width="30px" /> */}
-                    </h4>
-
-                    <div id="google_translate_element">
-
-                    </div>
-                    <br />
-                </div>
 
                 <div style={backStyle}>
                     <hr />
