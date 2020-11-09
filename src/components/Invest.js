@@ -154,8 +154,8 @@ export class Invest extends Component {
                                 : null}
                             <br />
 
-                            {/* {this.props.refLoading ? null :
-                                <button type="submit" className="btn btn-success" style={investButton}>Make Deposit</button>} */}
+                            {this.props.refLoading ? null :
+                                <button type="submit" className="btn btn-success" style={investButton}>Make Deposit</button>}
 
 
                         </form>

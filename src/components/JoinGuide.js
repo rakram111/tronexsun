@@ -57,7 +57,10 @@ class JoinGuide extends Component {
                             <br /> Copy ref link from sponsor<br /> enter ref link into your pc browser with TRONLINK extension<br /> Select the amount you wish to deposit  <br /> Click join and confirm transaction in wallet
 
                             <hr />
+
+
                             <a href={url} style={{ color: "red", textDecoration: "underline" }} >Back</a>
+
                         </p>
 
                     </div>

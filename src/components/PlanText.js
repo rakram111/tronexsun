@@ -100,6 +100,7 @@ class PlanText extends Component {
                             *Increase the speed of your returns by growing the community fund through marketing / sharing of TRONEX SUN.
                             <hr />
                             *Admin and Dev team is developing and deploying multiple services wihin DEFI, marketing, Online gaming, Crypto Debit card, Unified Tech Service and much more to complete the vision of a complete decentralized financial support system<hr />
+                            <a href="https://drive.google.com/file/d/1LbAYOxkCBILDDGs1LnP4F_eoVKT-zi6y/view?usp=sharing">Check Out</a> our presentation here<hr />
                             <a href={url} style={{ color: "red", textDecoration: "underline" }} >Back</a>
                         </p>
 

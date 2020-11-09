@@ -1,11 +1,9 @@
 import React, { Component } from 'react'
 
 import 'react-toastify/dist/ReactToastify.css';
-const url = "http://localhost:3000";
+const url = "https//tronexsun.net/";
 
 class TopSponsor2 extends Component {
-
-
 
     render() {
 
@@ -60,8 +58,10 @@ class TopSponsor2 extends Component {
                                 {this.props.deps5 > 0 ? this.props.subAddress5 : null}... </p>
 
                             <br /><br />
+                            <p>
+                                <a href={url} style={{ color: "red", textDecoration: "underline" }} >Back</a>
+                            </p>
 
-                            <a href={url} style={{ color: "white", textDecoration: "underline" }} >Back</a>
                             <br />
                             <br />
                         </div>
