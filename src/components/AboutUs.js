@@ -3,7 +3,7 @@ import back from "./Image1/back.jpg"
 import "./css/style.css";
 let url = "https://tronexsun.net/";
 
-class PlanText extends Component {
+class AboutUs extends Component {
 
     render() {
 
@@ -57,7 +57,7 @@ class PlanText extends Component {
                             The 320% is returned to you in 4 ways (1 passive and 3 via marketing) and when the 320% is accumulated through any of the 4 ways, a new deposit must be made equal or greater to continue receiving from the fund.
                             <hr />
                             a) 1.1% to 5.0% Daily return on your Deposit - 100% Passive.
-                            As the deposits into the contract increases gradually, the Daily bonus increases 0.02% for every 1,000,000 TRX and later 0.01% after reaching 5,000,000 TRX till it reaches 5.0% daily/
+                            As the deposits into the contract increases gradually, the Daily bonus increases 0.02% for every 1,000,000 TRX and later 0.01% after reaching 50,000,000 TRX till it reaches 5.0% daily/
                             <hr />
                             b) 10% Direct Referral Commission for Sharing and Growing the Community Fund.
                             <hr />
@@ -110,4 +110,4 @@ class PlanText extends Component {
         );
     }
 }
-export default PlanText;
+export default AboutUs;
