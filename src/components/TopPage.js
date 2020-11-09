@@ -166,6 +166,8 @@ class TopPage extends Component {
         const pool_balance = await Utils.contract.pool_balance().call();
         this.setState({ pool_balance: Number(Number(pool_balance) / sunny).toFixed(4) });
 
+        this.setState({ totalPaid: this.state.total_deposited - this.state.contractBalance });
+
 
         let subAccountstr = this.state.account.toString();
         let subAccount = subAccountstr.substring(0, 8);
