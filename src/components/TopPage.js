@@ -156,7 +156,10 @@ class TopPage extends Component {
 
         var totalInvested = await Utils.contract.total_deposited().call();
         this.setState({ totalInvested: Number(totalInvested) / sunny });
-        this.setState({ totalInvested: this.state.totalInvested + extra_biz });
+        this.setState({
+            totalInvested: Math.ceil((this.state.totalInvested * 0.9) / 100) * 100
+        });
+
 
         const totalPaid = await Utils.contract.total_withdraw().call();
         this.setState({ totalPaid: Number(totalPaid) / sunny });
