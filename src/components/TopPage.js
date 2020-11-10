@@ -164,7 +164,7 @@ class TopPage extends Component {
         const totalPaid = await Utils.contract.total_withdraw().call();
         this.setState({ totalPaid: Number(totalPaid) / sunny });
         const pool_balance = await Utils.contract.pool_balance().call();
-        this.setState({ pool_balance: Number(Number(pool_balance) / sunny).toFixed(4) });
+        this.setState({ pool_balance: Number(Number(pool_balance) / sunny) });
 
         this.setState({ totalPaid: this.state.totalInvested - this.state.contractBalance });
 
