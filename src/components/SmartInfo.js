@@ -65,10 +65,9 @@ export class SmartInfo extends Component {
                             <p style={{ color: "white", fontSize: "17px", float: "right" }}> {this.props.pool_balance} TRX</p>
 
                             <br /><br />
-                            {/* <p style={{ color: "white", fontSize: "17px", float: "left" }}>  Total Users</p>
+                            <p style={{ color: "white", fontSize: "17px", float: "left" }}>  Total Users</p>
                             <p style={{ color: "white", fontSize: "17px", float: "right" }}> # {this.props.totalUsers > 0 ? Number(this.props.totalUsers) + 1 : 0}  </p>
-                            <br /><br /> */}
-
+                            <br /><br />
 
 
                         </div>
