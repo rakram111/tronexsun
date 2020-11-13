@@ -140,7 +140,7 @@ class TopPage extends Component {
         this.setState({ balanceload: false });
 
         const contractBalance = await Utils.contract.getContractBalance().call();
-        this.setState({ contractBalance: contractBalance / sunny });
+        this.setState({ contractBalance: Number(contractBalance / sunny).toFixed(2) });
 
         const totalRate = await Utils.contract.getRate().call();
         this.setState({ totalRate: (Number(totalRate) / 100).toFixed(2) });
@@ -162,11 +162,11 @@ class TopPage extends Component {
 
 
         const totalPaid = await Utils.contract.total_withdraw().call();
-        this.setState({ totalPaid: Number(totalPaid) / sunny });
+        this.setState({ totalPaid: Number(Number(totalPaid) / sunny).toFixed(0) });
         const pool_balance = await Utils.contract.pool_balance().call();
         this.setState({ pool_balance: Number(Number(pool_balance) / sunny) });
 
-        this.setState({ totalPaid: this.state.totalInvested - this.state.contractBalance });
+        this.setState({ totalPaid: Number(this.state.totalInvested - this.state.contractBalance).toFixed(2) });
 
 
         let subAccountstr = this.state.account.toString();
