@@ -250,9 +250,9 @@ class TopPage extends Component {
         const avlBalance = await Utils.contract.getUserBalance(this.state.account).call();
         this.setState({ avlBalance: Number(Number(avlBalance) / sunny).toFixed(4) });
 
-        this.state.contractBalance > this.state.avlBalance ?
-            this.setState({ avlBalance: this.state.avlBalance }) :
-            this.setState({ avlBalance: this.state.contractBalance })
+        // this.state.contractBalance > this.state.avlBalance ?
+        //     this.setState({ avlBalance: this.state.avlBalance }) :
+        //     this.setState({ avlBalance: this.state.contractBalance })
 
         const max_payout = await Utils.contract.maxPayoutOf(this.state.deposit_amount * sunny).call();
         this.setState({ max_payout: Number(Number(max_payout) / sunny) });
@@ -463,6 +463,7 @@ class TopPage extends Component {
                             income_remaining={this.state.income_remaining}
                             referrals_count={this.state.referrals_count}
                             total_structure={this.state.total_structure}
+                            avlBalance={this.state.avlBalance}
 
                         /> : null}
 

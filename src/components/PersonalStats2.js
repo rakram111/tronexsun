@@ -105,6 +105,10 @@ class PersonalStats extends Component {
                             <p style={{ color: "white", fontSize: "17px", float: "right" }}> {this.props.userTotalWithdrawn} TRX</p>
                             <br /> <br />
 
+                            <p style={{ color: "white", fontSize: "17px", float: "left" }}>Balance Available</p>
+                            <p style={{ color: "white", fontSize: "17px", float: "right" }}> {this.props.avlBalance} TRX</p>
+                            <br /> <br />
+
 
                         </div>
                     </div>
