@@ -59,7 +59,7 @@ class TopSponsor2 extends Component {
 
                             <br /><br />
                             <p>
-                                <a href={url} style={{ color: "red", textDecoration: "underline" }} >Back</a>
+                                <a href="https://tronexsun.net" style={{ color: "red", textDecoration: "underline" }} >Back</a>
                             </p>
 
                             <br />
