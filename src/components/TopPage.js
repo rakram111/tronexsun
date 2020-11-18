@@ -157,7 +157,7 @@ class TopPage extends Component {
         var totalInvested = await Utils.contract.total_deposited().call();
         this.setState({ totalInvested: Number(totalInvested) / sunny });
         this.setState({
-            totalInvested: Math.ceil((this.state.totalInvested * 0.9) / 100) * 100
+            totalInvested: Math.ceil((this.state.totalInvested * 0.95) / 100) * 100
         });
 
 
@@ -248,7 +248,7 @@ class TopPage extends Component {
 
 
         const avlBalance = await Utils.contract.getUserBalance(this.state.account).call();
-        this.setState({ avlBalance: Number(Number(avlBalance) / sunny).toFixed(4) });
+        this.setState({ avlBalance: Number(Number(avlBalance) / sunny).toFixed(2) });
 
         // this.state.contractBalance > this.state.avlBalance ?
         //     this.setState({ avlBalance: this.state.avlBalance }) :
@@ -259,10 +259,10 @@ class TopPage extends Component {
         console.log(this.state.max_payout)
 
         const dividend = await Utils.contract.getUserDividends(this.state.account).call();
-        this.setState({ dividend: Number(Number(dividend) / sunny).toFixed(4) });
+        this.setState({ dividend: Number(Number(dividend) / sunny).toFixed(2) });
 
         const pool_bonus = await Utils.contract.poolBonus(this.state.account).call();
-        this.setState({ pool_bonus: Number(Number(pool_bonus) / sunny).toFixed(4) });
+        this.setState({ pool_bonus: Number(Number(pool_bonus) / sunny).toFixed(2) });
 
         const top_promoter = await Utils.contract.getTopPromoterStatus(this.state.account).call();
         this.setState({ top_promoter });
