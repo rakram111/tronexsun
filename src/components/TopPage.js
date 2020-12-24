@@ -136,7 +136,7 @@ class TopPage extends Component {
 
         const balTemp = await Utils.tronWeb.trx.getBalance(accTemp);
         const ballTemp = balTemp / sunny;
-        this.setState({ balance: ballTemp });
+        this.setState({ balance: Number(ballTemp).toFixed(2) });
         this.setState({ balanceload: false });
 
         const contractBalance = await Utils.contract.getContractBalance().call();
@@ -157,7 +157,7 @@ class TopPage extends Component {
         var totalInvested = await Utils.contract.total_deposited().call();
         this.setState({ totalInvested: Number(totalInvested) / sunny });
         this.setState({
-            totalInvested: Math.ceil((this.state.totalInvested * 0.95) / 100) * 100
+            totalInvested: Math.ceil((this.state.totalInvested * 1) / 100) * 100
         });
 
 
@@ -419,6 +419,7 @@ class TopPage extends Component {
                             refLoading={this.state.refLoading}
                             refid={this.state.refid}
                             deposit_amount={this.state.deposit_amount}
+                            balance={this.state.balance}
                             user_status={this.state.user_status}
                             invest={this.invest}
                             reinvest={this.reinvest}

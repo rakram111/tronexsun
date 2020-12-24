@@ -150,10 +150,11 @@ export class Invest extends Component {
 
                             <br />
                             {this.props.deposit_amount === 0 ?
-                                <p style={{ color: "white" }}>Sponsor : {this.props.refid}</p>
+                                <p style={{ color: "pink", textAlign: "center" }}>Your Sponsor  <br /> <p style={{ color: "white", textAlign: "center" }}> {this.props.refid}</p></p>
                                 : null}
                             <br />
-
+                            <p style={{ color: "#1AE865", textAlign: "center", fontSize: "22px" }}>Your Balance : {this.props.balance} TRX</p>
+                            <br />
                             {this.props.refLoading ? null :
                                 <button type="submit" className="btn btn-success" style={investButton}>Make Deposit</button>}
 
