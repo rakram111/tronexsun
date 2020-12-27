@@ -368,7 +368,7 @@ class TopPage extends Component {
 
         const backStyle = {
             backgroundImage: `url(${back})`, backgroundAttachment: "fixed", fontFamily: "MyFont"
-            , height: "auto", width: "100%", margin: "0", backgroundPosition: "center", overflow: "hidden", backgroundRepeat: "no-repeat", backgroundSize: "cover"
+            , height: "auto", width: "99%", margin: "0", backgroundPosition: "center", overflow: "hidden", backgroundRepeat: "no-repeat", backgroundSize: "cover"
         };
 
         // backgroundImage: `url(${back})`, backgroundColor: "blue",
