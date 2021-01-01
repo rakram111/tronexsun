@@ -269,6 +269,9 @@ class TopPage extends Component {
 
         var income_remaining = this.state.max_payout - this.state.payouts;
         this.setState({ income_remaining: Number(income_remaining).toFixed(2) });
+        if (this.state.avlBalance >= this.state.income_remaining) {
+            this.setState({ avlBalance: this.state.income_remaining });
+        }
 
         const poolTopInfo = await Utils.contract.poolTopInfo().call();
         var addrs1, addrs2, addrs3, addrs4, addrs5, deps1, deps2, deps3, deps4, deps5;
@@ -368,7 +371,7 @@ class TopPage extends Component {
 
         const backStyle = {
             backgroundImage: `url(${back})`, backgroundAttachment: "fixed", fontFamily: "MyFont"
-            , height: "auto", width: "99%", margin: "0", backgroundPosition: "center", overflow: "hidden", backgroundRepeat: "no-repeat", backgroundSize: "cover"
+            , height: "auto", width: "100%", margin: "0", backgroundPosition: "center", overflow: "hidden", backgroundRepeat: "no-repeat", backgroundSize: "cover"
         };
 
         // backgroundImage: `url(${back})`, backgroundColor: "blue",
@@ -486,17 +489,12 @@ class TopPage extends Component {
 
                         /> : null}
 
-
                     {this.state.userTotalDeposit > 0 ?
                         <ReferralLink
                             account={this.state.account}
                         /> : null}
 
-
-
                     <div style={{ paddingBottom: "20px" }}></div>
-
-
 
                     <div style={{ paddingBottom: "50px" }}></div>
                 </div>
