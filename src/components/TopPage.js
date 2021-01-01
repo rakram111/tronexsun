@@ -269,9 +269,9 @@ class TopPage extends Component {
 
         var income_remaining = this.state.max_payout - this.state.payouts;
         this.setState({ income_remaining: Number(income_remaining).toFixed(2) });
-        if (this.state.avlBalance >= this.state.income_remaining) {
-            this.setState({ avlBalance: this.state.income_remaining });
-        }
+        // if (this.state.avlBalance >= this.state.income_remaining) {
+        //     this.setState({ avlBalance: this.state.income_remaining });
+        // }
 
         const poolTopInfo = await Utils.contract.poolTopInfo().call();
         var addrs1, addrs2, addrs3, addrs4, addrs5, deps1, deps2, deps3, deps4, deps5;
