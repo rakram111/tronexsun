@@ -37,7 +37,9 @@ class AboutUs extends Component {
                         <p style={{ color: "white" }}>
                             Welcome to the world´s best decentralized community support fund built on TRON blockchain and with the likes of smart contract technology.
                             <hr />
-                            Mr Dane Jones, a Businessman from Poland is the Creator of Tronex Sun with a great vision to help the masses using the likes of Smart Contract Technology.
+                            Mr Dane Jones, a Businessman from Poland is the Creator of Tronex Sun with a great vision to help the masses to eradicate poverty and achieve financial freedom through a legit, decentralized platform built on Immutable Tron block chain using the likes of Smart Contract Technology.
+                            <hr />
+                            Mr Dane Jones, also has plans to build a complete crypto eco system for the community. He is a person with revolutionary thoughts on board which will take off soon. Decentralized Gaming, Betting, Exchange, Advertising are few of his notable upcomers around Tronex Sun platform. All these platforms aim to deliver good returns in near future.
                             <hr />
                             The Tronex Sun Smart Contract is designed to provide everyone with an independent, financial support fund, based on Smart Contract technology, surrounded and supported by multiple services including DEFI and online gaming.
                             <hr />
