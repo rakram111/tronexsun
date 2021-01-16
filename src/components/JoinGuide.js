@@ -41,11 +41,13 @@ class JoinGuide extends Component {
                             To join Tronex Sun you need to use one of the following Dapp wallets.
                             <br /> To connect with the smart contract, please download, set up, and fund your preferred wallet from the instructions below.
                             <br /> It is mandatory to use a referral link 1st time depositing to Tronex Sun smart contract, please get back to the person that introduced you to Tronex Sun.
-                            <br /><br /> <span style={{ color: "#1AE865" }}>PHONE WALLETs - TRON Wallet or TOKEN POCKET</span>
-                            <br /> TRON WALLET - download at offical site:<br />
-                            <a href="https://www.tronwallet.me/">https://www.tronwallet.me/</a>
-                            <br /> TRONWALLET is a secure p2p crypto wallet and exchange for TRON (TRX)
-                            <br /> Download and set up TRON WALLET to phone<br /> Fund TRON wallet with TRX<br /> Go to Dapp browser in wallet and enter the ref link<br /> select amount to deposit and click join<br /><br /> TRONLINK Wallet - PC BROWSER EXTENSION
+                            <br /><br /> <span style={{ color: "#1AE865" }}>PHONE WALLETs - KLEVER Wallet or TOKEN POCKET</span>
+                            <br /> KLEVER WALLET - download at offical site:<br />
+                            <br /> Official website: <a href="https://play.google.com/store/apps/details?id=cash.klever.blockchain.wallet">Klever Wallet here</a>
+                            <br /> TOKEN POCKET WALLET - download at offical site:<br />
+                            <br /> Official website: <a href="https://play.google.com/store/apps/details?id=vip.mytokenpocket">Token Pocket Wallet here</a>
+                            <br /> KLEVER WALLET is a secure p2p crypto wallet and exchange for TRON (TRX)
+                            <br /> Download and set up the wallet to phone<br /> Fund TRON wallet with TRX<br /> Go to Dapp browser in wallet and enter the ref link<br /> select amount to deposit and click join<br /><br /> TRONLINK Wallet - PC BROWSER EXTENSION
                             <br /><br /> What is TRONLINK?
                             <br /> TRONLINK is Available as a browser extension and as a mobile app, TronLink equips you with a key vault, secure login, and token wallet—everything you need to manage your digital assets.
                             <br /> TronLink generates passwords and keys on your device, so only you have access to your accounts and data
