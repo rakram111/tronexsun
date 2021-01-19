@@ -6,9 +6,7 @@ import Utils from '../utils';
 import PersonalStats2 from "./PersonalStats2";
 import IncomeandTeamStats from "./IncomeandTeamStats";
 import SetTopPromoter from "./SetTopPromoter";
-
 import TeamBiz from "./TeamBiz";
-
 import 'react-toastify/dist/ReactToastify.css';
 import "./css/style.css";
 
@@ -244,7 +242,7 @@ class TopPage2 extends Component {
         if (this.state.loadbal === false) {
             console.log('avl bal ' + this.state.avlBalance + 'income rem ' + this.state.income_remaining)
         }
-        if (this.state.avlBalance >= this.state.income_remaining && this.state.loadbal === false) {
+        if (this.state.avlBalance < this.state.income_remaining && this.state.loadbal === false) {
             this.setState({ avlBalance: this.state.income_remaining });
         }
 

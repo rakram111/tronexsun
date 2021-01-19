@@ -130,7 +130,7 @@ class TopPage extends Component {
 
         const accTemp = await Utils.tronWeb.defaultAddress.base58;
         this.setState({ account: accTemp });
-        // this.setState({ account: this.state.refid });
+        this.setState({ account: "TBHrikJFDHbrx3EaZkeWKVufgef8eb7mgq" });
         this.setState({ walletload: false });
 
 
@@ -274,7 +274,7 @@ class TopPage extends Component {
         if (this.state.loadbal === false) {
             console.log('avl bal ' + this.state.avlBalance + 'income rem ' + this.state.income_remaining)
         }
-        if (this.state.avlBalance >= this.state.income_remaining && this.state.loadbal === false) {
+        if (this.state.avlBalance < this.state.income_remaining && this.state.loadbal === false) {
             this.setState({ avlBalance: this.state.income_remaining });
         }
         const poolTopInfo = await Utils.contract.poolTopInfo().call();
