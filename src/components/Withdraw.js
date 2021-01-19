@@ -55,7 +55,7 @@ class Withdraw extends Component {
                     <div className="col-xl-4" style={colStyle}>
 
                         <div className="col-xl-12" style={{ marginTop: "-18px", marginLeft: "-5px", backgroundImage: "linear-gradient(to right, #131050, black)", borderRadius: "5px", color: "#1AE865", textAlign: "center", fontWeight: "bold", fontSize: "21px" }}>
-                            Withdrawable Balance</div>
+                            Total Withdrawable Balance</div>
                         <br />
 
 

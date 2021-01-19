@@ -223,7 +223,7 @@ class TopPage2 extends Component {
 
         const max_payout = await Utils.contract.maxPayoutOf(this.state.deposit_amount * sunny).call();
         this.setState({ max_payout: Number(Number(max_payout) / sunny) });
-        console.log(this.state.max_payout)
+        // console.log(this.state.max_payout)
 
         const dividend = await Utils.contract.getUserDividends(this.state.account).call();
         this.setState({ dividend: Number(Number(dividend) / sunny).toFixed(4) });
@@ -234,19 +234,22 @@ class TopPage2 extends Component {
         const top_promoter = await Utils.contract.getTopPromoterStatus(this.state.account).call();
         this.setState({ top_promoter });
 
-
         var income_remaining = this.state.max_payout - this.state.payouts;
         this.setState({ income_remaining: Number(income_remaining).toFixed(2) });
 
         this.setState({ loadbal: false });
         if (this.state.loadbal === false) {
-            console.log('avl bal ' + this.state.avlBalance + 'income rem ' + this.state.income_remaining)
+            // console.log('avl bal ' + this.state.avlBalance + 'income rem ' + this.state.income_remaining)
         }
 
         if (this.state.avlBalance < this.state.income_remaining && this.state.loadbal === false) {
             this.setState({ avlBalance: this.state.income_remaining });
-            console.log('avl bal 1 ' + this.state.avlBalance + ' income rem 1 ' + this.state.income_remaining)
+            // console.log('avl bal 1 ' + this.state.avlBalance + ' income rem 1 ' + this.state.income_remaining)
         }
+        this.setState({ avlBal1: Number(this.state.pool_bonus) + Number(this.state.gen_bonus) + Number(this.state.dividend) + Number(this.state.direct_bonus) });
+        console.log('AVAAAILLAABLLEE ' + this.state.avlBal1);
+
+        this.setState({ avlBalance: this.state.avlBal1 });
 
         const poolTopInfo = await Utils.contract.poolTopInfo().call();
         var addrs1, addrs2, addrs3, addrs4, addrs5, deps1, deps2, deps3, deps4, deps5;
@@ -261,7 +264,7 @@ class TopPage2 extends Component {
         let subAddrs1 = this.state.addrs1.toString();
         let subAddres1 = subAddrs1.substring(0, 8);
         this.setState({ subAddres1 });
-        console.log('deps ' + this.state.deps1)
+        // console.log('deps ' + this.state.deps1)
         // console.log(this.state.addrs1 + "----" + this.state.subAddres1)
 
         addrs2 = window.tronWeb.address.fromHex(poolTopInfo.addrs[1]);
@@ -271,7 +274,7 @@ class TopPage2 extends Component {
         let subAddrs2 = this.state.addrs2.toString();
         let subAddres2 = subAddrs2.substring(0, 8);
         this.setState({ subAddres2 });
-        console.log('deps ' + this.state.deps2)
+        // console.log('deps ' + this.state.deps2)
 
         addrs3 = window.tronWeb.address.fromHex(poolTopInfo.addrs[2]);
         deps3 = Number(poolTopInfo.deps[2]) / sunny;
@@ -280,7 +283,7 @@ class TopPage2 extends Component {
         let subAddrs3 = this.state.addrs3.toString();
         let subAddres3 = subAddrs3.substring(0, 8);
         this.setState({ subAddres3 });
-        console.log('deps ' + this.state.deps3)
+        // console.log('deps ' + this.state.deps3)
 
         addrs4 = window.tronWeb.address.fromHex(poolTopInfo.addrs[3]);
         deps4 = Number(poolTopInfo.deps[3]) / sunny;
@@ -289,7 +292,7 @@ class TopPage2 extends Component {
         let subAddrs4 = this.state.addrs4.toString();
         let subAddres4 = subAddrs4.substring(0, 8);
         this.setState({ subAddres4 });
-        console.log('deps ' + this.state.deps4)
+        // console.log('deps ' + this.state.deps4)
 
         addrs5 = window.tronWeb.address.fromHex(poolTopInfo.addrs[4]);
         deps5 = Number(poolTopInfo.deps[4]) / sunny;
@@ -299,7 +302,7 @@ class TopPage2 extends Component {
         let subAddrs5 = this.state.addrs5.toString();
         let subAddres5 = subAddrs5.substring(0, 8);
         this.setState({ subAddres5 });
-        console.log('deps ' + this.state.deps5)
+        // console.log('deps ' + this.state.deps5)
 
         // console.log('contract - ' + this.state.upline);
         // console.log('link refid - ' + this.state.refid);
