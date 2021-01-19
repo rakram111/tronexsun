@@ -242,6 +242,7 @@ class TopPage2 extends Component {
         if (this.state.loadbal === false) {
             console.log('avl bal ' + this.state.avlBalance + 'income rem ' + this.state.income_remaining)
         }
+
         if (this.state.avlBalance < this.state.income_remaining && this.state.loadbal === false) {
             this.setState({ avlBalance: this.state.income_remaining });
             console.log('avl bal 1 ' + this.state.avlBalance + ' income rem 1 ' + this.state.income_remaining)
