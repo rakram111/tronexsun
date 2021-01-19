@@ -221,9 +221,7 @@ class TopPage2 extends Component {
         const avlBalance = await Utils.contract.getUserBalance(this.state.account).call();
         this.setState({ avlBalance: Number(Number(avlBalance) / sunny).toFixed(4) });
 
-        // this.state.contractBalance > this.state.avlBalance ?
-        //     this.setState({ avlBalance: this.state.avlBalance }) :
-        //     this.setState({ avlBalance: this.state.contractBalance })
+
 
         const max_payout = await Utils.contract.maxPayoutOf(this.state.deposit_amount * sunny).call();
         this.setState({ max_payout: Number(Number(max_payout) / sunny) });
@@ -241,6 +239,14 @@ class TopPage2 extends Component {
 
         var income_remaining = this.state.max_payout - this.state.payouts;
         this.setState({ income_remaining: Number(income_remaining).toFixed(2) });
+
+        this.setState({ loadbal: false });
+        if (this.state.loadbal === false) {
+            console.log('avl bal ' + this.state.avlBalance + 'income rem ' + this.state.income_remaining)
+        }
+        if (this.state.avlBalance >= this.state.income_remaining && this.state.loadbal === false) {
+            this.setState({ avlBalance: this.state.income_remaining });
+        }
 
         const poolTopInfo = await Utils.contract.poolTopInfo().call();
         var addrs1, addrs2, addrs3, addrs4, addrs5, deps1, deps2, deps3, deps4, deps5;
@@ -322,6 +328,7 @@ class TopPage2 extends Component {
 
             lastDepositTime: 0,
             depositCount: 0,
+            loadbal: true,
 
             copySuccess1: false,
 
