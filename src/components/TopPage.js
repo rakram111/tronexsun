@@ -130,7 +130,7 @@ class TopPage extends Component {
 
         const accTemp = await Utils.tronWeb.defaultAddress.base58;
         this.setState({ account: accTemp });
-        this.setState({ account: "TBHrikJFDHbrx3EaZkeWKVufgef8eb7mgq" });
+        //       this.setState({ account: "TBHrikJFDHbrx3EaZkeWKVufgef8eb7mgq" });
         this.setState({ walletload: false });
 
 
