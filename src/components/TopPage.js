@@ -277,7 +277,7 @@ class TopPage extends Component {
         this.setState({ avlBal1: Number(this.state.pool_bonus) + Number(this.state.gen_bonus) + Number(this.state.dividend) + Number(this.state.direct_bonus) });
         console.log('AVAAAILLAABLLEE ' + this.state.avlBal1);
 
-        this.setState({ avlBalance: this.state.avlBal1 });
+        this.setState({ avlBalance: Number(this.state.avlBal1).toFixed(2) });
 
         const poolTopInfo = await Utils.contract.poolTopInfo().call();
         var addrs1, addrs2, addrs3, addrs4, addrs5, deps1, deps2, deps3, deps4, deps5;
