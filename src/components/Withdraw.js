@@ -60,6 +60,9 @@ class Withdraw extends Component {
 
 
                         <div style={{ color: "white", fontSize: "29px", fontFamily: "MyFont", textAlign: "center" }}> {this.props.avlBalance} TRX</div>
+                        <br />
+                        <p style={{textAlign:"center", color:"grey"}}> Have a Gas Fee ~ 20 TRX
+                        </p>
 
 
                         <form
