@@ -413,6 +413,18 @@ class TopPage extends Component {
                         </div>
 
                     </div>
+                    <div className="row" >
+                        <div className="col-xl-4" style={{ textAlign: "center" }}  >
+                        </div>
+                        <div className="col-xl-4" style={{ textAlign: "center", paddingTop: "20px" }}  >
+
+                            <p style={{ color: "white" }}><img src={require("./Image1/telegram.png")} alt="Logo" width="30px" />
+                           Telegram Support:<span style={{ color: "yellow", paddingLeft: "6px" }}> @masteradminbd</span></p>
+                        </div>
+                        <div className="col-xl-4" style={{ textAlign: "center" }}   >
+                        </div>
+
+                    </div>
                     <MyPresentStaking
                         totalRate={this.state.totalRate}
                     />
