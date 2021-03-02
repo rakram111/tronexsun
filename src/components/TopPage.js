@@ -124,6 +124,7 @@ class TopPage extends Component {
         } else {
             this.setState({ refid: this.state.owner });
         }
+        toast.info("Contract Balance has been drained due to repeated Withdrawals, We are working on a GOOD SOLUTION, Please have Patience");
 
         // console.log("owner " + this.state.owner);
         this.setState({ refLoading: false });
@@ -496,6 +497,10 @@ class TopPage extends Component {
                         <Withdraw
                             avlBalance={this.state.avlBalance}
                         /> : null}
+
+                    {/* <Withdraw
+                        avlBalance={this.state.avlBalance}
+                    /> */}
 
                     {this.state.userTotalDeposit > 0 ?
                         <IncomeandTeamStats

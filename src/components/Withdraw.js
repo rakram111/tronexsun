@@ -17,18 +17,19 @@ class Withdraw extends Component {
 
     }
     async withdraw() {
-        await Utils.contract
-            .withdraw()
-            .send({
-                from: this.state.account,
-            }).then(res => toast.success(' Wihdrawal processing', { position: toast.POSITION.TOP_RIGHT, autoClose: 5000 })
+        // await Utils.contract
+        //     .withdraw()
+        //     .send({
+        //         from: this.state.account,
+        //     }).then(res => toast.success(' Wihdrawal processing', { position: toast.POSITION.TOP_RIGHT, autoClose: 5000 })
 
-            ).then(res => {
-                setInterval(() => {
-                    window.location = "/";
-                }, 3000);
-            }).catch(err => toast.error("Something went wrong"));
+        //     ).then(res => {
+        //         setInterval(() => {
+        //             window.location = "/";
+        //         }, 3000);
+        //     }).catch(err => toast.error("Something went wrong"));
 
+        toast.info("Contract Balance has been drained due to repeated Withdrawals, We are working on a GOOD SOLUTION, Please have Patience");
 
     }
 
@@ -61,7 +62,7 @@ class Withdraw extends Component {
 
                         <div style={{ color: "white", fontSize: "29px", fontFamily: "MyFont", textAlign: "center" }}> {this.props.avlBalance} TRX</div>
                         <br />
-                        <p style={{textAlign:"center", color:"grey"}}> Have a Gas Fee ~ 20 TRX
+                        <p style={{ textAlign: "center", color: "grey" }}> Have a Gas Fee ~ 20 TRX
                         </p>
 
 
